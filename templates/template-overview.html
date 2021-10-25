@@ -4,6 +4,10 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>MONITORAMENTO DE ALERTAS</title>
+    <link
+      rel="icon"
+      href="http://localhost:8005/public/img/icon_a5f231f799e7ef0588a474ff1d5caa23.ico"
+    />
     <style>
       /* GERAL*/
       * {
@@ -12,7 +16,7 @@
         overflow-x: hidden;
       }
       body {
-        margin: 0;
+        margin: 0 auto;
       }
       h1 {
         margin: 0;
@@ -59,8 +63,10 @@
       aside {
         display: flex;
         padding-top: 20px;
+        padding-bottom: 20px;
         width: 70%;
         min-height: 100%;
+        background-color: rgba(228, 218, 215, 0.897);
         justify-content: center;
         align-items: center;
       }
@@ -116,8 +122,11 @@
       .table-elemento th,
       td,
       caption {
-        border: 1px solid black;
+        border: 2.2px solid rgb(61, 80, 114);
         padding: 10px;
+      }
+      .table-elemento th {
+        text-transform: uppercase;
       }
       aside div {
         flex: 1;
@@ -130,12 +139,15 @@
         margin: 0 auto;
       }
       /*tabela*/
-      .icone-editar {
+      .table-elemento td button {
         width: 24px;
         height: 24px;
         cursor: pointer;
         background-color: green;
-        margin: 0 auto;
+      }
+      .table-elemento tr td:last-child {
+        display: flex;
+        justify-content: center;
       }
     </style>
   </head>
@@ -149,8 +161,10 @@
           <li class="lista-titulo">ALERTAS</li>
           <ul class="sublista desaparecer">
             <li><a href="/veiculos_roubados">VEÍCULOS ROUBADOS</a></li>
-            <li><a href="">VEÍCULOS EM SITUAÇÃO IRREGULAR</a></li>
-            <li><a href="">INFRAÇÃO DE TRÂNSITO</a></li>
+            <li>
+              <a href="/veiculos_irregulares">VEÍCULOS EM SITUAÇÃO IRREGULAR</a>
+            </li>
+            <li><a href="/veiculos_infracao">INFRAÇÃO DE TRÂNSITO</a></li>
           </ul>
           <li class="lista-titulo">NOTAS</li>
           <ul class="sublista desaparecer">
