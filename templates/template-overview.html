@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>MONITORAMENTO DE ALERTAS</title>
+    <style>
+      /* GERAL*/
+      * {
+        box-sizing: border-box;
+        font-family: Helvetica;
+        overflow-x: hidden;
+      }
+      body {
+        margin: 0;
+      }
+      h1 {
+        margin: 0;
+      }
+      section {
+        display: flex;
+        flex-direction: row;
+        min-height: 90vh;
+        max-width: 1240px;
+        max-height: auto;
+        background-color: rgb(190, 199, 197);
+      }
+      header {
+        color: #fff;
+        max-width: 1580px;
+        height: 10vh;
+        width: 100vw;
+        flex: 1;
+        display: flex;
+        justify-content: center;
+        text-align: center;
+        align-items: center;
+        background-color: rgb(54, 103, 194);
+      }
+      section {
+        display: flex;
+        flex-direction: row;
+        max-width: 1580px;
+        width: 100vw;
+        /*height: auto;*/
+        /*
+        justify-content: center;
+        align-items: center;*/
+      }
+      nav {
+        padding-top: 48px;
+        min-height: 100%;
+        max-height: auto;
+        /* position: fixed;*/
+        width: 30%;
+        background-color: rgb(54, 103, 194);
+        color: #fff;
+      }
+      aside {
+        display: flex;
+        padding-top: 20px;
+        width: 70%;
+        min-height: 100%;
+        justify-content: center;
+        align-items: center;
+      }
+      /* Área de menu*/
+      .lista-menu {
+        padding: 0;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        /*align-items: center;*/
+      }
+      .sublista {
+        list-style: none;
+        padding: 0;
+        padding-top: 10px;
+        padding-bottom: 10px;
+        text-transform: uppercase;
+        font-size: 12px;
+      }
+      .desaparecer {
+        display: none;
+      }
+      .sublista a {
+        text-decoration: none;
+        color: #fdf;
+        display: block;
+        padding: 8px 0;
+        padding-left: 32px;
+      }
+      .sublista li a:hover {
+        color: #000;
+        background-color: #fff;
+      }
+      .lista-titulo {
+        font-size: 19px;
+        list-style: none;
+        cursor: pointer;
+        padding-left: 20px;
+        padding-top: 10px;
+        padding-bottom: 10px;
+        width: 100%;
+      }
+      .lista-titulo:hover {
+        color: #000;
+        background-color: #fff;
+      }
+      /* Área aside && tabela*/
+      .table-elemento {
+        /*border: 1px solid black;*/
+        border-collapse: collapse;
+        width: 60vw;
+      }
+      .table-elemento th,
+      td,
+      caption {
+        border: 1px solid black;
+        padding: 10px;
+      }
+      aside div {
+        flex: 1;
+        display: flex;
+        justify-content: center;
+      }
+      img[alt="imagem_defesa_civil"] {
+        width: 450px;
+
+        margin: 0 auto;
+      }
+      /*tabela*/
+      .icone-editar {
+        width: 24px;
+        height: 24px;
+        cursor: pointer;
+        background-color: green;
+        margin: 0 auto;
+      }
+    </style>
+  </head>
+  <body>
+    <header>
+      <h1>Monitoramento de alertas</h1>
+    </header>
+    <section>
+      <nav>
+        <ul class="lista-menu">
+          <li class="lista-titulo">ALERTAS</li>
+          <ul class="sublista desaparecer">
+            <li><a href="/veiculos_roubados">VEÍCULOS ROUBADOS</a></li>
+            <li><a href="">VEÍCULOS EM SITUAÇÃO IRREGULAR</a></li>
+            <li><a href="">INFRAÇÃO DE TRÂNSITO</a></li>
+          </ul>
+          <li class="lista-titulo">NOTAS</li>
+          <ul class="sublista desaparecer">
+            <li><a href="">Observações pertinentes</a></li>
+            <li><a href="">Lista de afazeres</a></li>
+          </ul>
+          <li class="lista-titulo">RECURSOS UTILITÁRIOS</li>
+          <ul class="sublista desaparecer">
+            <li><a href="">Avisos externos</a></li>
+            <li><a href="">Locais</a></li>
+            <li><a href="">Enviar aviso</a></li>
+          </ul>
+        </ul>
+      </nav>
+      <aside><div>{%ELEMENT_OF_REPR%}</div></aside>
+    </section>
+
+    <script>
+      const lista_titulos = document.querySelectorAll(".lista-titulo");
+      lista_titulos.forEach((titulo) =>
+        titulo.addEventListener("click", (event) => {
+          console.log(event.target);
+          event.target.nextElementSibling.classList.toggle("desaparecer");
+        })
+      );
+    </script>
+  </body>
+</html>
