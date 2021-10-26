@@ -25,6 +25,16 @@ module.exports = (template, retorno, dados = null) => {
       "{%ELEMENT_OF_REPR%}",
       tabela
     );
+  } else if (retorno.includes("{%TAREFAS%}")) {
+    templateRetornado = templateRetornado.replace(
+      "{%ELEMENT_OF_REPR%}",
+      retorno
+    );
+  } else if (retorno.includes("{%OBSERVAÇÕES%}")) {
+    templateRetornado = templateRetornado.replace(
+      "{%ELEMENT_OF_REPR%}",
+      retorno
+    );
   }
   return templateRetornado;
 };
