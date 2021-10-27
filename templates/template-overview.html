@@ -16,6 +16,7 @@
         overflow-x: hidden;
       }
       body {
+        max-width: 1580px;
         margin: 0 auto;
       }
       h1 {
@@ -82,6 +83,8 @@
       .lista-menu .lista-titulo a {
         text-decoration: none;
         color: #fff;
+
+        display: block;
       }
       .lista-menu .lista-titulo:hover a {
         color: #000;
@@ -100,6 +103,7 @@
       .sublista a {
         text-decoration: none;
         color: #fdf;
+
         display: block;
         padding: 8px 0;
         padding-left: 32px;
@@ -114,6 +118,7 @@
         cursor: pointer;
         padding-left: 20px;
         padding-top: 10px;
+
         text-transform: uppercase;
         padding-bottom: 10px;
         width: 100%;
@@ -145,10 +150,14 @@
         flex-direction: column;
         justify-content: flex-start;
       }
+      aside div h1 {
+        color: rgb(2, 35, 90);
+        font-weight: bolder;
+        text-transform: uppercase;
+      }
       img[alt="imagem_defesa_civil"] {
         width: 330px;
-
-        margin: 0 auto;
+        margin: 24px auto;
       }
       /*tabela*/
       .table-elemento td button {

@@ -1,10 +1,10 @@
 module.exports = (template, retorno, dados = null) => {
   let templateRetornado = template;
   //console.log(retorno.includes("{%LINHAS_ROUBADOS%}"));
-  if (dados === null) {
+  if (dados === null && retorno.length === 2) {
     templateRetornado = templateRetornado.replace(
       /{%ELEMENT_OF_REPR%}/g,
-      retorno
+      retorno.join("")
     );
   } else if (retorno.includes("{%LINHAS_ROUBADOS%}")) {
     let tabela = retorno;
@@ -26,10 +26,25 @@ module.exports = (template, retorno, dados = null) => {
       tabela
     );
   } else if (retorno.includes("{%TAREFAS%}")) {
-    templateRetornado = templateRetornado.replace(
-      "{%ELEMENT_OF_REPR%}",
-      retorno
-    );
+    if (dados === null) {
+      let tela = retorno.replace(
+        "{%TAREFAS%}",
+        `<strong>NÃO HÁ ITENS NA LISTA DE TAREFAS</strong>`
+      );
+      templateRetornado = templateRetornado.replace(
+        "{%ELEMENT_OF_REPR%}",
+        tela
+      );
+      console.log("HOUVE ERRO NA HORA DE INSERIR NA TELA");
+    } else {
+      console.log(dados["id"]);
+      let itemsTarefas = `${dados}`;
+      const telaComLista = retorno.replace("{%TAREFAS%}", itemsTarefas);
+      templateRetornado = templateRetornado.replace(
+        "{%ELEMENT_OF_REPR%}",
+        telaComLista
+      );
+    }
   } else if (retorno.includes("{%OBSERVAÇÕES%}")) {
     templateRetornado = templateRetornado.replace(
       "{%ELEMENT_OF_REPR%}",

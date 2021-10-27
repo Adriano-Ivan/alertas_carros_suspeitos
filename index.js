@@ -1,14 +1,13 @@
+"use strict";
 // Recursos
 const fileSystem = require("fs");
-const express = require("express");
-const app = express();
-const replaceTemplate = require("./modules/replaceTemplate");
+const customExpress = require("./config/customExpress");
+const sequelize = require("./infraestrutura/sequelize");
+const Tabelas = require("./infraestrutura/tabelas");
 const criarArquivoJSON = require("./modules/criarArquivoJSON");
-const retornarOverview = require("./modules/retornarOverview");
-app.use("/public", express.static(__dirname + `/public`));
-const http = require("http");
-const url = require("url");
-//const { ESRCH } = require("constants");
+
+// const http = require("http");
+// const url = require("url");
 
 // Elementos de retorno
 // arquivos
@@ -31,71 +30,21 @@ const placasVeiculos = fileSystem
 // Criação de arquivo JSON
 criarArquivoJSON(nomes, ids, statusR, nivelUrgencia, placasVeiculos);
 
-// templates
-const tempOverview = fileSystem.readFileSync(
-  `${__dirname}/templates/template-overview.html`,
-  "utf-8"
-);
-const tempRoubados = fileSystem.readFileSync(
-  `${__dirname}/templates/template-roubados.html`,
-  "utf-8"
-);
-const tempIrregulares = fileSystem.readFileSync(
-  `${__dirname}/templates/template-irregulares.html`,
-  "utf-8"
-);
-const tempInfracao = fileSystem.readFileSync(
-  `${__dirname}/templates/template-infracao.html`,
-  "utf-8"
-);
-const tempAfazeres = fileSystem.readFileSync(
-  `${__dirname}/templates/template-afazeres.html`,
-  "utf-8"
-);
-const tempObservacoes = fileSystem.readFileSync(
-  `${__dirname}/templates/template-observacoes.html`,
-  "utf-8"
-);
-// Obter conteúdo do arquivo JSON
-const data = fileSystem.readFileSync(`${__dirname}/JSON/data.json`, "utf-8");
-const dataObject = JSON.parse(data);
-// Server
-app.get("/", (req, res) => {
-  retornarOverview(req, res, tempOverview);
-  //console.log(dataObject);
-});
-app.get("/home", (req, res) => {
-  retornarOverview(req, res, tempOverview);
-});
+// Server - connect to database
+sequelize
+  .authenticate()
+  .then(() => {
+    console.log("Conectado ao database com sucesso");
+    Tabelas.init(sequelize);
+    const app = customExpress();
+    app.listen(8005, () => {
+      console.log("Listening to request on port 8005");
+    });
+  })
+  .catch((error) => {
+    console.log("ERRO:" + error);
+  });
 
-app.get("/veiculos_roubados", (req, res) => {
-  res.writeHead(200, { "Content-type": "text/html" });
-  const retorno = replaceTemplate(tempOverview, tempRoubados, dataObject);
-  res.end(retorno);
-});
-app.get("/veiculos_irregulares", (req, res) => {
-  res.writeHead(200, { "Content-type": "text/html" });
-  const retorno = replaceTemplate(tempOverview, tempIrregulares, dataObject);
-  res.end(retorno);
-});
-app.get("/veiculos_infracao", (req, res) => {
-  res.writeHead(200, { "Content-type": "text/html" });
-  const retorno = replaceTemplate(tempOverview, tempInfracao, dataObject);
-  res.end(retorno);
-});
-app.get("/lista_afazeres", (req, res) => {
-  res.writeHead(200, { "Content-type": "text/html" });
-  const retorno = replaceTemplate(tempOverview, tempAfazeres);
-  res.end(retorno);
-});
-app.listen(8005, () => {
-  console.log("Listening to request on port 8005");
-});
-app.get("/observacoes_pertinentes", (req, res) => {
-  res.writeHead(200, { "Content-type": "text/html" });
-  const retorno = replaceTemplate(tempOverview, tempObservacoes);
-  res.end(retorno);
-});
 // const server = http.createServer((req, resp) => {
 //   const { query, pathname } = url.parse(req.url, true);
 
