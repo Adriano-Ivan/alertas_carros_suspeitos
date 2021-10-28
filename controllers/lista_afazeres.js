@@ -12,11 +12,11 @@ const tempOverview = fileSystem.readFileSync(
 module.exports = (app) => {
   app.get("/lista_afazeres", (req, res) => {
     res.writeHead(200, { "Content-type": "text/html" });
-    ListaAfazeres.pegarDados();
+    //ListaAfazeres.pegarDados();
     const retorno = replaceTemplate(
       tempOverview,
-      tempAfazeres,
-      ListaAfazeres.retornoTarefas
+      tempAfazeres
+      //ListaAfazeres.retornoTarefas
     );
     res.end(retorno);
   });
@@ -24,11 +24,11 @@ module.exports = (app) => {
     const tarefa = req.body;
 
     ListaAfazeres.adiciona(tarefa);
-    ListaAfazeres.pegarDados();
+    //ListaAfazeres.pegarDados();
     const retorno = replaceTemplate(
       tempOverview,
-      tempAfazeres,
-      ListaAfazeres.retornoTarefas
+      tempAfazeres
+      //ListaAfazeres.retornoTarefas
     );
     res.end(retorno);
     //res.send("Você está na rota de /lista_afazeres e está realizando um POST");

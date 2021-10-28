@@ -2,7 +2,7 @@
 // Recursos
 const fileSystem = require("fs");
 const customExpress = require("./config/customExpress");
-const sequelize = require("./infraestrutura/sequelize");
+const conexao = require("./infraestrutura/conexao");
 const Tabelas = require("./infraestrutura/tabelas");
 const criarArquivoJSON = require("./modules/criarArquivoJSON");
 
@@ -31,19 +31,18 @@ const placasVeiculos = fileSystem
 criarArquivoJSON(nomes, ids, statusR, nivelUrgencia, placasVeiculos);
 
 // Server - connect to database
-sequelize
-  .authenticate()
-  .then(() => {
+conexao.connect((erro) => {
+  if (erro) {
+    console.log("ERRO:" + error);
+  } else {
     console.log("Conectado ao database com sucesso");
-    Tabelas.init(sequelize);
+    Tabelas.init(conexao);
     const app = customExpress();
     app.listen(8005, () => {
       console.log("Listening to request on port 8005");
     });
-  })
-  .catch((error) => {
-    console.log("ERRO:" + error);
-  });
+  }
+});
 
 // const server = http.createServer((req, resp) => {
 //   const { query, pathname } = url.parse(req.url, true);

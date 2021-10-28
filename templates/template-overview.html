@@ -197,6 +197,46 @@
         color: #fff;
         background-color: rgb(54, 103, 194);
       }
+      /* ÁREA AVISOS */
+      .titulo-aviso {
+        color: rgb(54, 103, 194);
+        text-transform: uppercase;
+      }
+      .avisos-externos-lista {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        width: 100%;
+      }
+      .avisos-externos-lista li {
+        display: flex;
+        align-items: center;
+        width: 50%;
+        margin-bottom: 18px;
+      }
+      .avisos-externos-lista .numeracao {
+        padding: 15px;
+        height: 60px;
+        flex: 1;
+        color: #fff;
+        background-color: rgb(54, 103, 194);
+        border: 1px solid rgb(42, 92, 184);
+      }
+      .avisos-externos-lista .descricao-aviso {
+        height: auto;
+
+        padding: 7px;
+        background-color: #fff;
+        border: 1px solid rgb(212, 206, 205);
+      }
+      .exclusao-aviso {
+        color: #fff;
+        padding: 5px;
+        background-color: #f00;
+        display: block;
+        height: 30px;
+        cursor: pointer;
+      }
     </style>
   </head>
   <body>
@@ -224,7 +264,7 @@
           </ul>
           <li class="lista-titulo">RECURSOS UTILITÁRIOS</li>
           <ul class="sublista desaparecer">
-            <li><a href="">Avisos externos</a></li>
+            <li><a href="/avisos_externos">Avisos externos</a></li>
             <li><a href="">Locais</a></li>
             <li><a href="">Enviar aviso</a></li>
           </ul>
