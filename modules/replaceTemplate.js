@@ -93,6 +93,16 @@ module.exports = (template, retorno, dados = null) => {
       /{%ELEMENT_OF_REPR%}/g,
       retorno
     );
+  } else if (retorno.includes("{%LOCAIS%}")) {
+    templateRetornado = templateRetornado.replace(
+      /{%ELEMENT_OF_REPR%}/g,
+      retorno
+    );
+  } else if (retorno.includes("{%AVISOS_ENVIADOS%}")) {
+    templateRetornado = templateRetornado.replace(
+      /{%ELEMENT_OF_REPR%}/g,
+      retorno
+    );
   }
   return templateRetornado;
 };

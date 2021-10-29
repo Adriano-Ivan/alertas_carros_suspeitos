@@ -49,8 +49,8 @@
         width: 100vw;
         /*height: auto;*/
         /*
-        justify-content: center;
-        align-items: center;*/
+              justify-content: center;
+              align-items: center;*/
       }
       nav {
         padding-top: 48px;
@@ -139,8 +139,15 @@
         border: 2.2px solid rgb(61, 80, 114);
         padding: 10px;
       }
+      caption {
+        background-color: rgb(58, 110, 206);
+        color: #fff;
+        font-weight: bold;
+      }
       .table-elemento th {
         text-transform: uppercase;
+        color: #fff;
+        background-color: rgb(58, 110, 206);
       }
       aside div {
         flex: 1;
@@ -198,7 +205,8 @@
         background-color: rgb(54, 103, 194);
       }
       /* ÁREA AVISOS */
-      .titulo-aviso {
+      .titulo-aviso,
+      .titulo-locais {
         color: rgb(54, 103, 194);
         text-transform: uppercase;
       }
@@ -214,12 +222,17 @@
         width: 50%;
         margin-bottom: 18px;
       }
+      .tabela-locais th,
+      .avisos-externos-lista .numeracao {
+        background-color: rgb(54, 103, 194);
+        color: #fff;
+      }
+
       .avisos-externos-lista .numeracao {
         padding: 15px;
         height: 60px;
         flex: 1;
-        color: #fff;
-        background-color: rgb(54, 103, 194);
+
         border: 1px solid rgb(42, 92, 184);
       }
       .avisos-externos-lista .descricao-aviso {
@@ -236,6 +249,53 @@
         display: block;
         height: 30px;
         cursor: pointer;
+      }
+      /* ÁREA LOCAIS*/
+      .tabela-locais {
+        border-collapse: collapse;
+        width: 40%;
+      }
+      .tabela-locais td,
+      .tabela-locais th {
+        border: 1px solid #ccc;
+        padding: 8px;
+      }
+      .tabela-locais td {
+        background-color: #fff;
+        text-align: center;
+      }
+      /* ÁREA ENVIO DE AVISO*/
+      /*
+            <form
+        method="POST"
+        class="form-mensagem"
+        enctype="application/x-www-form-urlencoded"
+      >
+        <h2 class="titulo-envio-aviso">SUA MENSAGEM:</h2>
+        <label>
+          MENSAGEM:<br />
+          <textarea class="mensagem-enviada" name="descricao"></textarea>
+        </label>
+        <button id="enviar_aviso">ENVIAR AVISO</button>
+      </form>
+      <ul>
+        {%AVISOS_ENVIADOS%}
+      </ul>
+
+            */
+      .form-mensagem {
+        height: auto;
+        color: rgb(42, 92, 184);
+        width: 100%;
+        padding-left: 10%;
+        align-items: flex-start;
+      }
+      .form-mensagem label {
+        width: 100%;
+      }
+      .form-mensagem .mensagem-enviada {
+        width: 48%;
+        height: 250px;
       }
     </style>
   </head>
@@ -265,8 +325,8 @@
           <li class="lista-titulo">RECURSOS UTILITÁRIOS</li>
           <ul class="sublista desaparecer">
             <li><a href="/avisos_externos">Avisos externos</a></li>
-            <li><a href="">Locais</a></li>
-            <li><a href="">Enviar aviso</a></li>
+            <li><a href="/locais">Locais</a></li>
+            <li><a href="/envio_de_aviso">Enviar aviso</a></li>
           </ul>
         </ul>
       </nav>

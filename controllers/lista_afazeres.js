@@ -1,4 +1,4 @@
-const ListaAfazeres = require("../models/lista_afazeres");
+const listaAfazeres = require("../models/lista_afazeres");
 const replaceTemplate = require("../modules/replaceTemplate");
 const fileSystem = require("fs");
 const tempAfazeres = fileSystem.readFileSync(
@@ -23,7 +23,7 @@ module.exports = (app) => {
   app.post("/lista_afazeres", (req, res) => {
     const tarefa = req.body;
 
-    ListaAfazeres.adiciona(tarefa);
+    listaAfazeres.adiciona(tarefa);
     //ListaAfazeres.pegarDados();
     const retorno = replaceTemplate(
       tempOverview,
