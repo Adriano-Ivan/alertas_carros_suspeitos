@@ -3,14 +3,15 @@
   class="form-mensagem"
   enctype="application/x-www-form-urlencoded"
 >
-  <h2>Email do destinatário:</h2>
-  <input type="email" />
-  <h2 class="titulo-envio-aviso">SUA MENSAGEM:</h2>
   <label>
-    MENSAGEM:<br />
+    <h2>Email do destinatário:</h2>
+    <input type="email" />
+  </label>
+  <label>
+    <h2>Sua mensagem:</h2>
     <textarea class="mensagem-enviada" name="descricao"></textarea>
   </label>
-  <button id="enviar_aviso">ENVIAR AVISO</button>
+  <button id="enviar_aviso">Enviar mensagem</button>
 </form>
 <ul>
   {%AVISOS_ENVIADOS%}

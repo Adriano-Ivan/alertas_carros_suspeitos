@@ -212,7 +212,8 @@ form button {
   margin-bottom: 18px;
 }
 .tabela-locais th,
-.avisos-externos-lista .numeracao {
+.avisos-externos-lista .numeracao,
+.lista-tarefa .id-tarefa {
   background-color: rgb(54, 103, 194);
   color: #fff;
 }
@@ -231,7 +232,8 @@ form button {
   background-color: #fff;
   border: 1px solid rgb(212, 206, 205);
 }
-.exclusao-aviso {
+.exclusao-aviso,
+.exclusao-tarefa {
   color: #fff;
   padding: 5px;
   background-color: #f00;
@@ -254,30 +256,23 @@ form button {
   text-align: center;
 }
 /* ÁREA ENVIO DE AVISO*/
-/*
-        <form
-    method="POST"
-    class="form-mensagem"
-    enctype="application/x-www-form-urlencoded"
-  >
-    <h2 class="titulo-envio-aviso">SUA MENSAGEM:</h2>
-    <label>
-      MENSAGEM:<br />
-      <textarea class="mensagem-enviada" name="descricao"></textarea>
-    </label>
-    <button id="enviar_aviso">ENVIAR AVISO</button>
-  </form>
-  <ul>
-    {%AVISOS_ENVIADOS%}
-  </ul>
 
-        */
 .form-mensagem {
   height: auto;
   color: rgb(42, 92, 184);
   width: 100%;
+  text-transform: capitalize;
   padding-left: 10%;
   align-items: flex-start;
+}
+.form-mensagem h2,
+.form-mensagem button {
+  text-transform: capitalize;
+}
+.form-mensagem button {
+  border-radius: 8%;
+  outline: none;
+  border: none;
 }
 .form-mensagem label {
   width: 100%;
@@ -285,8 +280,104 @@ form button {
 .form-mensagem .mensagem-enviada {
   width: 48%;
   height: 250px;
+  border-radius: 4%;
+  padding: 10px;
+  border: none;
 }
 .form-mensagem input[type="email"] {
   outline: none;
   width: 38%;
+  border-radius: 4%;
+  padding: 10px;
+  border: none;
+}
+/* ÁREA TAREFAS */
+.form-tarefas label {
+  color: rgb(54, 103, 194);
+  text-transform: uppercase;
+  font-size: 22px;
+  font-weight: bold;
+}
+.form-tarefas textarea {
+  border-radius: 3%;
+  outline: none;
+  border: none;
+  padding: 8px;
+}
+.form-tarefas button {
+  border-radius: 8%;
+  outline: none;
+  border: none;
+}
+.lista-tarefa {
+  color: #fff;
+  width: 80%;
+  font-size: 22px;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  height: auto;
+}
+.item-tarefa {
+  display: flex;
+  padding: 8px;
+  width: 90%;
+  justify-content: space-between;
+  margin-bottom: 10px;
+  align-items: center;
+  height: auto;
+  overflow-y: hidden;
+}
+.item-tarefa p {
+  flex: 6;
+  border-radius: 2%;
+}
+
+.item-tarefa form {
+  flex: 1;
+}
+.item-tarefa div,
+.item-tarefa form,
+.item-tarefa p {
+  width: auto;
+  height: auto;
+  margin-right: 10px;
+  padding: 8px;
+  height: 100%;
+}
+.lista-tarefa form button {
+  height: 32px;
+  width: 32px;
+  border-radius: 4px;
+}
+.lista-tarefa .id-tarefa {
+  height: 32px;
+  line-height: 32px;
+  border-radius: 8%;
+  width: 32px;
+  padding: 0;
+}
+.lista-tarefa .desc-tarefa {
+  padding: 8px;
+  background-color: #fff;
+  color: #000;
+}
+
+/* OBSERVAÇÕES */
+.form-observacoes label {
+  color: rgb(54, 103, 194);
+  text-transform: uppercase;
+  font-size: 22px;
+  font-weight: bold;
+}
+.form-observacoes button {
+  border-radius: 8%;
+  outline: none;
+  border: none;
+}
+.form-observacoes textarea {
+  border-radius: 3%;
+  outline: none;
+  border: none;
+  padding: 8px;
 }

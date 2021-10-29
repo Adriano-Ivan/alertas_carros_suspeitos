@@ -19,7 +19,7 @@ module.exports = (template, retorno, dados = null) => {
         <td>${dados[i].placa}</td>
         <td>${dados[i].status}</td>
         <td>${dados[i].urgencia}</td>
-        <td class='icone-editar'><form><button id="editar-registro-${verificarTipoSuspeito(
+        <td class='icone-editar'><form><button class="editar-registro-${verificarTipoSuspeito(
           retorno
         )}"></button></form></td>
         </tr>
@@ -46,9 +46,10 @@ module.exports = (template, retorno, dados = null) => {
     } else {
       console.log(dados);
       const itemsTarefas = dados.map(
-        (registro) => `<li>${registro.id} - ${registro.descricao}</li>`
+        (registro) =>
+          `<li class='item-tarefa'><div class='id-tarefa'>${registro.id}</div>  <p class='desc-tarefa'>${registro.descricao}</p><form><button class='exclusao-tarefa'>x</button></form></li>`
       );
-      const listagem = `<ul>${itemsTarefas.join("")}</ul>`;
+      const listagem = `<ul class='lista-tarefa'>${itemsTarefas.join("")}</ul>`;
       const telaComLista = retorno.replace("{%TAREFAS%}", listagem);
       templateRetornado = templateRetornado
         .replace(
