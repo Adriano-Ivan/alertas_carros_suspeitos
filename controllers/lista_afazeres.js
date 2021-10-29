@@ -12,25 +12,31 @@ const tempOverview = fileSystem.readFileSync(
 module.exports = (app) => {
   app.get("/lista_afazeres", (req, res) => {
     res.writeHead(200, { "Content-type": "text/html" });
-    //ListaAfazeres.pegarDados();
-    const retorno = replaceTemplate(
-      tempOverview,
-      tempAfazeres
-      //ListaAfazeres.retornoTarefas
-    );
-    res.end(retorno);
+    listaAfazeres.pegarDados().then((listagem) => {
+      const retorno = replaceTemplate(
+        tempOverview,
+        tempAfazeres,
+        listagem
+        // listaAfazeres.retornoTarefas
+      );
+      res.end(retorno);
+    });
   });
   app.post("/lista_afazeres", (req, res) => {
     const tarefa = req.body;
 
-    listaAfazeres.adiciona(tarefa);
-    //ListaAfazeres.pegarDados();
-    const retorno = replaceTemplate(
-      tempOverview,
-      tempAfazeres
-      //ListaAfazeres.retornoTarefas
-    );
-    res.end(retorno);
+    listaAfazeres.adiciona(tarefa).then(() => {
+      listaAfazeres.pegarDados().then((listagem) => {
+        const retorno = replaceTemplate(
+          tempOverview,
+          tempAfazeres,
+          listagem
+          //listaAfazeres.retornoTarefas
+        );
+        res.end(retorno);
+      });
+    });
+
     //res.send("Você está na rota de /lista_afazeres e está realizando um POST");
   });
 };

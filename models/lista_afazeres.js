@@ -1,43 +1,36 @@
 const conexao = require("../infraestrutura/conexao");
-
+const queryPromise = require("../modules/queryPromise");
+const insertPromise = require("../modules/insertPromise");
 class ListaAfazeres {
-  adiciona(tarefa) {
+  async adiciona(tarefa) {
     // sequelize.create({
     //   tarefa,
     // });
     const sql = "INSERT INTO tarefas_a_fazer SET ?";
 
-    conexao.query(sql, tarefa, (erro, resultados) => {
-      if (erro) {
-        console.log("HOUVE ERRO.");
-      } else {
-        //console.log(resultados);
-      }
-    });
-  } /*
-  pegarDados() {
+    await insertPromise(sql, tarefa);
+  }
+
+  async pegarDados() {
     const sql = "SELECT * FROM tarefas_a_fazer;";
 
-    this._retornoItensTarefas = conexao.query(sql, (erro, resultados) => {
-      if (erro) {
-        console.log(`${erro}:NÃO FOI POSSÍVEL EXIBIR.`);
-      } else {
-        //console.log(resultados);
-        //console.log(typeof resultados);
-        //console.log("Olá: ", resultados);
-        //console.log("Ei, por que esse array fica vazio ?");
-        return [...resultados];
-        //console.log(this._retornoItensTarefas);
-        //return this._retornoItensTarefas;
-      }
-    });
-
-    //console.log(retorno);
-    //return retorno;
-  }*/
-  get retornoTarefas() {
-    return [].concat(this._retornoItensTarefas);
+    const dados = await queryPromise(sql);
+    // const dados = await conexao.query(sql, (erro, resultados) => {
+    //   if (erro) {
+    //     console.log(`ERRO: ${erro}`);
+    //   }
+    //   if (resultados.length > 0) {
+    //     console.log(resultados);
+    //     return resultados;
+    //   }
+    // });
+    // this._retornoItensTarefas = [...dados];
+    // console.log(this._retornoItensTarefas);
+    return [].concat(dados);
   }
+  // get retornoTarefas() {
+  //   return [].concat(this._retornoItensTarefas);
+  // }
 }
 
 module.exports = new ListaAfazeres();
