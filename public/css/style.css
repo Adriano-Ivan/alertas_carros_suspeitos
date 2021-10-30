@@ -145,6 +145,8 @@ aside div {
   align-items: center;
   flex-direction: column;
   justify-content: flex-start;
+
+  /*height: auto;*/
 }
 aside div h1 {
   color: rgb(2, 35, 90);
@@ -172,7 +174,8 @@ form {
   display: flex;
   flex-direction: column;
   align-items: center;
-  height: 50%;
+  height: auto;
+  padding: 15px 0;
   width: 100%;
 }
 form label {
@@ -186,7 +189,8 @@ form textarea {
   resize: none;
   height: 150px;
 }
-form button {
+form button,
+input[type="submit"] {
   padding: 10px;
   cursor: pointer;
   text-transform: uppercase;
@@ -195,7 +199,8 @@ form button {
 }
 /* ÁREA AVISOS */
 .titulo-aviso,
-.titulo-locais {
+.titulo-locais,
+.area-update label .titulo-update {
   color: rgb(54, 103, 194);
   text-transform: uppercase;
 }
@@ -298,13 +303,18 @@ form button {
   font-size: 22px;
   font-weight: bold;
 }
+.form-tarefas {
+  height: auto;
+  padding: 15px 0;
+}
 .form-tarefas textarea {
   border-radius: 3%;
   outline: none;
   border: none;
   padding: 8px;
 }
-.form-tarefas button {
+.form-tarefas button,
+.area-update input {
   border-radius: 8%;
   outline: none;
   border: none;
@@ -322,6 +332,7 @@ form button {
   display: flex;
   padding: 8px;
   width: 90%;
+
   justify-content: space-between;
   margin-bottom: 10px;
   align-items: center;
@@ -343,12 +354,14 @@ form button {
   height: auto;
   margin-right: 10px;
   padding: 8px;
-  height: 100%;
 }
 .lista-tarefa form button {
   height: 32px;
   width: 32px;
   border-radius: 4px;
+}
+.lista-tarefa form input[type="number"] {
+  display: none;
 }
 .lista-tarefa .id-tarefa {
   height: 32px;
@@ -359,11 +372,51 @@ form button {
 }
 .lista-tarefa .desc-tarefa {
   padding: 8px;
-  background-color: #fff;
+  background-color: #ccc;
+  border-radius: 3%;
+  padding: 5px;
   color: #000;
 }
-
+.lista-tarefa .item-tarefa form .edicao-tarefa,
+.table-elemento form button {
+  background-color: green;
+  font-size: 11px;
+  padding: 0;
+}
+.area-update {
+  display: flex;
+  flex-direction: column;
+  height: auto;
+  width: inherit;
+  background-color: inherit;
+  max-width: auto;
+  min-height: auto;
+  justify-content: center;
+}
+.area-update textarea {
+  outline: none;
+  border: none;
+  padding: 10px;
+  border-radius: 3%;
+}
+.area-update form {
+  height: auto;
+  margin-top: 25px;
+}
+.area-update a {
+  display: block;
+  color: rgb(184, 42, 42);
+  font-size: 18px;
+  padding: 0;
+  margin: 20px 0;
+  text-decoration: none;
+  font-weight: bold;
+}
+.area-update div {
+  padding: 0;
+}
 /* OBSERVAÇÕES */
+
 .form-observacoes label {
   color: rgb(54, 103, 194);
   text-transform: uppercase;

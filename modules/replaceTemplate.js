@@ -21,7 +21,7 @@ module.exports = (template, retorno, dados = null) => {
         <td>${dados[i].urgencia}</td>
         <td class='icone-editar'><form><button class="editar-registro-${verificarTipoSuspeito(
           retorno
-        )}"></button></form></td>
+        )}">↘</button></form></td>
         </tr>
         `;
     }
@@ -31,7 +31,7 @@ module.exports = (template, retorno, dados = null) => {
       .replace(/{%ESTILO_CSS%}/g, linkCSS());
   } else if (retorno.includes("{%TAREFAS%}")) {
     if (dados === null || dados.length === 0) {
-      let tela = retorno.replace(
+      const tela = retorno.replace(
         "{%TAREFAS%}",
         `<strong>NÃO HÁ ITENS NA LISTA DE TAREFAS</strong>`
       );
@@ -42,12 +42,12 @@ module.exports = (template, retorno, dados = null) => {
           tela
         )
         .replace(/{%ESTILO_CSS%}/g, linkCSS());
-      console.log("HOUVE ERRO NA HORA DE INSERIR NA TELA");
+      //console.log("HOUVE ERRO NA HORA DE INSERIR NA TELA");
     } else {
-      console.log(dados);
+      //console.log(dados);
       const itemsTarefas = dados.map(
         (registro) =>
-          `<li class='item-tarefa'><div class='id-tarefa'>${registro.id}</div>  <p class='desc-tarefa'>${registro.descricao}</p><form><button class='exclusao-tarefa'>x</button></form></li>`
+          `<li class='item-tarefa'><div><div class='id-tarefa'>${registro.id}</div></div> <p class='desc-tarefa'>${registro.descricao}</p><form action="/update_tarefa/" method='GET'enctype="application/x-www-form-urlencoded" role='form'><input type='number' name='id-registro-tarefa'value=${registro.id}><button class='edicao-tarefa'>↘</button></form><form method='post' enctype="application/x-www-form-urlencoded"><input type='number' name='id-registro-tarefa'value=${registro.id}><button class='exclusao-tarefa'>x</button></form></li>`
       );
       const listagem = `<ul class='lista-tarefa'>${itemsTarefas.join("")}</ul>`;
       const telaComLista = retorno.replace("{%TAREFAS%}", listagem);
@@ -60,13 +60,28 @@ module.exports = (template, retorno, dados = null) => {
         .replace(/{%ESTILO_CSS%}/g, linkCSS());
     }
   } else if (retorno.includes("{%OBSERVAÇÕES%}")) {
-    templateRetornado = templateRetornado
-      .replace(
-        /{%ELEMENT_OF_REPR%}/g,
+    if (dados === null || dados.length === 0) {
+      const tela = retorno.replace(
+        "{%OBSERVAÇÕES%}",
+        `<strong>NÃO HÁ ITENS NA LISTA DE OBSERVAÇÕES</strong>`
+      );
+      templateRetornado = templateRetornado
+        .replace(
+          /{%ELEMENT_OF_REPR%}/g,
 
-        retorno
-      )
-      .replace(/{%ESTILO_CSS%}/g, linkCSS());
+          tela
+        )
+        .replace(/{%ESTILO_CSS%}/g, linkCSS());
+      //console.log("HOUVE ERRO NA HORA DE INSERIR NA TELA");
+    } else {
+      templateRetornado = templateRetornado
+        .replace(
+          /{%ELEMENT_OF_REPR%}/g,
+
+          retorno
+        )
+        .replace(/{%ESTILO_CSS%}/g, linkCSS());
+    }
   } else if (retorno.includes("{%AVISOS%}")) {
     templateRetornado = templateRetornado
       .replace(/{%ELEMENT_OF_REPR%}/g, retorno)
@@ -79,6 +94,14 @@ module.exports = (template, retorno, dados = null) => {
     templateRetornado = templateRetornado
       .replace(/{%ELEMENT_OF_REPR%}/g, retorno)
       .replace(/{%ESTILO_CSS%}/g, linkCSS());
+  } else if (retorno.includes('<section class="area-update">')) {
+    const comIdTarefa = retorno
+      .replace("{%ID_1%}", dados)
+      .replace("{%ID_2%}", dados);
+    templateRetornado = templateRetornado
+      .replace(/{%ELEMENT_OF_REPR%}/g, comIdTarefa)
+      .replace(/{%ESTILO_CSS%}/g, linkCSS());
+    console.log("eita");
   }
   return templateRetornado;
 };
