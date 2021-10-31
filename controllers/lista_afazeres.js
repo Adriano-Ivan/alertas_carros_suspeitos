@@ -63,17 +63,10 @@ module.exports = (app) => {
   app.get("/update_tarefa/", (req, res) => {
     res.writeHead(200, { "Content-type": "text/html" });
     const { query } = url.parse(req.url, true);
-    console.log(query);
+    //console.log(query);
     const id = parseInt(query["id-registro-tarefa"]);
     const retorno = replaceTemplate(tempOverview, tempUpdateTarefa, id);
     res.end(retorno);
-    // res.send("Você quer atualizar uma tarefa");
-    //const id = parseInt(req.params.id);
-    // const valores = req.body;
-    //console.log(id);
-    // const id = parseInt(valores["id-registro-tarefa"]);
-    // console.log(id);
-    //res.send("Você quer atualizar dados");
   });
   app.post("/fazer_update", (req, res) => {
     const id = req.body.id_task;

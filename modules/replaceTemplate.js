@@ -3,6 +3,7 @@ const pegarRetornoVeiculos = require("./pegarRetornoVeiculos");
 const verificarBooleanVeiculos = require("./verificarBooleanVeiculos");
 const verificarTipoSuspeito = require("./verificarTipoSuspeito");
 const retornarConteudoNulo = require("./retornarConteudoNulo");
+const replacePendencias = require("./replacePendencias");
 module.exports = (template, retorno, dados = null) => {
   let templateRetornado = template;
   //console.log(retorno.includes("{%LINHAS_ROUBADOS%}"));
@@ -39,28 +40,13 @@ module.exports = (template, retorno, dados = null) => {
       );
       //console.log("HOUVE ERRO NA HORA DE INSERIR NA TELA");
     } else {
-      //console.log(dados);
-      const itemsTarefas = dados.map(
-        (registro, index) =>
-          `<li class='item-tarefa'><div><div class='id-tarefa'>${
-            index + 1
-          }</div></div> <p class='desc-tarefa'>${
-            registro.descricao
-          }</p><form action="/update_tarefa/" method='GET'enctype="application/x-www-form-urlencoded" role='form'><input type='number' name='id-registro-tarefa'value=${
-            registro.id
-          }><button class='edicao-tarefa'>↘</button></form><form action = '/delete_tarefa/'method='post' enctype="application/x-www-form-urlencoded"><input type='number' name='id-registro-tarefa'value=${
-            registro.id
-          }><button class='exclusao-tarefa'>x</button></form></li>`
+      console.log(typeof dados);
+      templateRetornado = replacePendencias(
+        templateRetornado,
+        retorno,
+        dados,
+        "tarefa"
       );
-      const listagem = `<ul class='lista-tarefa'>${itemsTarefas.join("")}</ul>`;
-      const telaComLista = retorno.replace("{%TAREFAS%}", listagem);
-      templateRetornado = templateRetornado
-        .replace(
-          /{%ELEMENT_OF_REPR%}/g,
-
-          telaComLista
-        )
-        .replace(/{%ESTILO_CSS%}/g, linkCSS());
     }
   } else if (retorno.includes("{%OBSERVAÇÕES%}")) {
     if (dados === null || dados.length === 0) {
@@ -71,13 +57,12 @@ module.exports = (template, retorno, dados = null) => {
       );
       //console.log("HOUVE ERRO NA HORA DE INSERIR NA TELA");
     } else {
-      templateRetornado = templateRetornado
-        .replace(
-          /{%ELEMENT_OF_REPR%}/g,
-
-          retorno
-        )
-        .replace(/{%ESTILO_CSS%}/g, linkCSS());
+      templateRetornado = replacePendencias(
+        template,
+        retorno,
+        dados,
+        "observacao"
+      );
     }
   } else if (retorno.includes("{%AVISOS%}")) {
     if (dados === null || dados.length === 0) {

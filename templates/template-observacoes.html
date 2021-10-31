@@ -1,10 +1,8 @@
-<form class="form-observacoes" method="POST">
+<form action="/observacoes_pertinentes" class="form-observacoes" method="POST">
   <label>
     DESCRIÇÃO:<br />
-    <textarea class="descricao_tarefa"></textarea>
+    <textarea name="descricao_observacao" class="descricao_tarefa"></textarea>
   </label>
   <button id="inserir_tarefa">INSERIR OBSERVAÇÃO</button>
 </form>
-<ul>
-  {%OBSERVAÇÕES%}
-</ul>
+{%OBSERVAÇÕES%}

@@ -218,7 +218,8 @@ input[type="submit"] {
 }
 .tabela-locais th,
 .avisos-externos-lista .numeracao,
-.lista-tarefa .id-tarefa {
+.lista-tarefa .id-tarefa,
+.lista-observacao .id-observacao {
   background-color: rgb(54, 103, 194);
   color: #fff;
 }
@@ -238,7 +239,8 @@ input[type="submit"] {
   border: 1px solid rgb(212, 206, 205);
 }
 .exclusao-aviso,
-.exclusao-tarefa {
+.exclusao-tarefa,
+.exclusao-observacao {
   color: #fff;
   padding: 5px;
   background-color: #f00;
@@ -303,23 +305,27 @@ input[type="submit"] {
   font-size: 22px;
   font-weight: bold;
 }
-.form-tarefas {
+.form-tarefas,
+.form-observacoes {
   height: auto;
   padding: 15px 0;
 }
-.form-tarefas textarea {
+.form-tarefas textarea,
+.form-observacoes textarea {
   border-radius: 3%;
   outline: none;
   border: none;
   padding: 8px;
 }
 .form-tarefas button,
-.area-update input {
+.area-update input,
+.form-observacoes button {
   border-radius: 8%;
   outline: none;
   border: none;
 }
-.lista-tarefa {
+.lista-tarefa,
+.lista-observacao {
   color: #fff;
   width: 80%;
   font-size: 22px;
@@ -328,7 +334,8 @@ input[type="submit"] {
   flex-direction: column;
   height: auto;
 }
-.item-tarefa {
+.item-tarefa,
+.item-observacao {
   display: flex;
   padding: 8px;
   width: 90%;
@@ -339,12 +346,14 @@ input[type="submit"] {
   height: auto;
   overflow-y: hidden;
 }
-.item-tarefa p {
+.item-tarefa p,
+.item-observacao p {
   flex: 6;
   border-radius: 2%;
 }
 
-.item-tarefa form {
+.item-tarefa form,
+.item-observacao form {
   flex: 1;
 }
 .item-tarefa div,
@@ -355,22 +364,23 @@ input[type="submit"] {
   margin-right: 10px;
   padding: 8px;
 }
-.lista-tarefa form button {
+.lista-tarefa form button,
+.lista-observacao form button {
   height: 32px;
   width: 32px;
   border-radius: 4px;
 }
-.lista-tarefa form input[type="number"] {
-  display: none;
-}
-.lista-tarefa .id-tarefa {
+
+.lista-tarefa .id-tarefa,
+.lista-observacao .id-observacao {
   height: 32px;
   line-height: 32px;
   border-radius: 8%;
   width: 32px;
   padding: 0;
 }
-.lista-tarefa .desc-tarefa {
+.lista-tarefa .desc-tarefa,
+.lista-observacao .desc-observacao {
   padding: 8px;
   background-color: #ccc;
   border-radius: 3%;
@@ -378,11 +388,13 @@ input[type="submit"] {
   color: #000;
 }
 .lista-tarefa .item-tarefa form .edicao-tarefa,
+.lista-observacao .item-observacao form .edicao-observacao,
 .table-elemento form button {
   background-color: green;
   font-size: 11px;
   padding: 0;
 }
+/* ÁREA DE UPDATE*/
 .area-update {
   display: flex;
   flex-direction: column;

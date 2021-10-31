@@ -1,0 +1,15 @@
+<section class="area-update">
+  <div><a href="/observacoes_pertinentes">VOLTAR</a></div>
+  <form action="/fazer_update_observation" method="POST">
+    <label>
+      <input type=number class='desaparecer' name='id_observation'
+      value='{%ID%}''>
+      <h2 class="titulo-update">Reescreva a observação:</h2>
+      <textarea
+        name="updated_observation"
+        class="update-observacao-textarea"
+      ></textarea>
+    </label>
+    <input type="submit" value="CONFIRMAR" />
+  </form>
+</section>
