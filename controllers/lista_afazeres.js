@@ -83,4 +83,10 @@ module.exports = (app) => {
       res.redirect("/lista_afazeres");
     });
   });
+  app.post("/delete_tarefa/", (req, res) => {
+    const id = parseInt(req.body["id-registro-tarefa"]);
+    listaAfazeres.deletarTarefa(id).then(() => {
+      res.redirect("/lista_afazeres");
+    });
+  });
 };

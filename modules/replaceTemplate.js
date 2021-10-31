@@ -2,6 +2,7 @@ const linkCSS = require("./linkCSS");
 const pegarRetornoVeiculos = require("./pegarRetornoVeiculos");
 const verificarBooleanVeiculos = require("./verificarBooleanVeiculos");
 const verificarTipoSuspeito = require("./verificarTipoSuspeito");
+const retornarConteudoNulo = require("./retornarConteudoNulo");
 module.exports = (template, retorno, dados = null) => {
   let templateRetornado = template;
   //console.log(retorno.includes("{%LINHAS_ROUBADOS%}"));
@@ -31,23 +32,25 @@ module.exports = (template, retorno, dados = null) => {
       .replace(/{%ESTILO_CSS%}/g, linkCSS());
   } else if (retorno.includes("{%TAREFAS%}")) {
     if (dados === null || dados.length === 0) {
-      const tela = retorno.replace(
-        "{%TAREFAS%}",
-        `<strong>NÃO HÁ ITENS NA LISTA DE TAREFAS</strong>`
+      templateRetornado = retornarConteudoNulo(
+        retorno,
+        "TAREFAS",
+        templateRetornado
       );
-      templateRetornado = templateRetornado
-        .replace(
-          /{%ELEMENT_OF_REPR%}/g,
-
-          tela
-        )
-        .replace(/{%ESTILO_CSS%}/g, linkCSS());
       //console.log("HOUVE ERRO NA HORA DE INSERIR NA TELA");
     } else {
       //console.log(dados);
       const itemsTarefas = dados.map(
-        (registro) =>
-          `<li class='item-tarefa'><div><div class='id-tarefa'>${registro.id}</div></div> <p class='desc-tarefa'>${registro.descricao}</p><form action="/update_tarefa/" method='GET'enctype="application/x-www-form-urlencoded" role='form'><input type='number' name='id-registro-tarefa'value=${registro.id}><button class='edicao-tarefa'>↘</button></form><form method='post' enctype="application/x-www-form-urlencoded"><input type='number' name='id-registro-tarefa'value=${registro.id}><button class='exclusao-tarefa'>x</button></form></li>`
+        (registro, index) =>
+          `<li class='item-tarefa'><div><div class='id-tarefa'>${
+            index + 1
+          }</div></div> <p class='desc-tarefa'>${
+            registro.descricao
+          }</p><form action="/update_tarefa/" method='GET'enctype="application/x-www-form-urlencoded" role='form'><input type='number' name='id-registro-tarefa'value=${
+            registro.id
+          }><button class='edicao-tarefa'>↘</button></form><form action = '/delete_tarefa/'method='post' enctype="application/x-www-form-urlencoded"><input type='number' name='id-registro-tarefa'value=${
+            registro.id
+          }><button class='exclusao-tarefa'>x</button></form></li>`
       );
       const listagem = `<ul class='lista-tarefa'>${itemsTarefas.join("")}</ul>`;
       const telaComLista = retorno.replace("{%TAREFAS%}", listagem);
@@ -61,17 +64,11 @@ module.exports = (template, retorno, dados = null) => {
     }
   } else if (retorno.includes("{%OBSERVAÇÕES%}")) {
     if (dados === null || dados.length === 0) {
-      const tela = retorno.replace(
-        "{%OBSERVAÇÕES%}",
-        `<strong>NÃO HÁ ITENS NA LISTA DE OBSERVAÇÕES</strong>`
+      templateRetornado = retornarConteudoNulo(
+        retorno,
+        "OBSERVAÇÕES",
+        templateRetornado
       );
-      templateRetornado = templateRetornado
-        .replace(
-          /{%ELEMENT_OF_REPR%}/g,
-
-          tela
-        )
-        .replace(/{%ESTILO_CSS%}/g, linkCSS());
       //console.log("HOUVE ERRO NA HORA DE INSERIR NA TELA");
     } else {
       templateRetornado = templateRetornado
@@ -83,21 +80,44 @@ module.exports = (template, retorno, dados = null) => {
         .replace(/{%ESTILO_CSS%}/g, linkCSS());
     }
   } else if (retorno.includes("{%AVISOS%}")) {
-    templateRetornado = templateRetornado
-      .replace(/{%ELEMENT_OF_REPR%}/g, retorno)
-      .replace(/{%ESTILO_CSS%}/g, linkCSS());
+    if (dados === null || dados.length === 0) {
+      templateRetornado = retornarConteudoNulo(
+        retorno,
+        "AVISOS",
+        templateRetornado
+      );
+    } else {
+      templateRetornado = templateRetornado
+        .replace(/{%ELEMENT_OF_REPR%}/g, retorno)
+        .replace(/{%ESTILO_CSS%}/g, linkCSS());
+    }
   } else if (retorno.includes("{%LOCAIS%}")) {
-    templateRetornado = templateRetornado
-      .replace(/{%ELEMENT_OF_REPR%}/g, retorno)
-      .replace(/{%ESTILO_CSS%}/g, linkCSS());
+    if (dados === null || dados.length === 0) {
+      templateRetornado = retornarConteudoNulo(
+        retorno,
+        "LOCAIS",
+        templateRetornado
+      );
+    } else {
+      templateRetornado = templateRetornado
+        .replace(/{%ELEMENT_OF_REPR%}/g, retorno)
+        .replace(/{%ESTILO_CSS%}/g, linkCSS());
+    }
   } else if (retorno.includes("{%AVISOS_ENVIADOS%}")) {
-    templateRetornado = templateRetornado
-      .replace(/{%ELEMENT_OF_REPR%}/g, retorno)
-      .replace(/{%ESTILO_CSS%}/g, linkCSS());
+    if (dados === null || dados.length === 0) {
+      templateRetornado = retornarConteudoNulo(
+        retorno,
+        "AVISOS_ENVIADOS",
+        templateRetornado
+      );
+    } else {
+      templateRetornado = templateRetornado
+        .replace(/{%ELEMENT_OF_REPR%}/g, retorno)
+        .replace(/{%ESTILO_CSS%}/g, linkCSS());
+    }
   } else if (retorno.includes('<section class="area-update">')) {
-    const comIdTarefa = retorno
-      .replace("{%ID_1%}", dados)
-      .replace("{%ID_2%}", dados);
+    const comIdTarefa = retorno.replace("{%ID%}", dados);
+
     templateRetornado = templateRetornado
       .replace(/{%ELEMENT_OF_REPR%}/g, comIdTarefa)
       .replace(/{%ESTILO_CSS%}/g, linkCSS());
