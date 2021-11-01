@@ -6,6 +6,6 @@ module.exports = (retorno) => {
     return "irregulares";
   }
   if (retorno.includes("{%LINHAS_INFRAÇÃO%}")) {
-    return "infracoes";
+    return "infracao";
   }
 };

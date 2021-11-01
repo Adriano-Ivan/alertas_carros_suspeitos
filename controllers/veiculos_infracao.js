@@ -16,4 +16,8 @@ module.exports = (app) => {
     const retorno = replaceTemplate(tempOverview, tempInfracao, dataObject);
     res.end(retorno);
   });
+  app.post("/veiculos_infracao", (req, res) => {
+    res.writeHead(200, { "Content-type": "text/html" });
+    res.end("ROTA POST DE VEÍCULOS COM INFRAÇÃO");
+  });
 };

@@ -27,6 +27,6 @@ module.exports = (template, retorno, dados, tipo) => {
       telaComLista
     )
     .replace(/{%ESTILO_CSS%}/g, linkCSS());
-  console.log("EITA...");
+  //console.log("EITA...");
   return templateRetornado;
 };

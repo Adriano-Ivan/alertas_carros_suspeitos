@@ -164,10 +164,11 @@ img[alt="imagem_defesa_civil"] {
   cursor: pointer;
   background-color: green;
 }
+/*
 .table-elemento tr td:last-child {
   display: flex;
   justify-content: center;
-}
+}*/
 
 /* FORM*/
 form {

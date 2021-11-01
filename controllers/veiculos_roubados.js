@@ -1,5 +1,6 @@
 const replaceTemplate = require("../modules/replaceTemplate");
 const fileSystem = require("fs");
+const listaVeiculosRoubados = require("../models/veiculosRoubados");
 const tempRoubados = fileSystem.readFileSync(
   `${__dirname}/../templates/template-roubados.html`,
   "utf-8"
@@ -9,12 +10,19 @@ const tempOverview = fileSystem.readFileSync(
   "utf-8"
 );
 const data = fileSystem.readFileSync(`${__dirname}/../JSON/data.json`, "utf-8");
-const dataObject = JSON.parse(data);
+//const dataObject = JSON.parse(data);
 
 module.exports = (app) => {
   app.get("/veiculos_roubados", (req, res) => {
     res.writeHead(200, { "Content-type": "text/html" });
-    const retorno = replaceTemplate(tempOverview, tempRoubados, dataObject);
-    res.end(retorno);
+    listaVeiculosRoubados.pegarDados().then((listagem) => {
+      const retorno = replaceTemplate(tempOverview, tempRoubados, listagem);
+      console.log(listagem);
+      res.end(retorno);
+    });
+  });
+  app.post("/veiculos_roubados", (req, res) => {
+    res.writeHead(200, { "Content-type": "text/html" });
+    res.end("ROTA POST DE VEÍCULOS ROUBADOS");
   });
 };

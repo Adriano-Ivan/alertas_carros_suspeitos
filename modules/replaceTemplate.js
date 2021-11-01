@@ -4,6 +4,7 @@ const verificarBooleanVeiculos = require("./verificarBooleanVeiculos");
 const verificarTipoSuspeito = require("./verificarTipoSuspeito");
 const retornarConteudoNulo = require("./retornarConteudoNulo");
 const replacePendencias = require("./replacePendencias");
+const replaceAlertas = require("./replaceAlertas");
 module.exports = (template, retorno, dados = null) => {
   let templateRetornado = template;
   //console.log(retorno.includes("{%LINHAS_ROUBADOS%}"));
@@ -14,19 +15,7 @@ module.exports = (template, retorno, dados = null) => {
   } else if (verificarBooleanVeiculos(retorno)) {
     let tabela = retorno;
     let linhas = ``;
-    for (let i = 0; i < dados.length; i++) {
-      linhas += `<tr>
-        <td>${dados[i].id}</td>
-        <td>${dados[i].nome}</td>
-        <td>${dados[i].placa}</td>
-        <td>${dados[i].status}</td>
-        <td>${dados[i].urgencia}</td>
-        <td class='icone-editar'><form><button class="editar-registro-${verificarTipoSuspeito(
-          retorno
-        )}">↘</button></form></td>
-        </tr>
-        `;
-    }
+    linhas = replaceAlertas(linhas, dados, retorno);
     tabela = tabela.replace(pegarRetornoVeiculos(retorno), linhas);
     templateRetornado = templateRetornado
       .replace(/{%ELEMENT_OF_REPR%}/g, tabela)
@@ -40,7 +29,7 @@ module.exports = (template, retorno, dados = null) => {
       );
       //console.log("HOUVE ERRO NA HORA DE INSERIR NA TELA");
     } else {
-      console.log(typeof dados);
+      //console.log(typeof dados);
       templateRetornado = replacePendencias(
         templateRetornado,
         retorno,
@@ -106,7 +95,7 @@ module.exports = (template, retorno, dados = null) => {
     templateRetornado = templateRetornado
       .replace(/{%ELEMENT_OF_REPR%}/g, comIdTarefa)
       .replace(/{%ESTILO_CSS%}/g, linkCSS());
-    console.log("eita");
+    //console.log("eita");
   }
   return templateRetornado;
 };

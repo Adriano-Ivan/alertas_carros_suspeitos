@@ -26,11 +26,14 @@ module.exports = (app) => {
       );
       res.end(retorno);
     });
-    /*
+  });
+  app.get("/observacoes_pertinentes/:id", (req, res) => {
     res.writeHead(200, { "Content-type": "text/html" });
-    const retorno = replaceTemplate(tempOverview, tempObservacoes);
-    res.end(retorno);
-    */
+    const id = Number.parseInt(req.params.id);
+    listaObservacoes.buscarPorId(id, res).then((item) => {
+      const retorno = replaceTemplate(tempOverview, tempObservacoes, item);
+      res.end(retorno);
+    });
   });
   app.post("/observacoes_pertinentes", (req, res) => {
     res.writeHead(200, { "Content-type": "text/html" });
