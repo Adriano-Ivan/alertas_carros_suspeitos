@@ -17,7 +17,15 @@ module.exports = (app) => {
     res.writeHead(200, { "Content-type": "text/html" });
     listaVeiculosRoubados.pegarDados().then((listagem) => {
       const retorno = replaceTemplate(tempOverview, tempRoubados, listagem);
-      console.log(listagem);
+      //console.log(listagem);
+      res.end(retorno);
+    });
+  });
+  app.get("/veiculos_roubados/:placa", (req, res) => {
+    res.writeHead(200, { "Content-type": "text/html" });
+    const placa = req.params.placa;
+    listaVeiculosRoubados.buscarPorPlaca(placa).then((item) => {
+      const retorno = replaceTemplate(tempOverview, tempRoubados, item);
       res.end(retorno);
     });
   });

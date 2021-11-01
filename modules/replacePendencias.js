@@ -5,9 +5,9 @@ module.exports = (template, retorno, dados, tipo) => {
   console.log(typeof dados);
   const itens = dados.map(
     (registro, index) =>
-      `<li class='item-${tipo}'><div><div class='id-${tipo}'>${
-        index + 1
-      }</div></div> <p class='desc-${tipo}'>${
+      `<li class='item-${tipo}'><div><div class='id-${tipo}'>${index + 1} id(${
+        registro.id
+      })</div></div> <p class='desc-${tipo}'>${
         registro[`${tipo === "tarefa" ? "descricao" : "descricao_observacao"}`]
       }</p><form action="/update_${tipo}/" method='GET'enctype="application/x-www-form-urlencoded" role='form'><input type='number' class='desaparecer' name='id-registro-${tipo}'value=${
         registro.id

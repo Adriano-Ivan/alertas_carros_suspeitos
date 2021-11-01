@@ -52,7 +52,7 @@ class Tabelas {
       if (erro) {
         console.log(erro);
       } else {
-        console.log("Tabela nivel_urgencia criada com sucesso.");
+        console.log("Tabela veiculos_urgencia criada com sucesso.");
       }
     });
   }
@@ -64,7 +64,7 @@ class Tabelas {
       if (erro) {
         console.log(erro);
       } else {
-        console.log("Tabela carros_suspeitos criada com sucesso.");
+        console.log("Tabela veiculos_suspeitos criada com sucesso.");
       }
     });
   }
@@ -76,7 +76,7 @@ class Tabelas {
       if (erro) {
         console.log(erro);
       } else {
-        console.log("Tabela carros_roubados criada com sucesso.");
+        console.log("Tabela veiculos_roubados criada com sucesso.");
       }
     });
   }
@@ -88,7 +88,7 @@ class Tabelas {
       if (erro) {
         console.log(erro);
       } else {
-        console.log("Tabela carros_infracao criada com sucesso.");
+        console.log("Tabela veiculos_infracao criada com sucesso.");
       }
     });
   }
@@ -100,7 +100,7 @@ class Tabelas {
       if (erro) {
         console.log(erro);
       } else {
-        console.log("Tabela carros_irregulares criada com sucesso.");
+        console.log("Tabela veiculos_irregulares criada com sucesso.");
       }
     });
   }

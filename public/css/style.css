@@ -377,8 +377,9 @@ input[type="submit"] {
   height: 32px;
   line-height: 32px;
   border-radius: 8%;
-  width: 32px;
-  padding: 0;
+  width: auto;
+  padding: 3px;
+  margin-right: 10px;
 }
 .lista-tarefa .desc-tarefa,
 .lista-observacao .desc-observacao {

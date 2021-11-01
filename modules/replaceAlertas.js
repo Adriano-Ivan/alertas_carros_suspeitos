@@ -1,5 +1,6 @@
 module.exports = (linhas, dados, retorno) => {
   let linhasRetorno = linhas;
+  //console.log(dados);
   if (retorno.includes("{%LINHAS_ROUBADOS%}")) {
     for (let i = 0; i < dados.length; i++) {
       linhasRetorno += `<tr>
