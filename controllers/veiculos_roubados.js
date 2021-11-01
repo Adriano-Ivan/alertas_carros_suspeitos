@@ -9,7 +9,7 @@ const tempOverview = fileSystem.readFileSync(
   `${__dirname}/../templates/template-overview.html`,
   "utf-8"
 );
-const data = fileSystem.readFileSync(`${__dirname}/../JSON/data.json`, "utf-8");
+// const data = fileSystem.readFileSync(`${__dirname}/../JSON/data.json`, "utf-8");
 //const dataObject = JSON.parse(data);
 
 module.exports = (app) => {
