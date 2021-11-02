@@ -1,7 +1,6 @@
 const linkCSS = require("./linkCSS");
 const pegarRetornoVeiculos = require("./pegarRetornoVeiculos");
 const verificarBooleanVeiculos = require("./verificarBooleanVeiculos");
-const verificarTipoSuspeito = require("./verificarTipoSuspeito");
 const retornarConteudoNulo = require("./retornarConteudoNulo");
 const replacePendencias = require("./replacePendencias");
 const replaceAlertas = require("./replaceAlertas");
