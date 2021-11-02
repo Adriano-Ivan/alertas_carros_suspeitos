@@ -7,7 +7,7 @@ module.exports = (linhas, dados, retorno) => {
     retorno.includes("{%LINHAS_INFRAÇÃO%}") ||
     retorno.includes("{%LINHAS_IRREGULARES%}")
   ) {
-    console.log("ENTROU NO FOR");
+    //console.log("ENTROU NO FOR");
     let ultimaColuna = "";
     if (retorno.includes("{%LINHAS_ROUBADOS%}")) {
       ultimaColuna = "local_roubo";

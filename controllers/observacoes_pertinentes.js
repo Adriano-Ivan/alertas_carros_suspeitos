@@ -24,7 +24,7 @@ module.exports = (app) => {
         listagem
         // listaAfazeres.retornoTarefas
       );
-      res.end(retorno);
+      res.status(200).end(retorno);
     });
   });
   app.get("/observacoes_pertinentes/:id", (req, res) => {
@@ -32,7 +32,7 @@ module.exports = (app) => {
     const id = Number.parseInt(req.params.id);
     listaObservacoes.buscarPorId(id, res).then((item) => {
       const retorno = replaceTemplate(tempOverview, tempObservacoes, item);
-      res.end(retorno);
+      res.status(200).end(retorno);
     });
   });
   app.post("/observacoes_pertinentes", (req, res) => {
@@ -65,7 +65,7 @@ module.exports = (app) => {
     //console.log(query);
     const id = parseInt(query["id-registro-observacao"]);
     const retorno = replaceTemplate(tempOverview, tempUpdateObservacao, id);
-    res.end(retorno);
+    res.status(200).end(retorno);
   });
   app.post("/fazer_update_observation", (req, res) => {
     const id = req.body.id_observation;

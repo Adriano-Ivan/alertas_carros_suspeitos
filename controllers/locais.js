@@ -13,6 +13,6 @@ module.exports = (app) => {
   app.get("/locais", (req, res) => {
     res.writeHead(200, { "Content-type": "text/html" });
     const retorno = replaceTemplate(tempOverview, tempLocais);
-    res.end(retorno);
+    res.status(200).end(retorno);
   });
 };

@@ -13,7 +13,7 @@ module.exports = (app) => {
   app.get("/avisos_externos", (req, res) => {
     res.writeHead(200, { "Content-type": "text/html" });
     const retorno = replaceTemplate(tempOverview, tempAvisosExternos);
-    res.end(retorno);
+    res.status(200).end(retorno);
   });
   app.post("/avisos_externos", (req, res) => {
     res.writeHead(200, { "Content-type": "text/html" });

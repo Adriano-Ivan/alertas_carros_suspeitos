@@ -16,14 +16,14 @@ module.exports = (app) => {
     res.writeHead(200, { "Content-type": "text/html" });
     listaVeiculosIrregulares.pegarDados().then((listagem) => {
       const retorno = replaceTemplate(tempOverview, tempIrregulares, listagem);
-      res.end(retorno);
+      res.status(200).end(retorno);
     });
   });
   app.get("/veiculos_irregulares/:placa", (req, res) => {
     res.writeHead(200, { "Content-type": "text/html" });
     listaVeiculosIrregulares.buscarPorPlaca(placa).then((item) => {
       const retorno = replaceTemplate(tempOverview, tempIrregulares, item);
-      res.end(retorno);
+      res.status(200).end(retorno);
     });
   });
   app.post("/veiculos_irregulares", (req, res) => {

@@ -9,7 +9,13 @@ module.exports = () => {
   app.use(bodyParser.urlencoded({ extended: true }));
   app.use(bodyParser.json());
   app.use(methodOverride("_method"));
+
   consign().include("controllers").into(app);
+
   app.use("/public", express.static(__dirname + `/../public`));
+
+  app.use((req, res) => {
+    res.status(404).send("Página não encontrada");
+  });
   return app;
 };

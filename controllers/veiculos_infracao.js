@@ -17,7 +17,7 @@ module.exports = (app) => {
     listaVeiculosInfracao.pegarDados().then((listagem) => {
       const retorno = replaceTemplate(tempOverview, tempInfracao, listagem);
       console.log(listagem);
-      res.end(retorno);
+      res.status(200).end(retorno);
     });
   });
   app.get("/veiculos_infracao/:placa", (req, res) => {
@@ -25,7 +25,7 @@ module.exports = (app) => {
     const placa = req.params.placa;
     listaVeiculosInfracao.buscarPorPlaca(placa).then((item) => {
       const retorno = replaceTemplate(tempOverview, tempInfracao, item);
-      res.end(retorno);
+      res.status(200).end(retorno);
     });
   });
   app.post("/veiculos_infracao", (req, res) => {

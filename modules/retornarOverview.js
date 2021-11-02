@@ -15,5 +15,5 @@ module.exports = (req, res, tempOverview) => {
   ];
   const retorno = replaceTemplate(tempOverview, retornoEl);
   //console.log(retorno);
-  res.end(retorno);
+  res.status(200).end(retorno);
 };

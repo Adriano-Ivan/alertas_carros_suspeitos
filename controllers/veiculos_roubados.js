@@ -18,7 +18,7 @@ module.exports = (app) => {
     listaVeiculosRoubados.pegarDados().then((listagem) => {
       const retorno = replaceTemplate(tempOverview, tempRoubados, listagem);
       //console.log(listagem);
-      res.end(retorno);
+      res.status(200).end(retorno);
     });
   });
   app.get("/veiculos_roubados/:placa", (req, res) => {
@@ -26,7 +26,7 @@ module.exports = (app) => {
     const placa = req.params.placa;
     listaVeiculosRoubados.buscarPorPlaca(placa).then((item) => {
       const retorno = replaceTemplate(tempOverview, tempRoubados, item);
-      res.end(retorno);
+      res.status(200).end(retorno);
     });
   });
   app.post("/veiculos_roubados", (req, res) => {

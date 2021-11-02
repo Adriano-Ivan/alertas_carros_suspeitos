@@ -24,7 +24,7 @@ module.exports = (app) => {
         listagem
         // listaAfazeres.retornoTarefas
       );
-      res.end(retorno);
+      res.status(200).end(retorno);
     });
   });
   app.get("/lista_afazeres/:id", (req, res) => {
@@ -32,7 +32,7 @@ module.exports = (app) => {
     const id = Number.parseInt(req.params.id);
     listaAfazeres.buscarPorId(id, res).then((item) => {
       const retorno = replaceTemplate(tempOverview, tempAfazeres, item);
-      res.end(retorno);
+      res.status(200).end(retorno);
     });
   });
   app.post("/lista_afazeres", (req, res) => {
@@ -66,7 +66,7 @@ module.exports = (app) => {
     //console.log(query);
     const id = parseInt(query["id-registro-tarefa"]);
     const retorno = replaceTemplate(tempOverview, tempUpdateTarefa, id);
-    res.end(retorno);
+    res.status(200).end(retorno);
   });
   app.post("/fazer_update", (req, res) => {
     const id = req.body.id_task;
