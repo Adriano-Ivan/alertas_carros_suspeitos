@@ -4,13 +4,14 @@ const verificarBooleanVeiculos = require("./verificarBooleanVeiculos");
 const retornarConteudoNulo = require("./retornarConteudoNulo");
 const replacePendencias = require("./replacePendencias");
 const replaceAlertas = require("./replaceAlertas");
-module.exports = (template, retorno, dados = null) => {
+module.exports = (template, retorno, dados = null, alertaExemplo) => {
   let templateRetornado = template;
   //console.log(retorno.includes("{%LINHAS_ROUBADOS%}"));
   if (dados === null && retorno.length >= 2 && typeof retorno === "object") {
     templateRetornado = templateRetornado
-      .replace(/{%ELEMENT_OF_REPR%}/g, retorno.slice(0, 2).join(""))
-      .replace(/{%ESTILO_CSS%}/g, retorno.slice(2));
+      .replace(/{%ELEMENT_OF_REPR%}/g, retorno.slice(0, 3).join(""))
+      .replace(/{%ESTILO_CSS%}/g, retorno.slice(3))
+      .replace("{%ALERTA%}", alertaExemplo);
   } else if (verificarBooleanVeiculos(retorno)) {
     let tabela = retorno;
     let linhas = ``;
