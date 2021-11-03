@@ -1,9 +1,12 @@
-const linkCSS = require("./linkCSS");
+const rotaBootstrapCSS = require("./linkCSSeBootstrap");
 
 module.exports = (retorno, tipo, template) => {
   const tela = retorno.replace(
     `{%${tipo}%}`,
-    `<strong>NÃO HÁ ITENS NA LISTA DE ${tipo.replace("_", " ")}</strong>`
+    `<strong style='margin-top:30px'>NÃO HÁ ITENS NA LISTA DE ${tipo.replace(
+      "_",
+      " "
+    )}</strong>`
   );
   const templateRetornado = template
     .replace(
@@ -11,7 +14,7 @@ module.exports = (retorno, tipo, template) => {
 
       tela
     )
-    .replace(/{%ESTILO_CSS%}/g, linkCSS());
+    .replace(/{%BOOTSTRAP_CSS%}{%ESTILO_CSS%}/g, rotaBootstrapCSS());
 
   return templateRetornado;
   //console.log("HOUVE ERRO NA HORA DE INSERIR NA TELA");

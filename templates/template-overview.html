@@ -8,38 +8,48 @@
       rel="icon"
       href="http://localhost:8005/public/img/icon_a5f231f799e7ef0588a474ff1d5caa23.ico"
     />
-    {%ESTILO_CSS%}
+    {%BOOTSTRAP_CSS%}{%ESTILO_CSS%}
   </head>
   <body>
     <header>
       <h1>Monitoramento de alertas</h1>
     </header>
-    <section>
+    <section class="container-principal">
       <nav>
         <ul class="lista-menu">
-          <li class="lista-titulo"><a href="/home">TELA INICIal</a></li>
-          <li class="lista-titulo">ALERTAS</li>
-          <ul class="sublista desaparecer">
-            <li><a href="/veiculos_suspeitos">VEÍCULOS suspeitos</a></li>
-            <li><a href="/veiculos_roubados">VEÍCULOS ROUBADOS</a></li>
-            <li>
-              <a href="/veiculos_irregulares">VEÍCULOS EM SITUAÇÃO IRREGULAR</a>
-            </li>
-            <li><a href="/veiculos_infracao">INFRAÇÃO DE TRÂNSITO</a></li>
-          </ul>
-          <li class="lista-titulo">NOTAS</li>
-          <ul class="sublista desaparecer">
-            <li>
-              <a href="/observacoes_pertinentes">Observações pertinentes</a>
-            </li>
-            <li><a href="/lista_afazeres">Lista de afazeres</a></li>
-          </ul>
-          <li class="lista-titulo">RECURSOS UTILITÁRIOS</li>
-          <ul class="sublista desaparecer">
-            <li><a href="/avisos_externos">Avisos externos</a></li>
-            <li><a href="/locais">Locais</a></li>
-            <li><a href="/envio_de_aviso">Enviar aviso</a></li>
-          </ul>
+          <div>
+            <li class="lista-titulo"><a href="/home">TELA INICIal</a></li>
+          </div>
+          <div>
+            <li class="lista-titulo">ALERTAS</li>
+            <ul class="sublista desaparecer">
+              <li><a href="/veiculos_suspeitos">VEÍCULOS suspeitos</a></li>
+              <li><a href="/veiculos_roubados">VEÍCULOS ROUBADOS</a></li>
+              <li>
+                <a href="/veiculos_irregulares"
+                  >VEÍCULOS EM SITUAÇÃO IRREGULAR</a
+                >
+              </li>
+              <li><a href="/veiculos_infracao">INFRAÇÃO DE TRÂNSITO</a></li>
+            </ul>
+          </div>
+          <div>
+            <li class="lista-titulo">NOTAS</li>
+            <ul class="sublista desaparecer">
+              <li>
+                <a href="/observacoes_pertinentes">Observações pertinentes</a>
+              </li>
+              <li><a href="/lista_afazeres">Lista de afazeres</a></li>
+            </ul>
+          </div>
+          <div>
+            <li class="lista-titulo">RECURSOS UTILITÁRIOS</li>
+            <ul class="sublista desaparecer">
+              <li><a href="/avisos_externos">Avisos externos</a></li>
+              <li><a href="/locais">Locais</a></li>
+              <li><a href="/envio_de_aviso">Enviar aviso</a></li>
+            </ul>
+          </div>
         </ul>
       </nav>
       <aside><div>{%ELEMENT_OF_REPR%}</div></aside>

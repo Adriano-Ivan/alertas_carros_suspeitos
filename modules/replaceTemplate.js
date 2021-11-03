@@ -1,17 +1,17 @@
-const linkCSS = require("./linkCSS");
 const pegarRetornoVeiculos = require("./pegarRetornoVeiculos");
 const verificarBooleanVeiculos = require("./verificarBooleanVeiculos");
 const retornarConteudoNulo = require("./retornarConteudoNulo");
 const replacePendencias = require("./replacePendencias");
+const rotaBootstrapCSS = require("./linkCSSeBootstrap");
 const replaceAlertas = require("./replaceAlertas");
 module.exports = (template, retorno, dados = null, alertaExemplo) => {
   let templateRetornado = template;
   //console.log(retorno.includes("{%LINHAS_ROUBADOS%}"));
   if (dados === null && retorno.length >= 2 && typeof retorno === "object") {
-    templateRetornado = templateRetornado
+    (templateRetornado = templateRetornado
       .replace(/{%ELEMENT_OF_REPR%}/g, retorno.slice(0, 3).join(""))
-      .replace(/{%ESTILO_CSS%}/g, retorno.slice(3))
-      .replace("{%ALERTA%}", alertaExemplo);
+      .replace(/{%BOOTSTRAP_CSS%}{%ESTILO_CSS%}/g, retorno.slice(3))
+      .replace("{%ALERTA%}", alertaExemplo)).replace(",", "");
   } else if (verificarBooleanVeiculos(retorno)) {
     let tabela = retorno;
     let linhas = ``;
@@ -19,7 +19,7 @@ module.exports = (template, retorno, dados = null, alertaExemplo) => {
     tabela = tabela.replace(pegarRetornoVeiculos(retorno), linhas);
     templateRetornado = templateRetornado
       .replace(/{%ELEMENT_OF_REPR%}/g, tabela)
-      .replace(/{%ESTILO_CSS%}/g, linkCSS());
+      .replace(/{%BOOTSTRAP_CSS%}{%ESTILO_CSS%}/g, rotaBootstrapCSS());
   } else if (retorno.includes("{%TAREFAS%}")) {
     if (dados === null || dados.length === 0) {
       templateRetornado = retornarConteudoNulo(
@@ -63,7 +63,7 @@ module.exports = (template, retorno, dados = null, alertaExemplo) => {
     } else {
       templateRetornado = templateRetornado
         .replace(/{%ELEMENT_OF_REPR%}/g, retorno)
-        .replace(/{%ESTILO_CSS%}/g, linkCSS());
+        .replace(/{%BOOTSTRAP_CSS%}{%ESTILO_CSS%}/g, rotaBootstrapCSS());
     }
   } else if (retorno.includes("{%LOCAIS%}")) {
     if (dados === null || dados.length === 0) {
@@ -75,7 +75,7 @@ module.exports = (template, retorno, dados = null, alertaExemplo) => {
     } else {
       templateRetornado = templateRetornado
         .replace(/{%ELEMENT_OF_REPR%}/g, retorno)
-        .replace(/{%ESTILO_CSS%}/g, linkCSS());
+        .replace(/{%BOOTSTRAP_CSS%}{%ESTILO_CSS%}/g, rotaBootstrapCSS());
     }
   } else if (retorno.includes("{%AVISOS_ENVIADOS%}")) {
     if (dados === null || dados.length === 0) {
@@ -87,14 +87,14 @@ module.exports = (template, retorno, dados = null, alertaExemplo) => {
     } else {
       templateRetornado = templateRetornado
         .replace(/{%ELEMENT_OF_REPR%}/g, retorno)
-        .replace(/{%ESTILO_CSS%}/g, linkCSS());
+        .replace(/{%BOOTSTRAP_CSS%}{%ESTILO_CSS%}/g, rotaBootstrapCSS());
     }
   } else if (retorno.includes('<section class="area-update">')) {
     const comIdTarefa = retorno.replace("{%ID%}", dados);
 
     templateRetornado = templateRetornado
       .replace(/{%ELEMENT_OF_REPR%}/g, comIdTarefa)
-      .replace(/{%ESTILO_CSS%}/g, linkCSS());
+      .replace(/{%BOOTSTRAP_CSS%}{%ESTILO_CSS%}/g, rotaBootstrapCSS());
     //console.log("eita");
   }
   return templateRetornado;

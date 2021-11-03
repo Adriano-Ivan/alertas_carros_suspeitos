@@ -1,4 +1,4 @@
-const rotaCSS = require("./linkCSS");
+const rotaBootstrapCSS = require("./linkCSSeBootstrap");
 module.exports = (req, res, tempOverview) => {
   const replaceTemplate = require("../modules/replaceTemplate");
   res.writeHead(200, {
@@ -6,14 +6,14 @@ module.exports = (req, res, tempOverview) => {
   });
   // const imagemHome = `${__dirname}/img/defesa_civil_repr.png`;
   const imagemHome = `http://localhost:8005/public/img/defesa_civil_repr.png`;
-  const estiloCSS = rotaCSS();
+  const estiloBootstrapCSS = rotaBootstrapCSS();
   const boasVindas = "Bem-vindo !";
   const alerta = "{%ALERTA%}";
   const retornoEl = [
     `<img src='${imagemHome}'alt='imagem_defesa_civil'</img>`,
     `<h1>${boasVindas}</h1>`,
     `<div class='alerta-ocorrencia'>${alerta}</div>`,
-    estiloCSS,
+    estiloBootstrapCSS,
   ];
   const retorno = replaceTemplate(
     tempOverview,

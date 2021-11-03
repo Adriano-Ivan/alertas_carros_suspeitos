@@ -1,18 +1,32 @@
-<table class="table-elemento table-irregulares">
-  <caption>
-    VEÍCULOS EM SITUAÇÃO IRREGULAR
-  </caption>
-  <thead>
-    <tr>
-      <th>Dono</th>
-      <th>placa</th>
-      <th>status</th>
-      <th>nível de urgência</th>
-      <th>local de disparo do alerta</th>
-      <th>medida administrativa</th>
-    </tr>
-  </thead>
-  <tbody>
-    {%LINHAS_IRREGULARES%}
-  </tbody>
-</table>
+<div class="container">
+  <div class="table-responsive d-block d-md-table">
+    <table
+      class="
+        table-elemento
+        table-irregulares
+        table
+        table-hover
+        table-bordered
+        table-striped
+        table-light
+      "
+    >
+      <caption>
+        VEÍCULOS EM SITUAÇÃO IRREGULAR
+      </caption>
+      <thead>
+        <tr>
+          <th>Dono</th>
+          <th>placa</th>
+          <th>status</th>
+          <th>nível de urgência</th>
+          <th>local de disparo do alerta</th>
+          <th>medida administrativa</th>
+        </tr>
+      </thead>
+      <tbody>
+        {%LINHAS_IRREGULARES%}
+      </tbody>
+    </table>
+  </div>
+</div>

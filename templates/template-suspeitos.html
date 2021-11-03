@@ -1,17 +1,32 @@
-<table class="table-elemento table-suspeitos">
-  <caption>
-    VEÍCULOS ROUBADOS
-  </caption>
-  <thead>
-    <tr>
-      <th>DONO</th>
-      <th>PLACA</th>
-      <th>STATUS</th>
-      <th>NÍVEL DE URGÊNCIA</th>
-      <th>LOCAL DE DISPARO DO ALERTA</th>
-    </tr>
-  </thead>
-  <tbody>
-    {%LINHAS_SUSPEITOS%}
-  </tbody>
-</table>
+<div class="container">
+  <div class="table-responsive d-block d-md-table">
+    <table
+      class="
+        table-elemento
+        table-suspeitos
+        table
+        table-hover
+        table-striped
+        table-bordered
+        table-light
+      "
+    >
+      <caption>
+        VEÍCULOS SUSPEITOS (combina com descrições, comportamento suspeito,
+        etc.)
+      </caption>
+      <thead>
+        <tr>
+          <th>DONO</th>
+          <th>PLACA</th>
+          <th>STATUS</th>
+          <th>NÍVEL DE URGÊNCIA</th>
+          <th>LOCAL DE DISPARO DO ALERTA</th>
+        </tr>
+      </thead>
+      <tbody>
+        {%LINHAS_SUSPEITOS%}
+      </tbody>
+    </table>
+  </div>
+</div>

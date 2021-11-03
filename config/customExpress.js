@@ -15,7 +15,9 @@ module.exports = () => {
   app.use("/public", express.static(__dirname + `/../public`));
 
   app.use((req, res) => {
-    res.status(404).send("Página não encontrada");
+    res
+      .status(404)
+      .send("<strong sytle='font-size:25px'>Página não encontrada</strong>");
   });
   return app;
 };
