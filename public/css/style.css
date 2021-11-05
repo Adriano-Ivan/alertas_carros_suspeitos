@@ -292,6 +292,7 @@ input[type="submit"] {
   text-transform: capitalize;
   padding-left: 10%;
   align-items: flex-start;
+  
 }
 .form-mensagem h2,
 .form-mensagem button {
@@ -301,12 +302,15 @@ input[type="submit"] {
   border-radius: 8%;
   outline: none;
   border: none;
+  margin-bottom: 25px;
 }
 .form-mensagem label {
-  width: 100%;
+  width: 80%;
+  margin-bottom: 25px;
+ 
 }
 .form-mensagem .mensagem-enviada {
-  width: 48%;
+  width: 40%;
   height: 250px;
   border-radius: 4%;
   padding: 10px;
@@ -314,7 +318,7 @@ input[type="submit"] {
 }
 .form-mensagem input[type="email"] {
   outline: none;
-  width: 38%;
+  width: 80%;
   border-radius: 4%;
   padding: 10px;
   border: none;
@@ -349,7 +353,7 @@ input[type="submit"] {
 .lista-tarefa,
 .lista-observacao {
   color: #fff;
-  width: 80%;
+  width: 69%;
   font-size: 22px;
   display: flex;
   align-items: center;
@@ -481,7 +485,7 @@ input[type="submit"] {
   padding: 8px;
 }
 
-@media only screen and (min-width: 530px) and (max-width: 930px) {
+@media only screen and (min-width: 400px) and (max-width: 930px) {
   section.container-principal {
     flex-direction: column;
   }

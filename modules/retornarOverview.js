@@ -12,7 +12,7 @@ module.exports = (req, res, tempOverview) => {
   const retornoEl = [
     `<img src='${imagemHome}'alt='imagem_defesa_civil'</img>`,
     `<h1>${boasVindas}</h1>`,
-    `<div class='alerta-ocorrencia'>${alerta}</div>`,
+    `<div class='alerta-ocorrencia font-weight-bold'>${alerta}</div>`,
     estiloBootstrapCSS,
   ];
   const retorno = replaceTemplate(
