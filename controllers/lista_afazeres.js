@@ -27,10 +27,10 @@ module.exports = (app) => {
       res.status(200).end(retorno);
     });
   });
-  app.get("/lista_afazeres/:id", (req, res) => {
+  app.get("/lista_afazeres/:descricao", (req, res) => {
     res.writeHead(200, { "Content-type": "text/html" });
-    const id = Number.parseInt(req.params.id);
-    listaAfazeres.buscarPorId(id, res).then((item) => {
+    const descricao = req.params.descricao;
+    listaAfazeres.buscarPorDescricao(descricao, res).then((item) => {
       const retorno = replaceTemplate(tempOverview, tempAfazeres, item);
       res.status(200).end(retorno);
     });

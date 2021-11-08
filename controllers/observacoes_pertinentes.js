@@ -27,10 +27,11 @@ module.exports = (app) => {
       res.status(200).end(retorno);
     });
   });
-  app.get("/observacoes_pertinentes/:id", (req, res) => {
+  app.get("/observacoes_pertinentes/:descricao", (req, res) => {
     res.writeHead(200, { "Content-type": "text/html" });
-    const id = Number.parseInt(req.params.id);
-    listaObservacoes.buscarPorId(id, res).then((item) => {
+    const descricao = req.params.descricao;
+    console.log(descricao);
+    listaObservacoes.buscarPorDescricao(descricao, res).then((item) => {
       const retorno = replaceTemplate(tempOverview, tempObservacoes, item);
       res.status(200).end(retorno);
     });

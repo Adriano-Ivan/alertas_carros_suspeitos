@@ -137,6 +137,7 @@ aside {
 }
 .container table {
   margin: 0 auto;
+  max-width: 70%;
 }
 .table-elemento th,
 td,
@@ -292,7 +293,6 @@ input[type="submit"] {
   text-transform: capitalize;
   padding-left: 10%;
   align-items: flex-start;
-  
 }
 .form-mensagem h2,
 .form-mensagem button {
@@ -307,7 +307,6 @@ input[type="submit"] {
 .form-mensagem label {
   width: 80%;
   margin-bottom: 25px;
- 
 }
 .form-mensagem .mensagem-enviada {
   width: 40%;
@@ -407,7 +406,7 @@ input[type="submit"] {
   height: 32px;
   line-height: 32px;
   border-radius: 8%;
-  width: auto;
+  width: 32px;
   padding: 3px;
   margin-right: 10px;
 }
@@ -485,7 +484,7 @@ input[type="submit"] {
   padding: 8px;
 }
 
-@media only screen and (min-width: 400px) and (max-width: 930px) {
+@media only screen and (min-width: 350px) and (max-width: 930px) {
   section.container-principal {
     flex-direction: column;
   }

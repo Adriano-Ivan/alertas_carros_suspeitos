@@ -1,4 +1,5 @@
 const queryPromise = require("../modules/queryPromise");
+const queryPromise2 = require("../modules/queryPromise2");
 const insertPromise = require("../modules/insertPromise");
 const queryPorIdPromise = require("../modules/queryPorIdPromise");
 const updatePromise = require("../modules/updatePromise");
@@ -15,9 +16,10 @@ class listaObservacoes {
     const dados = await queryPromise(sql);
     return [].concat(dados);
   }
-  async buscarPorId(id) {
-    const sql = `SELECT * FROM observacoes_pertinentes WHERE id = ${id}`;
-    const dados = await queryPorIdPromise(sql);
+  async buscarPorDescricao(descricao) {
+    const sql = `SELECT * FROM observacoes_pertinentes WHERE descricao_observacao
+     LIKE ?`;
+    const dados = await queryPromise2(descricao + "%", sql);
     return [].concat(dados);
   }
   async alterarObservacao(id, updated_observation) {

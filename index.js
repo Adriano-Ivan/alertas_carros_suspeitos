@@ -1,9 +1,12 @@
 "use strict";
 // Recursos
+const dotenv = require("dotenv");
 const customExpress = require("./config/customExpress");
 const conexao = require("./infraestrutura/conexao");
 const Tabelas = require("./infraestrutura/tabelas");
 
+// Variável de ambiente
+dotenv.config();
 // Server - connect to database
 conexao.connect((erro) => {
   if (erro) {
@@ -12,7 +15,7 @@ conexao.connect((erro) => {
     console.log("Conectado ao database com sucesso");
     Tabelas.init(conexao);
     const app = customExpress();
-    app.listen(8005, () => {
+    app.listen(process.env.PORT, () => {
       console.log("Listening to request on port 8005");
     });
   }

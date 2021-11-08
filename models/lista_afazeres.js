@@ -1,6 +1,6 @@
 const queryPromise = require("../modules/queryPromise");
+const queryPromise2 = require("../modules/queryPromise2");
 const insertPromise = require("../modules/insertPromise");
-const queryPorIdPromise = require("../modules/queryPorIdPromise");
 const updatePromise = require("../modules/updatePromise");
 const deletePromise = require("../modules/deletePromise");
 
@@ -15,9 +15,10 @@ class ListaAfazeres {
     const dados = await queryPromise(sql);
     return [].concat(dados);
   }
-  async buscarPorId(id, res) {
-    const sql = `SELECT * FROM tarefas_a_fazer WHERE id = ${id}`;
-    const dados = await queryPorIdPromise(sql);
+  async buscarPorDescricao(descricao) {
+    const sql = `SELECT * FROM tarefas_a_fazer WHERE descricao LIKE ?`;
+    const dados = await queryPromise2(descricao + "%", sql);
+    //console.log(descricao);
     return [].concat(dados);
   }
   async alterarTarefa(id, updated_task) {

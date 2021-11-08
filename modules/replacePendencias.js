@@ -7,7 +7,7 @@ module.exports = (template, retorno, dados, tipo) => {
     (registro, index) =>
       `<li class='item-${tipo}'><div style='text-align:center;'><div class='id-${tipo}'>${
         index + 1
-      }<br>id(${registro.id})</div></div> <p class='desc-${tipo}'>${
+      }</div></div> <p class='desc-${tipo}'>${
         registro[`${tipo === "tarefa" ? "descricao" : "descricao_observacao"}`]
       }</p><form action="/update_${tipo}/" method='GET'enctype="application/x-www-form-urlencoded" role='form'><input type='number' class='desaparecer' name='id-registro-${tipo}'value=${
         registro.id
