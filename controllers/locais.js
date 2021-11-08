@@ -8,11 +8,8 @@ const tempOverview = fileSystem.readFileSync(
   `${__dirname}/../templates/template-overview.html`,
   "utf-8"
 );
-
-module.exports = (app) => {
-  app.get("/locais", (req, res) => {
-    res.writeHead(200, { "Content-type": "text/html" });
-    const retorno = replaceTemplate(tempOverview, tempLocais);
-    res.status(200).end(retorno);
-  });
+exports.getLocais = (req, res) => {
+  res.writeHead(200, { "Content-type": "text/html" });
+  const retorno = replaceTemplate(tempOverview, tempLocais);
+  res.status(200).end(retorno);
 };

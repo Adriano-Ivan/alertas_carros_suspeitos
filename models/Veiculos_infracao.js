@@ -1,7 +1,7 @@
 const queryPromise = require("../modules/queryPromise");
 const queryPorIdPromise = require("../modules/queryPorIdPromise");
 
-class veiculosInfracao {
+class VeiculosInfracao {
   async pegarDados() {
     const sql =
       "SELECT v.dono, v.placa, s.status, n.nivel_urgencia, v.local_alerta, v.gravidade_infracao FROM veiculos_infracao AS v INNER JOIN status AS s ON s.id = v.statusID INNER JOIN nivel_urgencia AS n ON v.nivel_urgenciaID = n.id;";
@@ -15,4 +15,4 @@ class veiculosInfracao {
   }
 }
 
-module.exports = new veiculosInfracao();
+module.exports = new VeiculosInfracao();

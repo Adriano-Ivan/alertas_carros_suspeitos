@@ -5,7 +5,7 @@ const queryPorIdPromise = require("../modules/queryPorIdPromise");
 const updatePromise = require("../modules/updatePromise");
 const deletePromise = require("../modules/deletePromise");
 
-class listaObservacoes {
+class ListaObservacoes {
   async adiciona(observacao) {
     const sql = "INSERT INTO observacoes_pertinentes SET ?";
     await insertPromise(sql, observacao);
@@ -32,4 +32,4 @@ class listaObservacoes {
   }
 }
 
-module.exports = new listaObservacoes();
+module.exports = new ListaObservacoes();

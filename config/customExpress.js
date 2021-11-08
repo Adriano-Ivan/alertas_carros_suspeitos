@@ -10,7 +10,7 @@ module.exports = () => {
   app.use(bodyParser.json());
   app.use(methodOverride("_method"));
 
-  consign().include("controllers").into(app);
+  consign().include("routes").into(app);
 
   app.use("/public", express.static(__dirname + `/../public`));
 

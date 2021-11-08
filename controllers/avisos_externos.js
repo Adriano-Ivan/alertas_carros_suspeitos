@@ -9,15 +9,13 @@ const tempOverview = fileSystem.readFileSync(
   "utf-8"
 );
 
-module.exports = (app) => {
-  app.get("/avisos_externos", (req, res) => {
-    res.writeHead(200, { "Content-type": "text/html" });
-    const retorno = replaceTemplate(tempOverview, tempAvisosExternos);
-    res.status(200).end(retorno);
-  });
-  app.post("/avisos_externos", (req, res) => {
-    res.writeHead(200, { "Content-type": "text/html" });
-    const retorno = replaceTemplate(tempOverview, tempAvisosExternos);
-    res.end(retorno);
-  });
+exports.getAvisosExternos = (req, res) => {
+  res.writeHead(200, { "Content-type": "text/html" });
+  const retorno = replaceTemplate(tempOverview, tempAvisosExternos);
+  res.status(200).end(retorno);
+};
+exports.postAvisosExternos = (req, res) => {
+  res.writeHead(200, { "Content-type": "text/html" });
+  const retorno = replaceTemplate(tempOverview, tempAvisosExternos);
+  res.end(retorno);
 };

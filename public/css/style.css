@@ -92,7 +92,7 @@ aside {
 .sublista a {
   text-decoration: none;
   color: #fdf;
-
+  transition: 0.1s all ease;
   display: block;
   padding: 8px 0;
   padding-left: 32px;
@@ -118,9 +118,20 @@ aside {
 }
 /* Área aside && tabela*/
 
+.lista-relatorio {
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+}
+.lista-relatorio li {
+  text-align: center;
+  line-height: 35px;
+}
 .alerta-ocorrencia {
   padding: 10px;
-  border: 1px solid #f00;
+  border: 1px solid rgb(223, 74, 74);
+  color: rgb(204, 22, 22);
+  border-radius: 3%;
   min-height: 180px;
   min-width: 30%;
   max-width: 50%;
@@ -499,7 +510,7 @@ input[type="submit"] {
   }
   aside {
     width: 100%;
-    min-height: 69.5vh;
+    min-height: 75vh;
     max-height: auto;
   }
   nav .lista-menu {
@@ -522,5 +533,8 @@ input[type="submit"] {
   .lista-titulo,
   .sublista {
     margin-bottom: 0;
+  }
+  .alerta-ocorrencia {
+    max-width: 80%;
   }
 }
