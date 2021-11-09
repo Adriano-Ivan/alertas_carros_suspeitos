@@ -25,17 +25,25 @@ header {
   height: 10vh;
   width: 100vw;
   flex: 1;
+  margin-bottom: 10vh;
   display: flex;
   justify-content: center;
   text-align: center;
   align-items: center;
   background-color: rgb(54, 103, 194);
 }
+.aside-header-fixed {
+  margin-top: 10vh;
+}
+.header-fixed {
+  position: fixed;
+}
 section {
   display: flex;
   flex-direction: row;
   max-width: 1580px;
   width: 100vw;
+
   /*height: auto;*/
   /*
           justify-content: center;
@@ -57,7 +65,8 @@ aside {
   padding-bottom: 20px;
   width: 70%;
   min-height: 100%;
-  background-color: rgba(228, 218, 215, 0.897);
+  /*background-color: rgba(228, 218, 215, 0.897);*/
+  background-color: rgba(230, 220, 217, 0.897);
   justify-content: center;
   align-items: center;
 }
@@ -134,7 +143,7 @@ aside {
   border-radius: 3%;
   min-height: 180px;
   min-width: 30%;
-  max-width: 50%;
+  max-width: 70%;
   margin-top: 35px;
   display: flex;
   flex-direction: column;
@@ -153,7 +162,7 @@ aside {
 .table-elemento th,
 td,
 caption {
-  border: 2.2px solid rgb(61, 80, 114);
+  /*border: 2.2px solid rgb(61, 80, 114);*/
   padding: 10px;
 }
 caption {
@@ -185,7 +194,7 @@ aside div h1 {
   text-transform: uppercase;
 }
 img[alt="imagem_defesa_civil"] {
-  width: 330px;
+  width: 290px;
   margin: 24px auto;
 }
 /*tabela*/
@@ -498,6 +507,9 @@ input[type="submit"] {
 @media only screen and (min-width: 350px) and (max-width: 930px) {
   section.container-principal {
     flex-direction: column;
+  }
+  header {
+    border-bottom: calc(2px - 1.6px) solid #fdf;
   }
   nav {
     width: 100%;

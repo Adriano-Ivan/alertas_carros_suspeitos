@@ -1,7 +1,8 @@
 "use strict";
 // Recursos
+const socketAux = require("./config/webSocketAux");
 const dotenv = require("dotenv");
-const customExpress = require("./config/customExpress");
+// const customExpress = require("./config/customExpress");
 const conexao = require("./infraestrutura/conexao");
 const Tabelas = require("./infraestrutura/tabelas");
 
@@ -14,7 +15,8 @@ conexao.connect((erro) => {
   } else {
     console.log("Conectado ao database com sucesso");
     Tabelas.init(conexao);
-    const app = customExpress();
+    const app = socketAux.serverHttp();
+    // const app = customExpress();
     app.listen(process.env.PORT, () => {
       console.log("Listening to request on port 8005");
     });

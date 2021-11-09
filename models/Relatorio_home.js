@@ -11,7 +11,7 @@ class RelatorioHome {
     const sql_suspeitos =
       "SELECT s.status AS status_suspeitos, count(s.id) AS vezes_suspeitos FROM veiculos_suspeitos INNER JOIN status AS s ON veiculos_suspeitos.statusID = s.id GROUP BY s.status;";
 
-    console.log(sql_suspeitos);
+    //console.log(sql_suspeitos);
     const dados_roubados = await queryPromise(sql_roubados);
     const dados_irregulares = await queryPromise(sql_irregulares);
     const dados_infracao = await queryPromise(sql_infracao);
