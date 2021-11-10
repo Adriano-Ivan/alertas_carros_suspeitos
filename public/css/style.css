@@ -176,7 +176,7 @@ caption {
 .table-elemento th {
   text-transform: uppercase;
   color: #fff;
-  background-color: rgb(58, 110, 206);
+  /* background-color: rgb(58, 110, 206);*/
 }
 aside div {
   flex: 1;
@@ -297,7 +297,7 @@ input[type="submit"] {
 }
 .tabela-locais td,
 .tabela-locais th {
-  border: 1px solid #ccc;
+  /*border: 1px solid #ccc;*/
   padding: 8px;
 }
 .tabela-locais td {

@@ -13,7 +13,7 @@ exports.getVeiculosInfracao = (req, res) => {
   res.writeHead(200, { "Content-type": "text/html" });
   listaVeiculosInfracao.pegarDados().then((listagem) => {
     const retorno = replaceTemplate(tempOverview, tempInfracao, listagem);
-    console.log(listagem);
+    //console.log(listagem);
     res.status(200).end(retorno);
   });
 };
