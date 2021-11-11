@@ -27,6 +27,7 @@ module.exports = (req, res, tempOverview, dadosRelatorio = null) => {
   );
   //console.log(retorno);
   res.status(200).end(retorno);
+
   //console.log("EITA - ENTROU NA FUNÇÃO");
   //return retorno;
 };

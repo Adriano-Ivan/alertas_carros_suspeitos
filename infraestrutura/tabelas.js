@@ -3,6 +3,7 @@ class Tabelas {
     this.conexao = conexao;
 
     this.criarTarefasAfazer();
+    this.criarUsuarios();
     this.criarObservacoesPertinentes();
     this.criarStatus();
     this.criarNivelUrgencia();
@@ -19,6 +20,17 @@ class Tabelas {
         console.log(erro);
       } else {
         console.log("Tabela tarefas_a_fazer criada com sucesso.");
+      }
+    });
+  }
+  criarUsuarios() {
+    const sql =
+      "CREATE TABLE IF NOT EXISTS usuarios(id int NOT NULL AUTO_INCREMENT, nome varchar(130) NOT NULL,email varchar(130) NOT NULL, senha varchar(256) NOT NULL, PRIMARY KEY(id))";
+    this.conexao.query(sql, (erro) => {
+      if (erro) {
+        console.log(erro);
+      } else {
+        console.log("Tabela usuarios criada com sucesso.");
       }
     });
   }

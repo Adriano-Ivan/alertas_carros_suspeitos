@@ -18,7 +18,8 @@ body {
 }
 .area-login {
   width: 100%;
-  max-width: 390px;
+  max-width: 350px;
+
   text-align: center;
   height: 350px;
   display: flex;
@@ -36,8 +37,18 @@ h2 {
 
   max-width: 80px;
 }
+.area-login input:hover {
+  transform: scale(105%, 105%);
+}
+.area-login label:hover input {
+  transform: scale(105%, 105%);
+}
 .area-login input[type="submit"] {
   background-color: rgb(46, 204, 64);
+  margin-top: 10px;
+}
+.area-login input[type="email"] {
+  margin-bottom: 10px;
 }
 .remember {
   padding-top: 20px;
