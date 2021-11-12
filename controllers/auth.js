@@ -1,27 +1,32 @@
 const fileSystem = require("fs");
+const passport = require("passport");
 const tempLogin = fileSystem.readFileSync(
   `${__dirname}/../templates/login.html`,
   "utf-8"
 );
 const usuarios = require("../models/Usuario");
-const AES = require("mysql-aes-binary");
-const decrypt = function (text) {
-  return AES.decrypt(text, "chave_node");
-};
+
 exports.getLogin = (req, res) => {
   res.writeHead(200, { "Content-type": "text/html" });
   res.end(tempLogin);
 };
-
-exports.processarLogin = (req, res) => {
-  const senha = req.body.password;
-  const email = req.body.email_nome;
-  console.log(senha, email);
-  usuarios.buscarPorEmailOuNomeESenha(email).then((resultado) => {
-    // console.log(resultado);
-    // console.log(decrypt(resultado[0].senha));
-    if (senha === decrypt(resultado[0].senha) && email === resultado[0].email) {
-      res.redirect("/");
-    }
-  });
-};
+exports.processarLogin = (req, res) => {};
+// exports.processarLogin = (req, res) => {
+//   const senha = req.body.password;
+//   const emailOuNome = req.body.email_nome;
+//   console.log(senha, emailOuNome);
+//   usuarios
+//     .buscarPorEmailOuNomeESenha(senha, emailOuNome)
+//     .then((resultado) => {
+//       // console.log(resultado);
+//       // console.log(decrypt(resultado[0].senha));
+//       if (
+//         (senha === resultado[0].senha_de &&
+//           emailOuNome === resultado[0].email) ||
+//         emailOuNome === resultado[0].nome
+//       ) {
+//         res.redirect("/");
+//       }
+//     })
+//     .catch((erro) => console.log(erro));
+// };

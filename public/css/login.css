@@ -47,8 +47,11 @@ h2 {
   background-color: rgb(46, 204, 64);
   margin-top: 10px;
 }
-.area-login input[type="email"] {
+.area-login input[type="text"] {
   margin-bottom: 10px;
+}
+.area-login input[type="text"]::placeholder {
+  font-size: 15px;
 }
 .remember {
   padding-top: 20px;
