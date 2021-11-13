@@ -1,4 +1,4 @@
-const controllerAfazeres = require("./../controllers/lista_afazeres");
+const controllerAfazeres = require("./../../controllers/lista_afazeres");
 module.exports = (app) => {
   app.get("/lista_afazeres", controllerAfazeres.getAfazeres);
   app.get(

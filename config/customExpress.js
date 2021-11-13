@@ -1,17 +1,31 @@
 const express = require("express");
 const consign = require("consign");
 const bodyParser = require("body-parser");
+const cookieParser = require("cookie-parser");
 const passport = require("passport");
 const session = require("express-session");
 const usuario = require("./../models/Usuario");
-require("./../models/Passport")(passport, usuario);
+const mustache = require("mustache-express");
+const path = require("path");
+require("./../modules/Passport")(passport, usuario);
+const loginRouter = require("./../routes/auth");
+
+function authenticationMiddleware(req, res, next) {
+  if (req.isAuthenticated()) return next();
+  res.redirect("/login");
+}
 /*const methodOverride = require("method-override");*/
 const cors = require("cors");
 module.exports = () => {
   const app = express();
+  app.set("view engine", "mustache");
+  app.set("views", path.join(__dirname, "../templates"));
+  app.engine("mustache", mustache());
   app.use(cors());
   app.use(bodyParser.urlencoded({ extended: true }));
+  app.use(cookieParser());
   app.use(bodyParser.json());
+
   //app.use(methodOverride("_method"));
 
   app.use(
@@ -22,11 +36,13 @@ module.exports = () => {
       cookie: { maxAge: 2 * 60 * 1000 },
     })
   );
+  app.use("/public", express.static(__dirname + `/../public`));
   app.use(passport.initialize());
   app.use(passport.session());
-  consign().include("routes").into(app);
 
-  app.use("/public", express.static(__dirname + `/../public`));
+  app.use("/login", loginRouter);
+  app.use(authenticationMiddleware);
+  consign().include("routes/private").into(app);
 
   app.use((req, res) => {
     res

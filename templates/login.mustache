@@ -3,10 +3,18 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width,initial-scale=1.0" />
+     
     <link
       rel="stylesheet"
       href="http://localhost:8005/public/bootstrap_css/bootstrap.min.css"
     />
+    
+    <!--
+    <link
+      rel="stylesheet"
+      href="/public/bootstrap_css/bootstrap.min.css"
+    />
+    -->
     <link rel="stylesheet" href="http://localhost:8005/public/css/login.css" />
     <title>LOGIN</title>
   </head>
@@ -47,6 +55,9 @@
               class="btn btn-lg btn-block btn-primary"
             />
           </div>
+          {{#mensagem}}
+          <div style='margin-top:12px;margin-bottom:0;display:flex;padding:10px;align-items:center;justify-content:center;' class='alert alert-danger' role='alert'><h4 style='margin-top:12px;margin-bottom:0;font-size:16px'>{{mensagem}}</h4></div>
+          {{/mensagem}}
           <p class="gray padding">2021</p>
         </form>
       </div>

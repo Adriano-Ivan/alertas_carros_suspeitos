@@ -1,4 +1,4 @@
-const controllerObservacoes = require("./../controllers/observacoes_pertinentes");
+const controllerObservacoes = require("./../../controllers/observacoes_pertinentes");
 module.exports = (app) => {
   app.get(
     "/observacoes_pertinentes",

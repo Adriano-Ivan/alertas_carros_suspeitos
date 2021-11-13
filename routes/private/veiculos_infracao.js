@@ -1,4 +1,4 @@
-const controllerVeiculosInfracao = require("./../controllers/veiculos_infracao");
+const controllerVeiculosInfracao = require("./../../controllers/veiculos_infracao");
 module.exports = (app) => {
   app.get("/veiculos_infracao", controllerVeiculosInfracao.getVeiculosInfracao);
   app.get(

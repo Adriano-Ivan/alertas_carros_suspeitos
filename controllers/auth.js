@@ -1,16 +1,22 @@
 const fileSystem = require("fs");
-const passport = require("passport");
-const tempLogin = fileSystem.readFileSync(
+
+/*const tempLogin = fileSystem.readFileSync(
   `${__dirname}/../templates/login.html`,
   "utf-8"
 );
-const usuarios = require("../models/Usuario");
-
+*/
 exports.getLogin = (req, res) => {
-  res.writeHead(200, { "Content-type": "text/html" });
-  res.end(tempLogin);
+  //res.writeHead(200, { "Content-type": "text/html" });
+  //res.end(tempLogin);
+  if (req.query.fail) {
+    res.render("login", {
+      mensagem: "Por favor, verifique os campos novamente",
+    });
+  } else {
+    res.render("login");
+  }
 };
-exports.processarLogin = (req, res) => {};
+
 // exports.processarLogin = (req, res) => {
 //   const senha = req.body.password;
 //   const emailOuNome = req.body.email_nome;

@@ -1,8 +1,8 @@
 const queryPromise2 = require("../modules/queryPromise2");
-const AES = require("mysql-aes-binary");
-const decrypt = function (text) {
-  return AES.decrypt(text, "chave_node");
-};
+// const AES = require("mysql-aes-binary");
+// const decrypt = function (text) {
+//   return AES.decrypt(text, "chave_node");
+// };
 
 class Usuario {
   async buscarPorEmailOuNomeESenha(senha, emailOuNome) {
@@ -18,7 +18,7 @@ class Usuario {
 FROM  usuarios WHERE email = ? or nome = ?;`;
     console.log(sql);
     const dados = await queryPromise2([emailOuNome, emailOuNome], sql);
-    console.log(dados);
+    //console.log(dados);
     return [].concat(dados);
   }
   async findUserById(id) {

@@ -1,4 +1,4 @@
-const controllerVeiculosIrregulares = require("./../controllers/veiculos_irregulares");
+const controllerVeiculosIrregulares = require("./../../controllers/veiculos_irregulares");
 
 module.exports = (app) => {
   app.get(

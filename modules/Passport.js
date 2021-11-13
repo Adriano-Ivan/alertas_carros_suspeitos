@@ -30,14 +30,14 @@ module.exports = (passport, usuario) => {
               if (!resultado || resultado.length === 0) {
                 return done(null, false);
               }
-              console.log(resultado, "+++");
-              console.log(password, username);
-              const salt = bcrypt.genSaltSync(10);
+              // console.log(resultado, "+++");
+              // console.log(password, username);
+              // const salt = bcrypt.genSaltSync(10);
 
               const isValid = bcrypt.compareSync(password, resultado[0].senha);
-              console.log(isValid);
+              // console.log(isValid);
               if (!isValid) {
-                console.log("!isValid");
+                // console.log("!isValid");
                 return done(null, false);
               } else {
                 return done(null, resultado);
