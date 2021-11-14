@@ -1,4 +1,3 @@
-const fileSystem = require("fs");
 const rotaBootstrapCSS = require("./../modules/linkCSSeBootstrap");
 const estiloBootstrapCSS = rotaBootstrapCSS();
 

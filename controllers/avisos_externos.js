@@ -1,5 +1,3 @@
-const replaceTemplate = require("../modules/replaceTemplate");
-const fileSystem = require("fs");
 const rotaBootstrapCSS = require("./../modules/linkCSSeBootstrap");
 const estiloBootstrapCSS = rotaBootstrapCSS();
 
