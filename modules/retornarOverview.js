@@ -36,7 +36,9 @@ module.exports = (req, res, dadosRelatorio = null) => {
         ESTILO_CSS: estiloBootstrapCSS.split("|")[1],
         imagem_home: imagemHome,
         boas_vindas: boasVindas,
-        retorno_relatorio_eh_array: typeof retornoRelatorio[0] === "object",
+        retorno_relatorio_eh_array:
+          typeof retornoRelatorio[0] === "object" &&
+          retornoRelatorio[0].length > 0,
         retorno_relatorio1: retornoRelatorio[0],
         retorno_relatorio2: retornoRelatorio[1],
         nome_usuario,
