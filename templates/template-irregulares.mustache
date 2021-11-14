@@ -1,3 +1,5 @@
+{{>partials/topo}}
+<aside>
 <div class="container">
   <div class="table-responsive d-block d-md-table">
     <table
@@ -26,8 +28,22 @@
         </tr>
       </thead>
       <tbody>
-        {%LINHAS_IRREGULARES%}
+                {{#listagem_eh_valida}}
+          {{#listagem}}
+          <tr>
+            <td>{{dono}}</td>
+            <td>{{placa}}</td>
+            <td>{{status}}</td>
+            <td>{{nivel_urgencia}}</td>
+            <td>{{local_alerta}}</td>
+            <td>{{hora}}, {{data}}</td>
+            <td>{{medida_administrativa}}</td>
+          </tr>
+          {{/listagem}}
+        {{/listagem_eh_valida}}
       </tbody>
     </table>
   </div>
 </div>
+</aside>
+{{>partials/fim}}

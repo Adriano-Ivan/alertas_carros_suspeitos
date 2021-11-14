@@ -1,28 +1,29 @@
-const replaceTemplate = require("../modules/replaceTemplate");
-const fileSystem = require("fs");
 const listaVeiculosInfracao = require("../models/Veiculos_infracao");
-const tempInfracao = fileSystem.readFileSync(
-  `${__dirname}/../templates/template-infracao.html`,
-  "utf-8"
-);
-const tempOverview = fileSystem.readFileSync(
-  `${__dirname}/../templates/template-overview.mustache`,
-  "utf-8"
-);
+const rotaBootstrapCSS = require("./../modules/linkCSSeBootstrap");
+const estiloBootstrapCSS = rotaBootstrapCSS();
 exports.getVeiculosInfracao = (req, res) => {
-  res.writeHead(200, { "Content-type": "text/html" });
   listaVeiculosInfracao.pegarDados().then((listagem) => {
-    const retorno = replaceTemplate(tempOverview, tempInfracao, listagem);
-    //console.log(listagem);
-    res.status(200).end(retorno);
+    console.log(listagem);
+    res.render("template-infracao", {
+      BOOTSTRAP_CSS: estiloBootstrapCSS.split("|")[0],
+      ESTILO_CSS: estiloBootstrapCSS.split("|")[1],
+      listagem_eh_valida: listagem.length > 0,
+      listagem,
+    });
   });
 };
 exports.getVeiculosInfracaoPorPlaca = (req, res) => {
-  res.writeHead(200, { "Content-type": "text/html" });
   const placa = req.params.placa;
-  listaVeiculosInfracao.buscarPorPlaca(placa).then((item) => {
-    const retorno = replaceTemplate(tempOverview, tempInfracao, item);
-    res.status(200).end(retorno);
+  listaVeiculosInfracao.buscarPorPlaca(placa).then((listagem) => {
+    // const retorno = replaceTemplate(tempOverview, tempRoubados, item);
+    // res.status(200).end(retorno);
+
+    res.render("template-irregulares", {
+      BOOTSTRAP_CSS: estiloBootstrapCSS.split("|")[0],
+      ESTILO_CSS: estiloBootstrapCSS.split("|")[1],
+      listagem_eh_valida: listagem.length > 0,
+      listagem,
+    });
   });
 };
 exports.postVeiculosInfracao = (req, res) => {

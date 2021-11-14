@@ -1,28 +1,29 @@
-const replaceTemplate = require("../modules/replaceTemplate");
-const fileSystem = require("fs");
 const listaVeiculosSuspeitos = require("../models/Veiculos_suspeitos");
-const tempSuspeitos = fileSystem.readFileSync(
-  `${__dirname}/../templates/template-suspeitos.html`,
-  "utf-8"
-);
-const tempOverview = fileSystem.readFileSync(
-  `${__dirname}/../templates/template-overview.mustache`,
-  "utf-8"
-);
+const rotaBootstrapCSS = require("./../modules/linkCSSeBootstrap");
+const estiloBootstrapCSS = rotaBootstrapCSS();
 exports.getVeiculosSuspeitos = (req, res) => {
-  res.writeHead(200, { "Content-type": "text/html" });
   listaVeiculosSuspeitos.pegarDados().then((listagem) => {
-    const retorno = replaceTemplate(tempOverview, tempSuspeitos, listagem);
-    //console.log(listagem);
-    res.end(retorno);
+    console.log(listagem);
+    res.render("template-suspeitos", {
+      BOOTSTRAP_CSS: estiloBootstrapCSS.split("|")[0],
+      ESTILO_CSS: estiloBootstrapCSS.split("|")[1],
+      listagem_eh_valida: listagem.length > 0,
+      listagem,
+    });
   });
 };
 exports.getVeiculosSuspeitosPorPlaca = (req, res) => {
-  res.writeHead(200, { "Content-type": "text/html" });
   const placa = req.params.placa;
-  listaVeiculosSuspeitos.buscarPorPlaca(placa).then((item) => {
-    const retorno = replaceTemplate(tempOverview, tempSuspeitos, item);
-    res.end(retorno);
+  listaVeiculosRoubados.buscarPorPlaca(placa).then((listagem) => {
+    // const retorno = replaceTemplate(tempOverview, tempRoubados, item);
+    // res.status(200).end(retorno);
+
+    res.render("template-suspeitos", {
+      BOOTSTRAP_CSS: estiloBootstrapCSS.split("|")[0],
+      ESTILO_CSS: estiloBootstrapCSS.split("|")[1],
+      listagem_eh_valida: listagem.length > 0,
+      listagem,
+    });
   });
 };
 exports.postVeiculosSuspeitos = (req, res) => {

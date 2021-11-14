@@ -1,26 +1,29 @@
-const replaceTemplate = require("../modules/replaceTemplate");
-const fileSystem = require("fs");
 const listaVeiculosIrregulares = require("../models/Veiculos_irregulares");
-const tempIrregulares = fileSystem.readFileSync(
-  `${__dirname}/../templates/template-irregulares.html`,
-  "utf-8"
-);
-const tempOverview = fileSystem.readFileSync(
-  `${__dirname}/../templates/template-overview.mustache`,
-  "utf-8"
-);
+const rotaBootstrapCSS = require("./../modules/linkCSSeBootstrap");
+const estiloBootstrapCSS = rotaBootstrapCSS();
 exports.getVeiculosIrregulares = (req, res) => {
-  res.writeHead(200, { "Content-type": "text/html" });
   listaVeiculosIrregulares.pegarDados().then((listagem) => {
-    const retorno = replaceTemplate(tempOverview, tempIrregulares, listagem);
-    res.status(200).end(retorno);
+    console.log(listagem);
+    res.render("template-irregulares", {
+      BOOTSTRAP_CSS: estiloBootstrapCSS.split("|")[0],
+      ESTILO_CSS: estiloBootstrapCSS.split("|")[1],
+      listagem_eh_valida: listagem.length > 0,
+      listagem,
+    });
   });
 };
 exports.getVeiculosIrregularesPorPlaca = (req, res) => {
-  res.writeHead(200, { "Content-type": "text/html" });
-  listaVeiculosIrregulares.buscarPorPlaca(placa).then((item) => {
-    const retorno = replaceTemplate(tempOverview, tempIrregulares, item);
-    res.status(200).end(retorno);
+  const placa = req.params.placa;
+  listaVeiculosIrregulares.buscarPorPlaca(placa).then((listagem) => {
+    // const retorno = replaceTemplate(tempOverview, tempRoubados, item);
+    // res.status(200).end(retorno);
+
+    res.render("template-irregulares", {
+      BOOTSTRAP_CSS: estiloBootstrapCSS.split("|")[0],
+      ESTILO_CSS: estiloBootstrapCSS.split("|")[1],
+      listagem_eh_valida: listagem.length > 0,
+      listagem,
+    });
   });
 };
 exports.postVeiculosIrregulares = (req, res) => {

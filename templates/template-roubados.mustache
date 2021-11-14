@@ -16,7 +16,7 @@
       <caption>
         VEÍCULOS rOUBADOS
       </caption>
-      <thead style="margin-top: -10px" class="table-dark">
+      <thead  class="table-dark">
         <tr>
           <th scope="col">DONO</th>
           <th scope="col">PLACA</th>
@@ -28,7 +28,19 @@
         </tr>
       </thead>
       <tbody>
-        {%LINHAS_ROUBADOS%}
+        {{#listagem_eh_valida}}
+          {{#listagem}}
+          <tr>
+            <td>{{dono}}</td>
+            <td>{{placa}}</td>
+            <td>{{status}}</td>
+            <td>{{nivel_urgencia}}</td>
+            <td>{{local_roubo}}</td>
+            <td>{{hora}}, {{data}}</td>
+            <td>{{local_alerta}}</td>
+          </tr>
+          {{/listagem}}
+        {{/listagem_eh_valida}}
       </tbody>
     </table>
   </div>
