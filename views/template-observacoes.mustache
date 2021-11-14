@@ -1,0 +1,27 @@
+{{>partials/topo}}
+<aside>
+<form action="/observacoes_pertinentes" class="form-observacoes" method="POST">
+  <label>
+    DESCRIÇÃO:<br />
+    <textarea
+      autofocus
+      class="form-control"
+      name="descricao_observacao"
+      class="descricao_tarefa"
+    ></textarea>
+  </label>
+  <button class="btn btn-primary btn-sm" id="inserir_tarefa">
+    INSERIR OBSERVAÇÃO
+  </button>
+</form>
+{{#listagem_eh_valida}}
+ {{#listagem}}
+ <ul class='lista-observacao'>
+  <li class='item-observacao'><div style='text-align:center;'><div class='id-observacao'>{{
+        index
+      }}</div></div> <p class='desc-observacao'>{{descricao_observacao}}</p><form action="/update_observacao/" method='GET'enctype="application/x-www-form-urlencoded" role='form'><input type='number' class='desaparecer' name='id-registro-tarefa'value={{id}}><button class="btn btn-success"class='edicao-observacao'>↘</button></form><form action = '/delete_observacao/'method='post' enctype="application/x-www-form-urlencoded"><input type='number' class='desaparecer' name='id-registro-observacao' value={{id}}><button  class="btn btn-danger" class='exclusao-observacao'>x</button></form></li>
+      </ul>
+ {{/listagem}}
+{{/listagem_eh_valida}}
+</aside>
+{{>partials/fim}}

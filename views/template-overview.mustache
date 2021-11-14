@@ -2,16 +2,17 @@
       <aside>
       <div>
       <img src='{{imagem_home}}'alt='imagem_defesa_civil'></img>
-      <h1>{{boas_vindas}}</h1>
+      <h1 style='text-transform:capitalize;'>{{boas_vindas}}{{#nome_usuario}}, {{nome_usuario}} {{/nome_usuario}} !</h1>
       <div class='alertas-home'>
       <div class='alerta-ocorrencia font-weight-bold alert alert-danger' role='alert'>
         {{#retorno_relatorio_eh_array}}
-          <h4>Há casos que requerem sua atenção !</h4>
+          <h3>Há casos que requerem sua atenção !</h3>
           <ul class='lista-relatorio'>
             {{#retorno_relatorio1}}
               <li>{{.}}</li>
             {{/retorno_relatorio1}}
           </ul>
+          <h4><strong>Por favor, verifique a aba de alertas para tomar as devidas providências !</strong></h4>
         {{/retorno_relatorio_eh_array}}
         {{^retorno_relatorio_eh_array}}
           <h4>{{retorno_relatorio1}}

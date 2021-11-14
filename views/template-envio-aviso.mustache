@@ -1,3 +1,5 @@
+{{>partials/topo}}
+<aside>
 <form
   method="POST"
   class="form-mensagem"
@@ -25,5 +27,13 @@
   </button>
 </form>
 <ul>
-  {%AVISOS_ENVIADOS%}
+  {{#avisos_enviados_validos}}
+
+  {{/avisos_enviados_validos}}
+  {{^avisos_enviados_validos}}
+  <strong style='margin-top:30px'>Não há itens na lista de avisos enviados</strong>
+  {{/avisos_enviados_validos}}
+ 
 </ul>
+</aside>
+{{>partials/fim}}

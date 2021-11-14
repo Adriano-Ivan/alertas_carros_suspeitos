@@ -4,7 +4,7 @@ const estiloBootstrapCSS = rotaBootstrapCSS();
 
 exports.getVeiculosRoubados = (req, res) => {
   listaVeiculosRoubados.pegarDados().then((listagem) => {
-    console.log(listagem);
+    //console.log(listagem);
     res.render("template-roubados", {
       BOOTSTRAP_CSS: estiloBootstrapCSS.split("|")[0],
       ESTILO_CSS: estiloBootstrapCSS.split("|")[1],

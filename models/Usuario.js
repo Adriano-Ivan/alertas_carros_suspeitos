@@ -7,9 +7,9 @@ const queryPromise2 = require("../modules/queryPromise2");
 class Usuario {
   async buscarPorEmailOuNomeESenha(senha, emailOuNome) {
     const sql = `SELECT nome, email, CAST(AES_DECRYPT(senha,'chave_node') AS CHAR(256)) AS senha_de FROM usuarios WHERE email = ? or nome = ? and CAST(AES_DECRYPT(senha,'chave_node') AS CHAR(256)) = ?;`;
-    console.log(sql);
+    //console.log(sql);
     const dados = await queryPromise2([emailOuNome, emailOuNome, senha], sql);
-    console.log(dados);
+    //console.log(dados);
     return [].concat(dados);
   }
   async findUser(emailOuNome) {

@@ -1,8 +1,10 @@
+{{>partials/topo}}
+<aside>
 <h2 class="titulo-aviso" style="margin-bottom: 30px">
   Confira suas mensagens recebidas:
 </h2>
 <ul class="avisos-externos-lista">
-  <!--
+  
   <li>
     <div class="numeracao">1</div>
     <p class="descricao-aviso">
@@ -11,7 +13,7 @@
       laudantium nemo aspernatur officia voluptas quos, doloremque perferendis,
       corrupti, alias in facilis tempore!
     </p>
-    <form><button class="exclusao-aviso">X</button></form>
+    <form><button class="btn btn-danger"">X</button></form>
   </li>
   <li>
     <div class="numeracao">2</div>
@@ -21,8 +23,15 @@
       laudantium nemo aspernatur officia voluptas quos, doloremque perferendis,
       corrupti, alias in facilis tempore!
     </p>
-    <form><button class="exclusao-aviso">X</button></form>
+    <form><button class="btn btn-danger">X</button></form>
   </li>
-  -->
-  {%AVISOS%}
+  
+  {{#avisos_validos}}
+
+  {{/avisos_validos}}
+  {{^avisos_validos}}
+<strong style='margin-top:30px'>Não há itens na lista de avisos recebidos</strong>
+  {{/avisos_validos}}
 </ul>
+</aside>
+{{>partials/fim}}

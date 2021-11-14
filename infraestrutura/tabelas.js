@@ -23,6 +23,7 @@ class Tabelas {
       }
     });
   }
+
   criarUsuarios() {
     const sql =
       "CREATE TABLE IF NOT EXISTS usuarios(id int NOT NULL AUTO_INCREMENT, nome varchar(130) NOT NULL,email varchar(130) NOT NULL, senha varchar(256) NOT NULL, PRIMARY KEY(id))";

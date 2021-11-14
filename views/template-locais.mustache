@@ -1,3 +1,5 @@
+{{>partials/topo}}
+<aside>
 <h2 class="titulo-locais" style="margin-bottom: 15px">
   CONFIRA OS LOCAIS-ALVO
 </h2>
@@ -20,5 +22,12 @@
     </tr>
   </tbody>
   -->
-  {%LOCAIS%}
+  {{#locais_validos}}
+
+  {{/locais_validos}}
+    {{^locais_validos}}
+<strong style='margin-top:30px'>Não há itens na lista de locais</strong>
+  {{/locais_validos}}
 </table>
+</aside>
+{{>partials/fim}}

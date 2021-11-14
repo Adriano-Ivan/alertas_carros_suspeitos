@@ -1,57 +1,50 @@
 const listaAfazeres = require("../models/Lista_afazeres");
-const replaceTemplate = require("../modules/replaceTemplate");
-const fileSystem = require("fs");
-const tempUpdateTarefa = fileSystem.readFileSync(
-  `${__dirname}/../templates/template-update-tarefa.html`,
-  "utf-8"
-);
 const url = require("url");
-const tempAfazeres = fileSystem.readFileSync(
-  `${__dirname}/../templates/template-afazeres.html`,
-  "utf-8"
-);
-const tempOverview = fileSystem.readFileSync(
-  `${__dirname}/../templates/template-overview.mustache`,
-  "utf-8"
-);
+const rotaBootstrapCSS = require("./../modules/linkCSSeBootstrap");
+const estiloBootstrapCSS = rotaBootstrapCSS();
+
 exports.getAfazeres = (req, res) => {
-  res.writeHead(200, { "Content-type": "text/html" });
+  //res.writeHead(200, { "Content-type": "text/html" });
   listaAfazeres.pegarDados().then((listagem) => {
-    const retorno = replaceTemplate(
-      tempOverview,
-      tempAfazeres,
-      listagem
-      // listaAfazeres.retornoTarefas
-    );
-    res.status(200).end(retorno);
+    const dados = listagem.map((item, i) => {
+      item["index"] = i + 1;
+      return item;
+    });
+    console.log(dados);
+    res.render("template-afazeres", {
+      BOOTSTRAP_CSS: estiloBootstrapCSS.split("|")[0],
+      ESTILO_CSS: estiloBootstrapCSS.split("|")[1],
+      listagem_eh_valida: listagem.length > 0,
+      listagem: dados,
+    });
   });
 };
 exports.getAfazeresPorDescricao = (req, res) => {
-  res.writeHead(200, { "Content-type": "text/html" });
+  //res.writeHead(200, { "Content-type": "text/html" });
   const descricao = req.params.descricao;
-  listaAfazeres.buscarPorDescricao(descricao, res).then((item) => {
-    const retorno = replaceTemplate(tempOverview, tempAfazeres, item);
-    res.status(200).end(retorno);
+  listaAfazeres.buscarPorDescricao(descricao, res).then((listagem) => {
+    const dados = listagem.map((item, i) => {
+      item["index"] = i + 1;
+      return item;
+    });
+    console.log(dados);
+    res.render("template-afazeres", {
+      BOOTSTRAP_CSS: estiloBootstrapCSS.split("|")[0],
+      ESTILO_CSS: estiloBootstrapCSS.split("|")[1],
+      listagem_eh_valida: listagem.length > 0,
+      listagem: dados,
+    });
   });
 };
 exports.postAfazeres = (req, res) => {
-  res.writeHead(200, { "Content-type": "text/html" });
+  //res.writeHead(200, { "Content-type": "text/html" });
   const tarefa = req.body;
   console.log(tarefa);
 
   listaAfazeres
     .adiciona(tarefa)
     .then(() => {
-      return listaAfazeres.pegarDados();
-    })
-    .then((listagem) => {
-      const retorno = replaceTemplate(
-        tempOverview,
-        tempAfazeres,
-        listagem
-        //listaAfazeres.retornoTarefas
-      );
-      res.end(retorno);
+      res.redirect("/lista_afazeres");
     })
     .catch((error) => {
       console.log(error);
@@ -60,12 +53,15 @@ exports.postAfazeres = (req, res) => {
   //res.send("Você está na rota de /lista_afazeres e está realizando um POST");
 };
 exports.updateAfazer = (req, res) => {
-  res.writeHead(200, { "Content-type": "text/html" });
+  //res.writeHead(200, { "Content-type": "text/html" });
   const { query } = url.parse(req.url, true);
   //console.log(query);
   const id = parseInt(query["id-registro-tarefa"]);
-  const retorno = replaceTemplate(tempOverview, tempUpdateTarefa, id);
-  res.status(200).end(retorno);
+  res.render("template-update-tarefa", {
+    id,
+    BOOTSTRAP_CSS: estiloBootstrapCSS.split("|")[0],
+    ESTILO_CSS: estiloBootstrapCSS.split("|")[1],
+  });
 };
 exports.fazerUpdate = (req, res) => {
   const id = req.body.id_task;
@@ -78,6 +74,8 @@ exports.fazerUpdate = (req, res) => {
 exports.deletarTarefa = (req, res) => {
   const id = parseInt(req.body["id-registro-tarefa"]);
   listaAfazeres.deletarTarefa(id).then(() => {
+    console.log("ENTROU");
+    console.log(id);
     res.redirect("/lista_afazeres");
   });
 };

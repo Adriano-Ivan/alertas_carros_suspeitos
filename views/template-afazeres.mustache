@@ -1,0 +1,31 @@
+{{>partials/topo}}
+<aside>
+<form
+  method="POST"
+  class="form-tarefas"
+  enctype="application/x-www-form-urlencoded"
+>
+  <label>
+    DESCRIÇÃO:<br />
+    <textarea
+      autofocus
+      class="form-control"
+      class="descricao_tarefa"
+      name="descricao"
+    ></textarea>
+  </label>
+  <button class="btn btn-primary btn-sm" id="inserir_tarefa">
+    INSERIR TAREFA
+  </button>
+</form>
+{{#listagem_eh_valida}}
+ {{#listagem}}
+ <ul class='lista-tarefa'>
+  <li class='item-tarefa'><div style='text-align:center;'><div class='id-tarefa'>{{
+        index
+      }}</div></div> <p class='desc-tarefa'>{{descricao}}</p><form action="/update_tarefa/" method='GET'enctype="application/x-www-form-urlencoded" role='form'><input type='number' class='desaparecer' name='id-registro-tarefa'value={{id}}><button class="btn btn-success"class='edicao-tarefa'>↘</button></form><form action = '/delete_tarefa/'method='post' enctype="application/x-www-form-urlencoded"><input type='number' class='desaparecer' name='id-registro-tarefa' value={{id}}><button  class="btn btn-danger" class='exclusao-tarefa'>x</button></form></li>
+      </ul>
+ {{/listagem}}
+{{/listagem_eh_valida}}
+</aside>
+{{>partials/fim}}

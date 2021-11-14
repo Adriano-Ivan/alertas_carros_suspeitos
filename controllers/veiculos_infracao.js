@@ -3,7 +3,7 @@ const rotaBootstrapCSS = require("./../modules/linkCSSeBootstrap");
 const estiloBootstrapCSS = rotaBootstrapCSS();
 exports.getVeiculosInfracao = (req, res) => {
   listaVeiculosInfracao.pegarDados().then((listagem) => {
-    console.log(listagem);
+    //console.log(listagem);
     res.render("template-infracao", {
       BOOTSTRAP_CSS: estiloBootstrapCSS.split("|")[0],
       ESTILO_CSS: estiloBootstrapCSS.split("|")[1],

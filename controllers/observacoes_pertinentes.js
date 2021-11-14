@@ -1,71 +1,64 @@
 const listaObservacoes = require("../models/Lista_observacoes");
-const replaceTemplate = require("../modules/replaceTemplate");
-const fileSystem = require("fs");
 const url = require("url");
-const tempObservacoes = fileSystem.readFileSync(
-  `${__dirname}/../templates/template-observacoes.html`,
-  "utf-8"
-);
-const tempUpdateObservacao = fileSystem.readFileSync(
-  `${__dirname}/../templates/template-update-observacao.html`,
-  "utf-8"
-);
-const tempOverview = fileSystem.readFileSync(
-  `${__dirname}/../templates/template-overview.mustache`,
-  "utf-8"
-);
+const rotaBootstrapCSS = require("./../modules/linkCSSeBootstrap");
+const estiloBootstrapCSS = rotaBootstrapCSS();
+
 exports.getObservacoesPertinentes = (req, res) => {
-  res.writeHead(200, { "Content-type": "text/html" });
+  //res.writeHead(200, { "Content-type": "text/html" });
   listaObservacoes.pegarDados().then((listagem) => {
-    const retorno = replaceTemplate(
-      tempOverview,
-      tempObservacoes,
-      listagem
-      // listaAfazeres.retornoTarefas
-    );
-    res.status(200).end(retorno);
+    const dados = listagem.map((item, i) => {
+      item["index"] = i + 1;
+      return item;
+    });
+    console.log(dados);
+    res.render("template-observacoes", {
+      BOOTSTRAP_CSS: estiloBootstrapCSS.split("|")[0],
+      ESTILO_CSS: estiloBootstrapCSS.split("|")[1],
+      listagem_eh_valida: listagem.length > 0,
+      listagem: dados,
+    });
   });
 };
 exports.getObservacaoPorDescricao = (req, res) => {
   res.writeHead(200, { "Content-type": "text/html" });
   const descricao = req.params.descricao;
   console.log(descricao);
-  listaObservacoes.buscarPorDescricao(descricao, res).then((item) => {
-    const retorno = replaceTemplate(tempOverview, tempObservacoes, item);
-    res.status(200).end(retorno);
+  listaObservacoes.buscarPorDescricao(descricao, res).then((listagem) => {
+    const dados = listagem.map((item, i) => {
+      item["index"] = i + 1;
+      return item;
+    });
+    console.log(dados);
+    res.render("template-observacoes", {
+      BOOTSTRAP_CSS: estiloBootstrapCSS.split("|")[0],
+      ESTILO_CSS: estiloBootstrapCSS.split("|")[1],
+      listagem_eh_valida: listagem.length > 0,
+      listagem: dados,
+    });
   });
 };
 exports.postObservacoesPertinentes = (req, res) => {
-  res.writeHead(200, { "Content-type": "text/html" });
   const observacao = req.body;
   console.log(observacao);
-  //console.log(tarefa);
 
   listaObservacoes
     .adiciona(observacao)
     .then(() => {
-      return listaObservacoes.pegarDados();
-    })
-    .then((listagem) => {
-      const retorno = replaceTemplate(
-        tempOverview,
-        tempObservacoes,
-        listagem
-        //listaAfazeres.retornoTarefas
-      );
-      res.end(retorno);
+      res.redirect("/observacoes_pertinentes");
     })
     .catch((error) => {
       console.log(error);
     });
 };
 exports.updateObservacao = (req, res) => {
-  res.writeHead(200, { "Content-type": "text/html" });
   const { query } = url.parse(req.url, true);
   //console.log(query);
-  const id = parseInt(query["id-registro-observacao"]);
-  const retorno = replaceTemplate(tempOverview, tempUpdateObservacao, id);
-  res.status(200).end(retorno);
+  const id = parseInt(query["id-registro-tarefa"]);
+  res.render("template-update-tarefa", {
+    id,
+    BOOTSTRAP_CSS: estiloBootstrapCSS.split("|")[0],
+    ESTILO_CSS: estiloBootstrapCSS.split("|")[1],
+  });
 };
 exports.fazerUpdateObservacao = (req, res) => {
   const id = req.body.id_observation;

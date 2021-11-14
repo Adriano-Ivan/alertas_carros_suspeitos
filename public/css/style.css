@@ -103,18 +103,18 @@ aside {
 }
 .alertas-home {
   display: flex;
-  padding: 10px;
+  padding: 0;
+  padding-top: 30px;
   flex-direction: row;
   justify-content: space-between;
 }
 .alertas-home .alert-success {
-  width: 35%;
+  width: 50%;
   border: 1px solid rgb(140, 199, 126);
-  margin-left: 10px;
 }
 .alertas-home .alert-danger {
   border: 1px solid rgb(223, 74, 74);
-  width: 35%;
+  width: 50%;
 }
 /* Área de menu*/
 .lista-menu {
@@ -180,12 +180,13 @@ aside {
 }
 .lista-relatorio li {
   text-align: center;
+  list-style: none;
   line-height: 35px;
 }
 .alerta-ocorrencia {
   border: 1px solid rgb(223, 74, 74);
   color: rgb(204, 22, 22);
-  border-radius: 3%;
+  text-align: center;
   min-height: 100%;
   margin-top: 35px;
   display: flex;
@@ -242,7 +243,7 @@ aside div h1 {
   text-transform: uppercase;
 }
 img[alt="imagem_defesa_civil"] {
-  width: 290px;
+  width: 265px;
   margin: 24px auto;
 }
 /*tabela*/
@@ -303,7 +304,7 @@ input[type="submit"] {
 .avisos-externos-lista li {
   display: flex;
   align-items: center;
-  width: 50%;
+  width: 80%;
   margin-bottom: 18px;
 }
 .tabela-locais th,
@@ -320,6 +321,9 @@ input[type="submit"] {
   flex: 1;
 
   border: 1px solid rgb(42, 92, 184);
+}
+.exclusao-aviso {
+  overflow: hidden;
 }
 .avisos-externos-lista .descricao-aviso {
   height: auto;
@@ -420,7 +424,7 @@ input[type="submit"] {
 .lista-tarefa,
 .lista-observacao {
   color: #fff;
-  width: 69%;
+  width: 90%;
   font-size: 22px;
   display: flex;
   align-items: center;

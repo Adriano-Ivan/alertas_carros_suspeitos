@@ -1,21 +1,16 @@
 const replaceTemplate = require("../modules/replaceTemplate");
 const fileSystem = require("fs");
-const tempAvisosExternos = fileSystem.readFileSync(
-  `${__dirname}/../templates/template-avisos-externos.html`,
-  "utf-8"
-);
-const tempOverview = fileSystem.readFileSync(
-  `${__dirname}/../templates/template-overview.mustache`,
-  "utf-8"
-);
+const rotaBootstrapCSS = require("./../modules/linkCSSeBootstrap");
+const estiloBootstrapCSS = rotaBootstrapCSS();
 
 exports.getAvisosExternos = (req, res) => {
-  res.writeHead(200, { "Content-type": "text/html" });
-  const retorno = replaceTemplate(tempOverview, tempAvisosExternos);
-  res.status(200).end(retorno);
+  res.render("template-avisos-externos", {
+    BOOTSTRAP_CSS: estiloBootstrapCSS.split("|")[0],
+    ESTILO_CSS: estiloBootstrapCSS.split("|")[1],
+  });
 };
 exports.postAvisosExternos = (req, res) => {
-  res.writeHead(200, { "Content-type": "text/html" });
-  const retorno = replaceTemplate(tempOverview, tempAvisosExternos);
-  res.end(retorno);
+  // res.writeHead(200, { "Content-type": "text/html" });
+  // const retorno = replaceTemplate(tempOverview, tempAvisosExternos);
+  // res.end(retorno);
 };

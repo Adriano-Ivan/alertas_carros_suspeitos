@@ -19,7 +19,7 @@ const cors = require("cors");
 module.exports = () => {
   const app = express();
   app.set("view engine", "mustache");
-  app.set("views", path.join(__dirname, "../templates"));
+  app.set("views", path.join(__dirname, "../views"));
   app.engine("mustache", mustache());
   app.use(cors());
   app.use(bodyParser.urlencoded({ extended: true }));
