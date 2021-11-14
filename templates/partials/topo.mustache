@@ -8,7 +8,9 @@
       rel="icon"
       href="http://localhost:8005/public/img/icon_a5f231f799e7ef0588a474ff1d5caa23.ico"
     />
-    {%BOOTSTRAP_CSS%}{%ESTILO_CSS%}
+    <link rel='stylesheet' href='{{BOOTSTRAP_CSS}}'>
+    <link rel='stylesheet' href='{{ESTILO_CSS}}'>
+ 
   </head>
   <body>
     <header class="header-fixed">
@@ -73,21 +75,3 @@
           </div>
         </ul>
       </nav>
-      <aside><div>{%ELEMENT_OF_REPR%}</div></aside>
-    </section>
-
-    <script src="http://localhost:8005/public/bootstrap_js/bootstrap.bundle.min.js"></script>
-    <script>
-      // Mostrar e esconder os submenus
-      const lista_titulos = document.querySelectorAll(".lista-titulo");
-      lista_titulos.forEach((titulo) =>
-        titulo.addEventListener("click", (event) => {
-          //console.log(event.target);
-          if (event.target.nextElementSibling.classList.contains("sublista")) {
-            event.target.nextElementSibling.classList.toggle("desaparecer");
-          }
-        })
-      );
-    </script>
-  </body>
-</html>

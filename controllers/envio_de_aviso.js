@@ -6,7 +6,7 @@ const tempEnvioAviso = fileSystem.readFileSync(
 );
 
 const tempOverview = fileSystem.readFileSync(
-  `${__dirname}/../templates/template-overview.html`,
+  `${__dirname}/../templates/template-overview.mustache`,
   "utf-8"
 );
 

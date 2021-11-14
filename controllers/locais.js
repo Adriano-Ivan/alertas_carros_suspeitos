@@ -5,7 +5,7 @@ const tempLocais = fileSystem.readFileSync(
   "utf-8"
 );
 const tempOverview = fileSystem.readFileSync(
-  `${__dirname}/../templates/template-overview.html`,
+  `${__dirname}/../templates/template-overview.mustache`,
   "utf-8"
 );
 exports.getLocais = (req, res) => {

@@ -1,0 +1,35 @@
+{{>partials/topo}}
+      <aside>
+      <div>
+      <img src='{{imagem_home}}'alt='imagem_defesa_civil'></img>
+      <h1>{{boas_vindas}}</h1>
+      <div class='alertas-home'>
+      <div class='alerta-ocorrencia font-weight-bold alert alert-danger' role='alert'>
+        {{#retorno_relatorio_eh_array}}
+          <h4>Há casos que requerem sua atenção !</h4>
+          <ul class='lista-relatorio'>
+            {{#retorno_relatorio1}}
+              <li>{{.}}</li>
+            {{/retorno_relatorio1}}
+          </ul>
+        {{/retorno_relatorio_eh_array}}
+        {{^retorno_relatorio_eh_array}}
+          <h4>{{retorno_relatorio1}}
+        {{/retorno_relatorio_eh_array}}
+      </div>
+      <div class='alerta-ocorrencia font-weight-bold alert alert-success' role='alert'>
+              {{#retorno_relatorio_eh_array}}
+          <h4>Há casos que requerem sua atenção !</h4>
+          <ul class='lista-relatorio'>
+            {{#retorno_relatorio2}}
+              <li>{{.}}</li>
+            {{/retorno_relatorio2}}
+          </ul>
+        {{/retorno_relatorio_eh_array}}
+        {{^retorno_relatorio_eh_array}}
+          <h4>{{retorno_relatorio2}}
+        {{/retorno_relatorio_eh_array}}
+      </div>
+      </div>
+      </div></aside>
+{{>partials/fim}}
