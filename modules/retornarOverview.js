@@ -8,10 +8,12 @@ module.exports = (req, res, tempOverview, dadosRelatorio = null) => {
   const estiloBootstrapCSS = rotaBootstrapCSS();
   const boasVindas = "Bem-vindo !";
   const alerta = "{%ALERTA%}";
+  const alerta2 = "{%ALERTA2%}";
   const retornoEl = [
     `<img src='${imagemHome}'alt='imagem_defesa_civil'</img>`,
     `<h1>${boasVindas}</h1>`,
-    `<div class='alerta-ocorrencia font-weight-bold alert alert-danger' role='alert'><h4>${alerta}</h4></div>`,
+    `<div class='alertas-home'><div class='alerta-ocorrencia font-weight-bold alert alert-danger' role='alert'><h4>${alerta}</h4></div>`,
+    `<div class='alerta-ocorrencia font-weight-bold alert alert-success' role='alert'><h4>${alerta2}</h4></div></div>`,
     estiloBootstrapCSS,
   ];
   if (dadosRelatorio === null || dadosRelatorio.length === 0) {

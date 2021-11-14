@@ -8,10 +8,21 @@ module.exports = (template, retorno, dados = null, alertaExemplo) => {
   let templateRetornado = template;
   //console.log(retorno.includes("{%LINHAS_ROUBADOS%}"));
   if (dados === null && retorno.length >= 2 && typeof retorno === "object") {
-    (templateRetornado = templateRetornado
-      .replace(/{%ELEMENT_OF_REPR%}/g, retorno.slice(0, 3).join(""))
-      .replace(/{%BOOTSTRAP_CSS%}{%ESTILO_CSS%}/g, retorno.slice(3))
-      .replace("{%ALERTA%}", alertaExemplo)).replace(",", "");
+    if (alertaExemplo.length === 2) {
+      templateRetornado = templateRetornado
+        .replace(/{%ELEMENT_OF_REPR%}/g, retorno.slice(0, 4).join(""))
+        .replace(/{%BOOTSTRAP_CSS%}{%ESTILO_CSS%}/g, retorno.slice(4))
+        .replace("{%ALERTA%}", alertaExemplo[0])
+        .replace("{%ALERTA2%}", alertaExemplo[1])
+        .replace(",", "");
+      console.log("TESTEEEEEEEE");
+    } else {
+      templateRetornado = templateRetornado
+        .replace(/{%ELEMENT_OF_REPR%}/g, retorno.slice(0, 3).join(""))
+        .replace(/{%BOOTSTRAP_CSS%}{%ESTILO_CSS%}/g, retorno.slice(4))
+        .replace("{%ALERTA%}", alertaExemplo)
+        .replace(",", "");
+    }
   } else if (verificarBooleanVeiculos(retorno)) {
     let tabela = retorno;
     let linhas = ``;
