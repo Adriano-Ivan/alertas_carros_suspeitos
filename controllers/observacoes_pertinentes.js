@@ -1,6 +1,6 @@
 const listaObservacoes = require("../models/Lista_observacoes");
 const url = require("url");
-const rotaBootstrapCSS = require("./../modules/linkCSSeBootstrap");
+const rotaBootstrapCSS = require("../helpers/linkCSSeBootstrap");
 const estiloBootstrapCSS = rotaBootstrapCSS();
 
 exports.getObservacoesPertinentes = (req, res) => {
@@ -16,6 +16,7 @@ exports.getObservacoesPertinentes = (req, res) => {
       ESTILO_CSS: estiloBootstrapCSS.split("|")[1],
       listagem_eh_valida: listagem.length > 0,
       listagem: dados,
+      porta: process.env.PORT,
     });
   });
 };
@@ -34,6 +35,7 @@ exports.getObservacaoPorDescricao = (req, res) => {
       ESTILO_CSS: estiloBootstrapCSS.split("|")[1],
       listagem_eh_valida: listagem.length > 0,
       listagem: dados,
+      porta: process.env.PORT,
     });
   });
 };
@@ -58,6 +60,7 @@ exports.updateObservacao = (req, res) => {
     id,
     BOOTSTRAP_CSS: estiloBootstrapCSS.split("|")[0],
     ESTILO_CSS: estiloBootstrapCSS.split("|")[1],
+    porta: process.env.PORT,
   });
 };
 exports.fazerUpdateObservacao = (req, res) => {

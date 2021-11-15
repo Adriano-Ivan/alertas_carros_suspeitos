@@ -1,4 +1,4 @@
-const queryPromise = require("../modules/queryPromise");
+const queryPromise = require("../helpers/queryPromise");
 
 class RelatorioHome {
   async executarQueryDoRelatorio() {

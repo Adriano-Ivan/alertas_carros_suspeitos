@@ -1,5 +1,5 @@
 const listaVeiculosIrregulares = require("../models/Veiculos_irregulares");
-const rotaBootstrapCSS = require("./../modules/linkCSSeBootstrap");
+const rotaBootstrapCSS = require("../helpers/linkCSSeBootstrap");
 const estiloBootstrapCSS = rotaBootstrapCSS();
 exports.getVeiculosIrregulares = (req, res) => {
   listaVeiculosIrregulares.pegarDados().then((listagem) => {
@@ -9,6 +9,7 @@ exports.getVeiculosIrregulares = (req, res) => {
       ESTILO_CSS: estiloBootstrapCSS.split("|")[1],
       listagem_eh_valida: listagem.length > 0,
       listagem,
+      porta: process.env.PORT,
     });
   });
 };
@@ -23,6 +24,7 @@ exports.getVeiculosIrregularesPorPlaca = (req, res) => {
       ESTILO_CSS: estiloBootstrapCSS.split("|")[1],
       listagem_eh_valida: listagem.length > 0,
       listagem,
+      porta: process.env.PORT,
     });
   });
 };

@@ -1,5 +1,5 @@
 const listaVeiculosSuspeitos = require("../models/Veiculos_suspeitos");
-const rotaBootstrapCSS = require("./../modules/linkCSSeBootstrap");
+const rotaBootstrapCSS = require("../helpers/linkCSSeBootstrap");
 const estiloBootstrapCSS = rotaBootstrapCSS();
 exports.getVeiculosSuspeitos = (req, res) => {
   listaVeiculosSuspeitos.pegarDados().then((listagem) => {
@@ -9,6 +9,7 @@ exports.getVeiculosSuspeitos = (req, res) => {
       ESTILO_CSS: estiloBootstrapCSS.split("|")[1],
       listagem_eh_valida: listagem.length > 0,
       listagem,
+      porta: process.env.PORT,
     });
   });
 };
@@ -23,6 +24,7 @@ exports.getVeiculosSuspeitosPorPlaca = (req, res) => {
       ESTILO_CSS: estiloBootstrapCSS.split("|")[1],
       listagem_eh_valida: listagem.length > 0,
       listagem,
+      porta: process.env.PORT,
     });
   });
 };

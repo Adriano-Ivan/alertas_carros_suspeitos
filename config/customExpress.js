@@ -7,7 +7,7 @@ const session = require("express-session");
 const usuario = require("./../models/Usuario");
 const mustache = require("mustache-express");
 const path = require("path");
-require("./../modules/Passport")(passport, usuario);
+require("../helpers/Passport")(passport, usuario);
 const loginRouter = require("./../routes/auth");
 
 function authenticationMiddleware(req, res, next) {
@@ -36,7 +36,7 @@ module.exports = () => {
       cookie: { maxAge: 10 * 60 * 1000 },
     })
   );
-  app.use("/public", express.static(__dirname + `/../public`));
+  app.use("/public", express.static(path.join(__dirname + `/../public`)));
   app.use(passport.initialize());
   app.use(passport.session());
 

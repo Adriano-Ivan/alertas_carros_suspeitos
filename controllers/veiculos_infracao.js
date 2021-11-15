@@ -1,5 +1,5 @@
 const listaVeiculosInfracao = require("../models/Veiculos_infracao");
-const rotaBootstrapCSS = require("./../modules/linkCSSeBootstrap");
+const rotaBootstrapCSS = require("../helpers/linkCSSeBootstrap");
 const estiloBootstrapCSS = rotaBootstrapCSS();
 exports.getVeiculosInfracao = (req, res) => {
   listaVeiculosInfracao.pegarDados().then((listagem) => {
@@ -9,6 +9,7 @@ exports.getVeiculosInfracao = (req, res) => {
       ESTILO_CSS: estiloBootstrapCSS.split("|")[1],
       listagem_eh_valida: listagem.length > 0,
       listagem,
+      porta: process.env.PORT,
     });
   });
 };
@@ -23,6 +24,7 @@ exports.getVeiculosInfracaoPorPlaca = (req, res) => {
       ESTILO_CSS: estiloBootstrapCSS.split("|")[1],
       listagem_eh_valida: listagem.length > 0,
       listagem,
+      porta: process.env.PORT,
     });
   });
 };

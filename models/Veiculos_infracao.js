@@ -1,5 +1,5 @@
-const queryPromise = require("../modules/queryPromise");
-const queryPorIdPromise = require("../modules/queryPorIdPromise");
+const queryPromise = require("../helpers/queryPromise");
+const queryPorIdPromise = require("../helpers/queryPorIdPromise");
 
 class VeiculosInfracao {
   async pegarDados() {

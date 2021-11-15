@@ -4,6 +4,7 @@ class Tabelas {
 
     this.criarTarefasAfazer();
     this.criarUsuarios();
+    this.criarMensagensRecebidas();
     this.criarObservacoesPertinentes();
     this.criarStatus();
     this.criarNivelUrgencia();
@@ -23,7 +24,17 @@ class Tabelas {
       }
     });
   }
-
+  criarMensagensRecebidas() {
+    const sql =
+      "CREATE TABLE IF NOT EXISTS mensagens_recebidas(id int NOT NULL AUTO_INCREMENT, id_usuario int NOT NULL, mensagem_recebida text NOT NULL, PRIMARY KEY(id), FOREIGN KEY(id_usuario) REFERENCES usuarios(id))";
+    this.conexao.query(sql, (erro) => {
+      if (erro) {
+        console.log(erro);
+      } else {
+        console.log("Tabela mensagens_recebidas criada com sucesso");
+      }
+    });
+  }
   criarUsuarios() {
     const sql =
       "CREATE TABLE IF NOT EXISTS usuarios(id int NOT NULL AUTO_INCREMENT, nome varchar(130) NOT NULL,email varchar(130) NOT NULL, senha varchar(256) NOT NULL, PRIMARY KEY(id))";

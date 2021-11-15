@@ -3,35 +3,21 @@
 <h2 class="titulo-aviso" style="margin-bottom: 30px">
   Confira suas mensagens recebidas:
 </h2>
-<ul class="avisos-externos-lista">
-  
+  <ul class="avisos-externos-lista">
+  {{#listagem_eh_valida}}
+  {{#listagem}}
   <li>
-    <div class="numeracao">1</div>
+    <div class="numeracao">{{index}}</div>
     <p class="descricao-aviso">
-      Lorem ipsum dolor sit amet, consectetur adipisicing elit. Cupiditate
-      facilis similique labore dolore voluptatem! Nostrum itaque repellendus
-      laudantium nemo aspernatur officia voluptas quos, doloremque perferendis,
-      corrupti, alias in facilis tempore!
+      {{mensagem_recebida}}
     </p>
-    <form><button class="btn btn-danger"">X</button></form>
+    <form method='post'action='/excluir_mensagem/'><input type='number' class='desaparecer' name='id-registro-observacao' value={{id}}><button class="btn btn-danger"">X</button></form>
   </li>
-  <li>
-    <div class="numeracao">2</div>
-    <p class="descricao-aviso">
-      Lorem ipsum dolor sit amet, consectetur adipisicing elit. Cupiditate
-      facilis similique labore dolore voluptatem! Nostrum itaque repellendus
-      laudantium nemo aspernatur officia voluptas quos, doloremque perferendis,
-      corrupti, alias in facilis tempore!
-    </p>
-    <form><button class="btn btn-danger">X</button></form>
-  </li>
-  
-  {{#avisos_validos}}
-
-  {{/avisos_validos}}
-  {{^avisos_validos}}
+  {{/listagem}}
+  {{/listagem_eh_valida}}
+  {{^listagem_eh_valida}}
 <strong style='margin-top:30px'>Não há itens na lista de avisos recebidos</strong>
-  {{/avisos_validos}}
+  {{/listagem_eh_valida}}
 </ul>
 </aside>
 {{>partials/fim}}

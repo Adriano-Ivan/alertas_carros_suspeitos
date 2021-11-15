@@ -12,14 +12,23 @@ body {
   max-width: 1240px;
   margin: 0 auto;
   display: flex;
+  flex-direction: column;
   background-color: rgb(54, 103, 194);
   justify-content: center;
+  align-items: center;
+}
+.area-container-login h1 {
+  color: #fdf;
+  flex: 1;
+  display: flex;
+  font-size: 28px;
+  text-align: Center;
   align-items: center;
 }
 .area-login {
   width: 100%;
   max-width: 350px;
-
+  flex: 3;
   text-align: center;
   height: 350px;
   display: flex;

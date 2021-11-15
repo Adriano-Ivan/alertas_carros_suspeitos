@@ -1,9 +1,9 @@
-const queryPromise = require("../modules/queryPromise");
-const queryPromise2 = require("../modules/queryPromise2");
-const insertPromise = require("../modules/insertPromise");
-const queryPorIdPromise = require("../modules/queryPorIdPromise");
-const updatePromise = require("../modules/updatePromise");
-const deletePromise = require("../modules/deletePromise");
+const queryPromise = require("../helpers/queryPromise");
+const queryPromise2 = require("../helpers/queryPromise2");
+const insertPromise = require("../helpers/insertPromise");
+const queryPorIdPromise = require("../helpers/queryPorIdPromise");
+const updatePromise = require("../helpers/updatePromise");
+const deletePromise = require("../helpers/deletePromise");
 
 class ListaObservacoes {
   async adiciona(observacao) {

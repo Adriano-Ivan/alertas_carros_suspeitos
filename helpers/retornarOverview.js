@@ -19,15 +19,15 @@ module.exports = (req, res, dadosRelatorio = null) => {
   let nome_usuario = "";
   Promise.resolve(req.user)
     .then((resu) => {
-      // nome_usuario = resu[0].nome
-      //   .split(" ")
-      //   .map((s) => s.toLowerCase())
-      //   .map((s) => {
-      //     const s1 = s.slice(0, 1).toUpperCase();
-      //     return `${s1}${s.slice(1)}`;
-      //   })
-      //   .join(" ");
-      nome_usuario = resu[0].nome;
+      nome_usuario = resu[0].nome
+        .split(" ")
+        .map((s) => s.toLowerCase())
+        .map((s) => {
+          const s1 = s.slice(0, 1).toUpperCase();
+          return `${s1}${s.slice(1)}`;
+        })
+        .join(" ");
+      //nome_usuario = resu[0].nome;
     })
     .then(() => {
       console.log(nome_usuario);
@@ -42,6 +42,7 @@ module.exports = (req, res, dadosRelatorio = null) => {
         retorno_relatorio1: retornoRelatorio[0],
         retorno_relatorio2: retornoRelatorio[1],
         nome_usuario,
+        porta: process.env.PORT,
       });
     });
 };

@@ -1,5 +1,5 @@
 const listaVeiculosRoubados = require("../models/Veiculos_roubados");
-const rotaBootstrapCSS = require("./../modules/linkCSSeBootstrap");
+const rotaBootstrapCSS = require("../helpers/linkCSSeBootstrap");
 const estiloBootstrapCSS = rotaBootstrapCSS();
 
 exports.getVeiculosRoubados = (req, res) => {
@@ -10,6 +10,7 @@ exports.getVeiculosRoubados = (req, res) => {
       ESTILO_CSS: estiloBootstrapCSS.split("|")[1],
       listagem_eh_valida: listagem.length > 0,
       listagem,
+      porta: process.env.PORT,
     });
   });
 };
@@ -26,6 +27,7 @@ exports.getVeiculosRoubadosPorPlaca = (req, res) => {
       ESTILO_CSS: estiloBootstrapCSS.split("|")[1],
       listagem_eh_valida: listagem.length > 0,
       listagem,
+      porta: process.env.PORT,
     });
   });
 };

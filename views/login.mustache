@@ -3,10 +3,13 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width,initial-scale=1.0" />
-     
+     <link
+      rel="icon"
+      href="http://localhost:{{porta}}/public/img/icon_a5f231f799e7ef0588a474ff1d5caa23.ico"
+    />
     <link
       rel="stylesheet"
-      href="http://localhost:8005/public/bootstrap_css/bootstrap.min.css"
+      href="http://localhost:{{porta}}/public/bootstrap_css/bootstrap.min.css"
     />
     
     <!--
@@ -15,14 +18,17 @@
       href="/public/bootstrap_css/bootstrap.min.css"
     />
     -->
-    <link rel="stylesheet" href="http://localhost:8005/public/css/login.css" />
+    <link rel="stylesheet" href="http://localhost:{{porta}}/public/css/login.css" />
     <title>LOGIN</title>
   </head>
   <body>
+  
     <div class="area-container-login">
+     <h1>BASE DE MONITORAMENTO DE ALERTAS E RECURSOS DE ROTINA</H1>
       <div class="area-login">
+     
         <img
-          src="http://localhost:8005/public/img/defesa_civil_repr.png"
+          src="http://localhost:{{porta}}/public/img/defesa_civil_repr.png"
           alt="logo - símbolo da segurança civil"
         />
         <h2>Faça o login</h2>
@@ -62,7 +68,7 @@
         </form>
       </div>
     </div>
-    <script src="http://localhost:8005/public/jquery/jquery-3.6.0.min.js"></script>
-    <script src="http://localhost:8005/public/bootstrap_js/bootstrap.bundle.min.js"></script>
+    <script src="http://localhost:{{porta}}/public/jquery/jquery-3.6.0.min.js"></script>
+    <script src="http://localhost:{{porta}}/public/bootstrap_js/bootstrap.bundle.min.js"></script>
   </body>
 </html>

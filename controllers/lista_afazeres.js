@@ -1,6 +1,6 @@
 const listaAfazeres = require("../models/Lista_afazeres");
 const url = require("url");
-const rotaBootstrapCSS = require("./../modules/linkCSSeBootstrap");
+const rotaBootstrapCSS = require("../helpers/linkCSSeBootstrap");
 const estiloBootstrapCSS = rotaBootstrapCSS();
 
 exports.getAfazeres = (req, res) => {
@@ -16,6 +16,7 @@ exports.getAfazeres = (req, res) => {
       ESTILO_CSS: estiloBootstrapCSS.split("|")[1],
       listagem_eh_valida: listagem.length > 0,
       listagem: dados,
+      porta: process.env.PORT,
     });
   });
 };
@@ -33,6 +34,7 @@ exports.getAfazeresPorDescricao = (req, res) => {
       ESTILO_CSS: estiloBootstrapCSS.split("|")[1],
       listagem_eh_valida: listagem.length > 0,
       listagem: dados,
+      porta: process.env.PORT,
     });
   });
 };
@@ -61,6 +63,7 @@ exports.updateAfazer = (req, res) => {
     id,
     BOOTSTRAP_CSS: estiloBootstrapCSS.split("|")[0],
     ESTILO_CSS: estiloBootstrapCSS.split("|")[1],
+    porta: process.env.PORT,
   });
 };
 exports.fazerUpdate = (req, res) => {

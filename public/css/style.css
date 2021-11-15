@@ -101,6 +101,9 @@ aside {
   justify-content: center;
   align-items: center;
 }
+aside h1 {
+  margin-bottom: 64px;
+}
 .alertas-home {
   display: flex;
   padding: 0;
@@ -176,6 +179,7 @@ aside {
 .lista-relatorio {
   display: flex;
   justify-content: center;
+  padding: 10px;
   flex-direction: column;
 }
 .lista-relatorio li {
@@ -193,6 +197,14 @@ aside {
   flex-direction: column;
   align-items: center;
   justify-content: center;
+}
+.casos-atencao {
+  color: rgb(255, 255, 255);
+  background-color: rgb(194, 7, 7);
+}
+.casos-resolvidos {
+  color: rgb(255, 255, 255);
+  background-color: rgb(9, 94, 9);
 }
 .table-elemento {
   /*border: 1px solid black;*/
@@ -243,7 +255,7 @@ aside div h1 {
   text-transform: uppercase;
 }
 img[alt="imagem_defesa_civil"] {
-  width: 265px;
+  width: 240px;
   margin: 24px auto;
 }
 /*tabela*/
@@ -307,6 +319,14 @@ input[type="submit"] {
   width: 80%;
   margin-bottom: 18px;
 }
+.avisos-externos-lista form {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-end;
+}
+.avisos-externos-lista form button {
+  margin-right: 10px;
+}
 .tabela-locais th,
 .avisos-externos-lista .numeracao,
 .lista-tarefa .id-tarefa,
@@ -338,7 +358,7 @@ input[type="submit"] {
   color: #fff;
   padding: 5px;
   background-color: #f00;
-  display: block;
+
   height: 30px;
   cursor: pointer;
 }

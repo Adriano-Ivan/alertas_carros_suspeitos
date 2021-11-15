@@ -1,4 +1,4 @@
-const queryPromise2 = require("../modules/queryPromise2");
+const queryPromise2 = require("../helpers/queryPromise2");
 // const AES = require("mysql-aes-binary");
 // const decrypt = function (text) {
 //   return AES.decrypt(text, "chave_node");
@@ -23,9 +23,9 @@ FROM  usuarios WHERE email = ? or nome = ?;`;
   }
   async findUserById(id) {
     const sql = `SELECT * FROM usuarios WHERE id = ?;`;
-    console.log(sql);
+    //console.log(sql);
     const dados = await queryPromise2(id, sql);
-    console.log(dados);
+    //console.log(dados);
     return [].concat(dados);
   }
 }
