@@ -1,9 +1,19 @@
 {{>partials/topo}}
 <aside>
-<h2 class="titulo-locais" style="margin-bottom: 15px">
-  CONFIRA OS LOCAIS-ALVO
+<h2 class="titulo-locais" style="margin-bottom: 15px;text-align:center;font-size:21px">
+  CONFIRA OS LOCAIS-ALVO (LOCAIS ESPECIALMENTE MONITORADOS NO MOMENTO)
 </h2>
-<table class="tabela-locais">
+<div class="container">
+<div class="table-responsive d-block d-md-table">
+<table class="
+        table-elemento
+        table-infracao
+        table
+        table-hover
+        table-striped
+        table-bordered
+        table-dark
+      ">
   <!--
   <thead>
     <tr class="head-locais">
@@ -23,11 +33,28 @@
   </tbody>
   -->
   {{#locais_validos}}
-
+    <thead>
+    <tr class="head-locais">
+      <th>ID</TH>
+      <th>NUMERAÇÃO</th>
+      <th>Local</th>
+    </tr>
+  </thead>
+   <tbody>
+    {{#listagem}}
+ <tr class="registro-locais">
+      <td>{{id}}</td>
+      <TD>{{index}}</td>
+      <td>{{local}}</td>
+    </tr>
+    {{/listagem}}
+    </TBODY>
   {{/locais_validos}}
-    {{^locais_validos}}
-<strong style='margin-top:30px'>Não há itens na lista de locais</strong>
+  {{^locais_validos}}
+    <strong style='margin-top:30px'>Não há itens na lista de locais</strong>
   {{/locais_validos}}
 </table>
+</div>
+</div>
 </aside>
 {{>partials/fim}}

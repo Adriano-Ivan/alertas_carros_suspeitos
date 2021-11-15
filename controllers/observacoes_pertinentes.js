@@ -21,10 +21,10 @@ exports.getObservacoesPertinentes = (req, res) => {
   });
 };
 exports.getObservacaoPorDescricao = (req, res) => {
-  res.writeHead(200, { "Content-type": "text/html" });
+  //res.writeHead(200, { "Content-type": "text/html" });
   const descricao = req.params.descricao;
   console.log(descricao);
-  listaObservacoes.buscarPorDescricao(descricao, res).then((listagem) => {
+  listaObservacoes.buscarPorDescricao(descricao).then((listagem) => {
     const dados = listagem.map((item, i) => {
       item["index"] = i + 1;
       return item;
@@ -33,7 +33,7 @@ exports.getObservacaoPorDescricao = (req, res) => {
     res.render("template-observacoes", {
       BOOTSTRAP_CSS: estiloBootstrapCSS.split("|")[0],
       ESTILO_CSS: estiloBootstrapCSS.split("|")[1],
-      listagem_eh_valida: listagem.length > 0,
+      listagem_eh_valida: dados.length > 0,
       listagem: dados,
       porta: process.env.PORT,
     });
@@ -56,7 +56,7 @@ exports.updateObservacao = (req, res) => {
   const { query } = url.parse(req.url, true);
   //console.log(query);
   const id = parseInt(query["id-registro-tarefa"]);
-  res.render("template-update-tarefa", {
+  res.render("template-update-observacao", {
     id,
     BOOTSTRAP_CSS: estiloBootstrapCSS.split("|")[0],
     ESTILO_CSS: estiloBootstrapCSS.split("|")[1],

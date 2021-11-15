@@ -4,6 +4,7 @@ class Tabelas {
 
     this.criarTarefasAfazer();
     this.criarUsuarios();
+    this.criarLocais();
     this.criarMensagensRecebidas();
     this.criarObservacoesPertinentes();
     this.criarStatus();
@@ -32,6 +33,18 @@ class Tabelas {
         console.log(erro);
       } else {
         console.log("Tabela mensagens_recebidas criada com sucesso");
+      }
+    });
+  }
+  criarLocais() {
+    const sql =
+      "CREATE TABLE IF NOT EXISTS locais_alvo(id int NOT NULL AUTO_INCREMENT, local VARCHAR(120) NOT NULL, PRIMARY KEY(id));";
+
+    this.conexao.query(sql, (erro) => {
+      if (erro) {
+        console.log(erro);
+      } else {
+        console.log("Tabela locais criada com sucesso");
       }
     });
   }

@@ -3,8 +3,11 @@
       <div>
       <img src='{{imagem_home}}'alt='imagem_defesa_civil'></img>
       <h1 ><span style='text-transform:none'>{{boas_vindas}}</span>{{#nome_usuario}}, <span style='text-transform:capitalize'>{{nome_usuario}} </span>{{/nome_usuario}} !</h1>
+      <h2>Relatório Geral de Eventos</h2>
       <div class='alertas-home'>
+        
       <div class='alerta-ocorrencia font-weight-bold alert casos-atencao alert-danger' role='alert'>
+      
         {{#retorno_relatorio_eh_array}}
           <h2 style='font-size:28px'>Há casos que requerem sua atenção !</h2>
           <ul class='lista-relatorio '>
@@ -31,6 +34,7 @@
           <h2>{{retorno_relatorio2}}</h2>
         {{/retorno_relatorio_eh_array}}
       </div>
+
       </div>
       </div></aside>
 {{>partials/fim}}

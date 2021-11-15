@@ -32,7 +32,8 @@ header {
   justify-content: center;
   text-align: center;
   align-items: center;
-  background-color: rgb(54, 103, 194);
+  /*background-color: rgb(54, 103, 194);*/
+  background-color: rgb(2, 35, 90);
 }
 header h1 {
   flex: 2;
@@ -86,7 +87,8 @@ nav {
   max-height: auto;
   /* position: fixed;*/
   width: 25%;
-  background-color: rgb(54, 103, 194);
+  /*background-color: rgb(54, 103, 194);*/
+  background-color: rgb(2, 35, 90);
   color: #fff;
 }
 aside {
@@ -97,12 +99,12 @@ aside {
   width: 75%;
   min-height: 100%;
   /*background-color: rgba(228, 218, 215, 0.897);*/
-  background-color: rgba(230, 220, 217, 0.897);
+  background-color: rgba(180, 180, 180, 0.897);
   justify-content: center;
   align-items: center;
 }
 aside h1 {
-  margin-bottom: 64px;
+  margin-bottom: 124px;
 }
 .alertas-home {
   display: flex;
@@ -200,11 +202,11 @@ aside h1 {
 }
 .casos-atencao {
   color: rgb(255, 255, 255);
-  background-color: rgb(194, 7, 7);
+  background-color: rgb(145, 12, 12);
 }
 .casos-resolvidos {
   color: rgb(255, 255, 255);
-  background-color: rgb(9, 94, 9);
+  background-color: rgb(8, 77, 8);
 }
 .table-elemento {
   /*border: 1px solid black;*/
@@ -258,19 +260,6 @@ img[alt="imagem_defesa_civil"] {
   width: 240px;
   margin: 24px auto;
 }
-/*tabela*/
-/*
-.table-elemento td button {
-  width: 24px;
-  height: 24px;
-  cursor: pointer;
-  background-color: green;
-}*/
-/*
-.table-elemento tr td:last-child {
-  display: flex;
-  justify-content: center;
-}*/
 
 /* FORM*/
 form {
@@ -298,13 +287,14 @@ input[type="submit"] {
   cursor: pointer;
   text-transform: uppercase;
   color: #fff;
-  background-color: rgb(54, 103, 194);
+  background-color: rgb(2, 35, 90);
 }
 /* ÁREA AVISOS */
 .titulo-aviso,
 .titulo-locais,
 .area-update label .titulo-update {
-  color: rgb(54, 103, 194);
+  color: rgb(2, 35, 90);
+
   text-transform: uppercase;
 }
 .avisos-externos-lista {
@@ -331,7 +321,7 @@ input[type="submit"] {
 .avisos-externos-lista .numeracao,
 .lista-tarefa .id-tarefa,
 .lista-observacao .id-observacao {
-  background-color: rgb(54, 103, 194);
+  background-color: rgb(2, 35, 90);
   color: #fff;
 }
 
@@ -340,7 +330,7 @@ input[type="submit"] {
   height: 60px;
   flex: 1;
 
-  border: 1px solid rgb(42, 92, 184);
+  border: 1px solid rgb(2, 35, 90);
 }
 .exclusao-aviso {
   overflow: hidden;
@@ -380,7 +370,7 @@ input[type="submit"] {
 
 .form-mensagem {
   height: auto;
-  color: rgb(42, 92, 184);
+  color: rgb(2, 35, 90);
   width: 100%;
   text-transform: capitalize;
   padding-left: 10%;
@@ -394,7 +384,11 @@ input[type="submit"] {
   border-radius: 8%;
   outline: none;
   border: none;
+  background-color: rgb(6, 44, 110);
   margin-bottom: 25px;
+}
+.form-mensagem button:hover {
+  background-color: rgb(2, 35, 90);
 }
 .form-mensagem label {
   width: 80%;
@@ -416,7 +410,7 @@ input[type="submit"] {
 }
 /* ÁREA TAREFAS */
 .form-tarefas label {
-  color: rgb(54, 103, 194);
+  color: rgb(2, 35, 90);
   text-transform: uppercase;
   font-size: 22px;
   font-weight: bold;
@@ -553,7 +547,7 @@ input[type="submit"] {
 /* OBSERVAÇÕES */
 
 .form-observacoes label {
-  color: rgb(54, 103, 194);
+  color: rgb(2, 35, 90);
   text-transform: uppercase;
   font-size: 22px;
   font-weight: bold;
