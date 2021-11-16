@@ -22,6 +22,7 @@
     "module": "^1.2.5",
     "mysql-aes-binary": "^1.0.2",
     "mysql2": "^2.3.2",
+    "nodemailer": "^6.7.1",
     "nodemon": "^2.0.14",
     "passport": "^0.5.0",
     "passport-local": "^1.0.0",
