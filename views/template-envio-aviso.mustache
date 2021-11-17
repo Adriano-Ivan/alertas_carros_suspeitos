@@ -3,7 +3,7 @@
 <form
   method="POST"
   class="form-mensagem"
-  action='/mensagem'
+  action='/envio_de_aviso'
   enctype="application/x-www-form-urlencoded"
 >
   <label>
@@ -17,20 +17,38 @@
     />
   </label>
   <label>
+    <h2>Assunto:</h2>
+    <textarea style='width:60%;height:80px'
+      class="form-control"
+      class="assunto-mensagem"
+      name="assunto"
+    ></textarea>
+  </label>
+  <label>
     <h2>Sua mensagem:</h2>
     <textarea
       class="form-control"
       class="mensagem-enviada"
-      name="descricao"
+      name="mensagem_enviada"
     ></textarea>
   </label>
+   
   <button class="btn btn-primary btn-md"  id="enviar_aviso">
     Enviar mensagem
   </button>
 </form>
-<ul>
+<ul class="avisos-enviados-lista">
   {{#avisos_enviados_validos}}
-
+  <h2 style='text-align:center;padding-bottom:18px;'>Suas mensagens:</h2>
+{{#listagem}}
+  <li>
+    <div class="numeracao">{{index}}</div>
+    <p class="descricao-aviso">
+      {{mensagem_enviada}}
+    </p>
+    <form method='post'action='/excluir_mensagem_enviada/'><input type='number' class='desaparecer' name='id-registro-observacao' value={{id}}><button class="btn btn-danger"">X</button></form>
+  </li>
+  {{/listagem}}
   {{/avisos_enviados_validos}}
   {{^avisos_enviados_validos}}
   <strong style='margin-top:30px'>Não há itens na lista de avisos enviados</strong>

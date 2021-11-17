@@ -12,10 +12,17 @@
           }
         })
       );
-      
-    </script>
+      </script>
+      <script src='http://localhost:{{porta}}/public/sweetalert2/dist/sweetalert2.min.js'></script>
+   
     {{#retorno_relatorio_eh_array}}
-          <script>alert('Há casos que necessitam da sua atenção ! Por favor, verifique o relatório e a aba de alertas !');</script>
+          <script>
+          
+          function disp() {
+            Swal.fire({icon:'info', title:'Atenção',titleText:'Há casos que necessitam da sua atenção ! Por favor, verifique o relatório na página inicial e a aba de alertas !',showCloseButton:true});
+          }
+        disp();
+          </script>
         {{/retorno_relatorio_eh_array}}
   </body>
 </html>

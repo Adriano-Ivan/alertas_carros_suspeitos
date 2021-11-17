@@ -1,8 +1,8 @@
 const conexao = require("../infraestrutura/conexao");
 
-module.exports = (sql, tarefa) => {
+module.exports = (sql, elemento) => {
   return new Promise((resolve, reject) => {
-    conexao.query(sql, tarefa, (erro, resultados) => {
+    conexao.query(sql, elemento, (erro, resultados) => {
       if (erro) {
         reject("HOUVE ERRO NO INSERT !");
       } else {

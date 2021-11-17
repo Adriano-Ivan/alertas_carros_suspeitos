@@ -7,22 +7,22 @@ class MensagensRecebidas {
     const dados = await queryPromise2(id, sql);
     return [].concat(dados);
   }
-  async buscarPorDescricao(descricao) {
+  async buscarPorDescricao(descricao, id_usuario) {
     const sql = `SELECT * FROM mensagens_recebidas WHERE mensagem_recebida
-         LIKE ?`;
-    const dados = await queryPromise2(descricao + "%", sql);
+         LIKE ? and id_usuario = ?`;
+    const dados = await queryPromise2([descricao + "%", id_usuario], sql);
     return [].concat(dados);
   }
-  async findMensagemById(id) {
-    const sql = `SELECT * FROM mensagens_recebidas WHERE id = ?;`;
+  async findMensagemById(id, id_usuario) {
+    const sql = `SELECT * FROM mensagens_recebidas WHERE id = ? and id_usuario = ?;`;
     console.log(sql);
-    const dados = await queryPromise2(id, sql);
+    const dados = await queryPromise2([id, id_usuario], sql);
     console.log(dados);
     return [].concat(dados);
   }
-  async deletarMensagem(id) {
-    const sql = "DELETE FROM mensagens_recebidas WHERE id = ?";
-    await deletePromise(id, sql);
+  async deletarMensagem(id, id_usuario) {
+    const sql = "DELETE FROM mensagens_recebidas WHERE id = ? and id_usuario=?";
+    await deletePromise([id, id_usuario], sql);
   }
 }
 module.exports = new MensagensRecebidas();

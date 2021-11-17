@@ -297,35 +297,42 @@ input[type="submit"] {
 
   text-transform: uppercase;
 }
-.avisos-externos-lista {
+.avisos-externos-lista,
+.avisos-enviados-lista {
   display: flex;
   flex-direction: column;
   align-items: center;
   width: 100%;
 }
-.avisos-externos-lista li {
+.avisos-externos-lista li,
+.avisos-enviados-lista li {
   display: flex;
   align-items: center;
   width: 80%;
   margin-bottom: 18px;
 }
-.avisos-externos-lista form {
+.avisos-externos-lista form,
+.avisos-enviados-lista form {
   display: flex;
   flex-direction: row;
   justify-content: flex-end;
 }
-.avisos-externos-lista form button {
+.avisos-externos-lista form button,
+.avisos-enviados-lista form button {
   margin-right: 10px;
 }
 .tabela-locais th,
 .avisos-externos-lista .numeracao,
+.avisos-externos-lista .numeracao,
+.numeracao,
 .lista-tarefa .id-tarefa,
 .lista-observacao .id-observacao {
   background-color: rgb(2, 35, 90);
   color: #fff;
 }
 
-.avisos-externos-lista .numeracao {
+.avisos-externos-lista .numeracao,
+.avisos-enviados-lista .numeracao {
   padding: 15px;
   height: 60px;
   flex: 1;
@@ -335,7 +342,8 @@ input[type="submit"] {
 .exclusao-aviso {
   overflow: hidden;
 }
-.avisos-externos-lista .descricao-aviso {
+.avisos-externos-lista .descricao-aviso,
+.avisos-enviados-lista .descricao-aviso {
   height: auto;
 
   padding: 7px;
