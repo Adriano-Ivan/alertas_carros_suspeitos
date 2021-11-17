@@ -9,8 +9,17 @@ module.exports = (app) => {
     "/veiculos_suspeitos/:placa",
     controllerVeiculosSuspeitos.getVeiculosSuspeitosPorPlaca
   );
-  app.post(
-    "/veicuos_suspeitos",
-    controllerVeiculosSuspeitos.postVeiculosSuspeitos
+  app.get(
+    "/adicionar_suspeito",
+    controllerVeiculosSuspeitos.getAdicionarVeiculo
   );
+  app.post(
+    "/insert_suspeito",
+    controllerVeiculosSuspeitos.postAdicionarSuspeito
+  );
+  app.get(
+    "/update_r_suspeito_page",
+    controllerVeiculosSuspeitos.getUpdateVeiculo
+  );
+  app.post("/update_suspeito", controllerVeiculosSuspeitos.postUpdateVeiculo);
 };

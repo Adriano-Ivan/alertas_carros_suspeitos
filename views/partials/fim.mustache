@@ -24,5 +24,23 @@
         disp();
           </script>
         {{/retorno_relatorio_eh_array}}
+        {{#placa_errada}}
+<script>
+          
+          function disp() {
+            Swal.fire({icon:'alert', title:'Atenção',titleText:'O padrão da placa está errado ! Por favor, verifique novamente os dados.',showCloseButton:true});
+          }
+        disp();
+          </script>
+        {{/placa_errada}}
+                {{#sucesso}}
+<script>
+          
+          function disp() {
+            Swal.fire({icon:'success',titleText:'Registro inserido com sucesso !',showCloseButton:true});
+          }
+        disp();
+          </script>
+        {{/sucesso}}
   </body>
 </html>

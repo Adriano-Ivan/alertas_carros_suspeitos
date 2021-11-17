@@ -7,6 +7,7 @@ const session = require("express-session");
 const usuario = require("./../models/Usuario");
 const mustache = require("mustache-express");
 const path = require("path");
+const flash = require("connect-flash");
 require("../helpers/Passport")(passport, usuario);
 const loginRouter = require("./../routes/auth");
 
@@ -22,6 +23,7 @@ module.exports = () => {
   app.set("views", path.join(__dirname, "../views"));
   app.engine("mustache", mustache());
   app.use(cors());
+  app.use(flash());
   app.use(bodyParser.urlencoded({ extended: true }));
   app.use(cookieParser());
   app.use(bodyParser.json());
