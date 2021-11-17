@@ -17,6 +17,8 @@ exports.getVeiculosSuspeitos = (req, res) => {
         listagem,
         usuario_adm: resu[0].autoridade === "ADM",
         porta: process.env.PORT,
+        placa_errada: req.flash("erro"),
+        sucesso: req.flash("sucesso"),
       });
     });
   });
@@ -118,15 +120,59 @@ exports.getUpdateVeiculo = (req, res) => {
           BOOTSTRAP_CSS: estiloBootstrapCSS.split("|")[0],
           ESTILO_CSS: estiloBootstrapCSS.split("|")[1],
           porta: process.env.PORT,
+          id_registro: id,
           listagem_eh_valida: listagem.length > 0,
           listagem,
-          placa_errada: req.flash("erro"),
-          sucesso: req.flash("sucesso"),
         });
       });
     }
   });
 };
 exports.postUpdateVeiculo = (req, res) => {
-  console.log("ROTA UPDATE SUSPEITO");
+  console.log("ROTA UPDATE SUSPEITO\n", req.body);
+
+  if (
+    regexPlaca.test(req.body.placa) ||
+    regexPlacaMercosulCarro.test(req.body.placa) ||
+    regexPlacaMercosulMoto.test(req.body.placa)
+  ) {
+    Promise.resolve(req.user).then((resu) => {
+      if (!(resu[0].autoridade === "ADM")) {
+        res.render("forbidden", {
+          porta: process.env.PORT,
+          BOOTSTRAP_CSS: estiloBootstrapCSS.split("|")[0],
+          ESTILO_CSS: estiloBootstrapCSS.split("|")[1],
+        });
+      } else {
+        const objeto = {
+          dono: req.body.dono,
+          placa: req.body.placa,
+          nivel_urgenciaID: parseInt(req.body.nivel_urgencia),
+          statusID: parseInt(req.body.status),
+          momento_alerta: `${req.body.data} ${req.body.hora}`,
+          local_alerta: req.body.local,
+        };
+        const id_registro = parseInt(req.body["id-registro-suspeito"]);
+
+        listaVeiculosSuspeitos
+          .updateRegistro(objeto, id_registro)
+          .then(() => {
+            req.flash("sucesso", true);
+            res.redirect("/veiculos_suspeitos");
+          })
+          .catch((erro) => console.log(erro, "EITA"));
+      }
+    });
+  } else {
+    req.flash("erro", "placa inválida");
+    res.redirect("/update_r_suspeito_page");
+  }
+};
+exports.deletarRegistro = (req, res) => {
+  listaVeiculosSuspeitos
+    .deletarRegistro(parseInt(req.body["id-registro-suspeito"]))
+    .then(() => {
+      req.flash("sucesso", true);
+      res.redirect("/veiculos_suspeitos");
+    });
 };

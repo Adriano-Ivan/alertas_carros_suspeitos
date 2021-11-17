@@ -1,8 +1,8 @@
 const conexao = require("../infraestrutura/conexao");
 
-module.exports = (id, updatedTask, sql) => {
+module.exports = (id, updatedElement, sql) => {
   return new Promise((resolve, reject) => {
-    conexao.query(sql, [updatedTask, id], (erro, resultados) => {
+    conexao.query(sql, [updatedElement, id], (erro, resultados) => {
       if (erro) reject("HOUVE ERRO NO UPDATE");
       resolve(resultados);
     });

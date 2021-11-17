@@ -4,6 +4,7 @@ const insertPromise = require("../helpers/insertPromise");
 const queryPromise2 = require("../helpers/queryPromise2");
 const updatePromise = require("../helpers/updatePromise");
 const deletePromise = require("../helpers/deletePromise");
+
 class VeiculosSuspeitos {
   async pegarDados() {
     const sql =
@@ -25,6 +26,15 @@ class VeiculosSuspeitos {
   async inserirRegistro(objeto) {
     const sql = "INSERT INTO veiculos_suspeitos SET ?";
     await insertPromise(sql, objeto);
+  }
+  async updateRegistro(objeto, id) {
+    console.log(objeto, id);
+    const sql = "UPDATE veiculos_suspeitos SET ? WHERE id = ?";
+    await updatePromise(id, objeto, sql);
+  }
+  async deletarRegistro(id) {
+    const sql = "DELETE FROM veiculos_suspeitos WHERE id = ?";
+    await deletePromise(id, sql);
   }
 }
 

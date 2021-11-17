@@ -22,4 +22,5 @@ module.exports = (app) => {
     controllerVeiculosSuspeitos.getUpdateVeiculo
   );
   app.post("/update_suspeito", controllerVeiculosSuspeitos.postUpdateVeiculo);
+  app.post("/delete_r_suspeito", controllerVeiculosSuspeitos.deletarRegistro);
 };
