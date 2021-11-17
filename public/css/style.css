@@ -240,6 +240,26 @@ caption {
   color: #fff;
   /* background-color: rgb(58, 110, 206);*/
 }
+.table-elemento td {
+  text-align: center;
+}
+.table-elemento td form {
+  display: flex;
+  padding: 0;
+  margin-top: auto;
+  height: 30px;
+  justify-content: center;
+}
+.table-elemento td form button.btn-danger {
+  width: 30px;
+  height: 30px;
+  background-color: rgb(241, 0, 0);
+}
+.table-elemento td form button.btn-success {
+  width: 30px;
+  height: 30px;
+  background-color: rgb(8, 77, 8);
+}
 aside div {
   flex: 1;
   display: flex;

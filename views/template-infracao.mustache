@@ -1,6 +1,7 @@
 {{>partials/topo}}
 <aside>
 <div class="container">
+{{#usuario_adm}}<a href='/adicionar_infracao' style='color:rgb(8, 77, 8);font-weight:bold;text-transform:uppercase;text-decoration:none;text-align:left;width:77%'>Adicionar ocorrência</a>{{/usuario_adm}}
   <div class="table-responsive d-block d-md-table">
     <table
       class="
@@ -25,6 +26,8 @@
           <th>Local de disparo do alerta</th>
           <th>Momento do disparo</th>
           <th>Gravidade da infração</th>
+          {{#usuario_adm}}<th>Editar</th>{{/usuario_adm}}
+          {{#usuario_adm}}<th>Excluir</th>{{/usuario_adm}}
         </tr>
       </thead>
       <tbody>
@@ -38,6 +41,8 @@
             <td>{{local_alerta}}</td>
             <td>{{hora}}, {{data}}</td>
             <td>{{gravidade_infracao}}</td>
+            {{#usuario_adm}}<td style='padding:20px;'><form action="/update_r_infracao_page/" method='GET'enctype="application/x-www-form-urlencoded" role='form'><input type='number' class='desaparecer' name='id-registro-infracao'value={{id}}><button class="btn btn-success"class='edicao-infracao'>↘</button></form></td>{{/usuario_adm}}
+            {{#usuario_adm}}<td style='padding:20px;'><form action = '/delete_r_infracao/'method='post' enctype="application/x-www-form-urlencoded"><input type='number' class='desaparecer' name='id-registro-infracao' value={{id}}><button  class="btn btn-danger" class='exclusao-infracao'>x</button></form></td>{{/usuario_adm}}
           </tr>
           {{/listagem}}
         {{/listagem_eh_valida}}
