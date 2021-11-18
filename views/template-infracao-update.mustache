@@ -1,7 +1,7 @@
 {{>partials/topo}}
 <aside>
-<div><a href="/veiculos_suspeitos" style='margin-bottom:5px;text-decoration:none;color:red'>VOLTAR</a></div>
-<form method='POST' class='crud-page'action='/update_suspeito'>
+<div><a href="/veiculos_infracao" style='margin-bottom:5px;text-decoration:none;color:red'>VOLTAR</a></div>
+<form method='POST' class='crud-page'action='/update_infracao'>
 {{#listagem}}
 <label>
 Dono:<br>
@@ -29,18 +29,27 @@ Status da situação:<br>
 </label>
 <label>
 Data:<br>
-<input class="form-control" required type='date' value='{{data}}' name='data' id='data'>
+<input class="form-control" required type='date' value={{data}} name='data' id='data'>
 </label>
 <label>
 Hora:<br>
 <input type="time" class="form-control" required step="1" value='{{hora}}'name="hora" id="hora">
 </label>
 <label>
-Local:<br>
-<input type='text' value='{{local_alerta}}' required class="form-control"name='local' id='local'>
+Gravidade da infração:<br>
+<select class="form-control" required name='gravidade_infracao'id='status'>
+    <option value='leve' selected>Leve</option>
+    <option value='média'>Média</option>
+    <option value='grave'>Grave</option>
+    <option value='gravíssima'>Gravíssima</option>
+</select>
+</label>
+<label>
+Local do disparo do alerta:<br>
+<input type='text' value='{{local_alerta}}' required class="form-control"name='local_alerta' id='local_alerta'>
 </label>
 {{/listagem}}
-<input type='number' class='desaparecer' name='id-registro-suspeito' value={{id_registro}}>
+<input type='number' class='desaparecer' name='id-registro-infracao' value={{id_registro}}>
 <input type='submit'class="btn btn-sm btn-block btn-primary" value='Enviar'>
 </form>
 </aside>

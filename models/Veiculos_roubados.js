@@ -31,6 +31,10 @@ class VeiculosRoubados {
     const sql = "UPDATE veiculos_roubados SET ? WHERE id = ?";
     await updatePromise(id, objeto, sql);
   }
+  async deletarRegistro(id) {
+    const sql = "DELETE FROM veiculos_roubados WHERE id = ?";
+    await deletePromise(id, sql);
+  }
 }
 
 module.exports = new VeiculosRoubados();

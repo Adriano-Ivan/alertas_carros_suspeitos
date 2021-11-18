@@ -13,4 +13,5 @@ module.exports = (app) => {
     controllerVeiculosRoubados.getUpdateVeiculo
   );
   app.post("/update_roubado", controllerVeiculosRoubados.postUpdateVeiculo);
+  app.post("/delete_r_roubado", controllerVeiculosRoubados.deletarRegistro);
 };

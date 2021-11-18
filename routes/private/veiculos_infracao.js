@@ -5,8 +5,19 @@ module.exports = (app) => {
     "/veiculos_infracao/:placa",
     controllerVeiculosInfracao.getVeiculosInfracaoPorPlaca
   );
-  app.post(
-    "/veiculos_infracao",
-    controllerVeiculosInfracao.postVeiculosInfracao
+
+  app.get(
+    "/adicionar_infracao",
+    controllerVeiculosInfracao.getAdicionarVeiculo
   );
+  app.post(
+    "/insert_infracao",
+    controllerVeiculosInfracao.postAdicionarInfracao
+  );
+  app.get(
+    "/update_r_infracao_page",
+    controllerVeiculosInfracao.getUpdateVeiculo
+  );
+  app.post("/update_infracao", controllerVeiculosInfracao.postUpdateVeiculo);
+  app.post("/delete_r_infracao", controllerVeiculosInfracao.deletarRegistro);
 };

@@ -1,6 +1,11 @@
 const listaVeiculosIrregulares = require("../models/Veiculos_irregulares");
 const rotaBootstrapCSS = require("../helpers/linkCSSeBootstrap");
 const estiloBootstrapCSS = rotaBootstrapCSS();
+const url = require("url");
+const regexPlaca = /^[a-zA-Z]{3}[0-9]{4}$/;
+const regexPlacaMercosulCarro = /^[a-zA-Z]{3}[0-9]{1}[a-zA-Z]{1}[0-9]{2}$/;
+const regexPlacaMercosulMoto = /^[a-zA-Z]{3}[0-9]{2}[a-zA-Z]{1}[0-9]{1}$/;
+
 exports.getVeiculosIrregulares = (req, res) => {
   Promise.resolve(req.user).then((resu) => {
     listaVeiculosIrregulares.pegarDados().then((listagem) => {
@@ -12,6 +17,8 @@ exports.getVeiculosIrregulares = (req, res) => {
         listagem,
         usuario_adm: resu[0].autoridade === "ADM",
         porta: process.env.PORT,
+        placa_errada: req.flash("erro"),
+        sucesso: req.flash("sucesso"),
       });
     });
   });
@@ -34,7 +41,143 @@ exports.getVeiculosIrregularesPorPlaca = (req, res) => {
     });
   });
 };
-exports.postVeiculosIrregulares = (req, res) => {
-  res.writeHead(200, { "Content-type": "text/html" });
-  res.end("ROTA POST DE VEÍCULOS EM SITUAÇÃO IRREGULAR");
+exports.getAdicionarVeiculo = (req, res) => {
+  Promise.resolve(req.user).then((resu) => {
+    if (!(resu[0].autoridade === "ADM")) {
+      res.render("forbidden", {
+        porta: process.env.PORT,
+        BOOTSTRAP_CSS: estiloBootstrapCSS.split("|")[0],
+        ESTILO_CSS: estiloBootstrapCSS.split("|")[1],
+      });
+    } else {
+      console.log(resu);
+      console.log();
+      res.render("template-irregular-insert", {
+        BOOTSTRAP_CSS: estiloBootstrapCSS.split("|")[0],
+        ESTILO_CSS: estiloBootstrapCSS.split("|")[1],
+        porta: process.env.PORT,
+        placa_errada: req.flash("erro"),
+        sucesso: req.flash("sucesso"),
+      });
+    }
+  });
+};
+exports.postAdicionarIrregular = (req, res) => {
+  if (
+    regexPlaca.test(req.body.placa) ||
+    regexPlacaMercosulCarro.test(req.body.placa) ||
+    regexPlacaMercosulMoto.test(req.body.placa)
+  ) {
+    Promise.resolve(req.user).then((resu) => {
+      if (!(resu[0].autoridade === "ADM")) {
+        res.render("forbidden", {
+          porta: process.env.PORT,
+          BOOTSTRAP_CSS: estiloBootstrapCSS.split("|")[0],
+          ESTILO_CSS: estiloBootstrapCSS.split("|")[1],
+        });
+      } else {
+        const objeto = {
+          dono: req.body.dono,
+          placa: req.body.placa,
+          nivel_urgenciaID: parseInt(req.body.nivel_urgencia),
+          statusID: parseInt(req.body.status),
+          momento_alerta: `${req.body.data} ${req.body.hora}`,
+          local_alerta: req.body.local_alerta,
+          medida_administrativa: req.body.medida_administrativa,
+        };
+        listaVeiculosIrregulares
+          .inserirRegistro(objeto)
+          .then(() => {
+            req.flash("sucesso", true);
+            res.redirect("/adicionar_irregular");
+          })
+          .catch((erro) => console.log(erro));
+      }
+    });
+  } else {
+    //console.log("IETA");
+    req.flash("erro", "placa inválida");
+    res.redirect("/adicionar_irregular");
+  }
+};
+
+exports.getUpdateVeiculo = (req, res) => {
+  const { query } = url.parse(req.url, true);
+  //console.log(query);
+  const id = parseInt(query["id-registro-irregular"]);
+  console.log(id);
+  Promise.resolve(req.user).then((resu) => {
+    if (!(resu[0].autoridade === "ADM")) {
+      res.render("forbidden", {
+        porta: process.env.PORT,
+        BOOTSTRAP_CSS: estiloBootstrapCSS.split("|")[0],
+        ESTILO_CSS: estiloBootstrapCSS.split("|")[1],
+      });
+    } else {
+      console.log("ENTROU");
+      console.log(id);
+      listaVeiculosIrregulares.pegarDadosPorId(id).then((listagem) => {
+        console.log(resu);
+        console.log();
+        res.render("template-irregular-update", {
+          BOOTSTRAP_CSS: estiloBootstrapCSS.split("|")[0],
+          ESTILO_CSS: estiloBootstrapCSS.split("|")[1],
+          porta: process.env.PORT,
+          id_registro: id,
+          listagem_eh_valida: listagem.length > 0,
+          listagem,
+        });
+      });
+    }
+  });
+};
+exports.postUpdateVeiculo = (req, res) => {
+  console.log("ROTA UPDATE roubado\n", req.body);
+
+  if (
+    regexPlaca.test(req.body.placa) ||
+    regexPlacaMercosulCarro.test(req.body.placa) ||
+    regexPlacaMercosulMoto.test(req.body.placa)
+  ) {
+    Promise.resolve(req.user).then((resu) => {
+      if (!(resu[0].autoridade === "ADM")) {
+        res.render("forbidden", {
+          porta: process.env.PORT,
+          BOOTSTRAP_CSS: estiloBootstrapCSS.split("|")[0],
+          ESTILO_CSS: estiloBootstrapCSS.split("|")[1],
+        });
+      } else {
+        const objeto = {
+          dono: req.body.dono,
+          placa: req.body.placa,
+          nivel_urgenciaID: parseInt(req.body.nivel_urgencia),
+          statusID: parseInt(req.body.status),
+          momento_alerta: `${req.body.data} ${req.body.hora}`,
+          local_alerta: req.body.local_alerta,
+          medida_administrativa: req.body.medida_administrativa,
+        };
+
+        const id_registro = parseInt(req.body["id-registro-irregular"]);
+
+        listaVeiculosIrregulares
+          .updateRegistro(objeto, id_registro)
+          .then(() => {
+            req.flash("sucesso", true);
+            res.redirect("/veiculos_irregulares");
+          })
+          .catch((erro) => console.log(erro, "EITA"));
+      }
+    });
+  } else {
+    req.flash("erro", "placa inválida");
+    res.redirect("/update_r_irregular_page");
+  }
+};
+exports.deletarRegistro = (req, res) => {
+  listaVeiculosIrregulares
+    .deletarRegistro(parseInt(req.body["id-registro-irregular"]))
+    .then(() => {
+      req.flash("sucesso", true);
+      res.redirect("/veiculos_irregulares");
+    });
 };

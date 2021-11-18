@@ -17,6 +17,8 @@ exports.getVeiculosRoubados = (req, res) => {
         listagem,
         usuario_adm: resu[0].autoridade === "ADM",
         porta: process.env.PORT,
+        placa_errada: req.flash("erro"),
+        sucesso: req.flash("sucesso"),
       });
     });
   });
@@ -170,4 +172,12 @@ exports.postUpdateVeiculo = (req, res) => {
     req.flash("erro", "placa inválida");
     res.redirect("/update_r_roubado_page");
   }
+};
+exports.deletarRegistro = (req, res) => {
+  listaVeiculosRoubados
+    .deletarRegistro(parseInt(req.body["id-registro-roubado"]))
+    .then(() => {
+      req.flash("sucesso", true);
+      res.redirect("/veiculos_roubados");
+    });
 };

@@ -9,8 +9,24 @@ module.exports = (app) => {
     "/veiculos_irregulares/:placa",
     controllerVeiculosIrregulares.getVeiculosIrregularesPorPlaca
   );
+  app.get(
+    "/adicionar_irregular",
+    controllerVeiculosIrregulares.getAdicionarVeiculo
+  );
   app.post(
-    "/veicuos_irregulares",
-    controllerVeiculosIrregulares.postVeiculosIrregulares
+    "/insert_irregular",
+    controllerVeiculosIrregulares.postAdicionarIrregular
+  );
+  app.get(
+    "/update_r_irregular_page",
+    controllerVeiculosIrregulares.getUpdateVeiculo
+  );
+  app.post(
+    "/update_irregular",
+    controllerVeiculosIrregulares.postUpdateVeiculo
+  );
+  app.post(
+    "/delete_r_irregular",
+    controllerVeiculosIrregulares.deletarRegistro
   );
 };

@@ -1,7 +1,7 @@
 {{>partials/topo}}
 <aside>
-<div><a href="/veiculos_suspeitos" style='margin-bottom:5px;text-decoration:none;color:red'>VOLTAR</a></div>
-<form method='POST' class='crud-page'action='/insert_suspeito'>
+<div><a href="/veiculos_irregulares" style='margin-bottom:5px;text-decoration:none;color:red'>VOLTAR</a></div>
+<form method='POST' class='crud-page'action='/insert_irregular'>
 <label>
 Dono:<br>
 <input type='text' class="form-control"name='dono' required placeholder='Digite o nome do dono'>
@@ -27,6 +27,13 @@ Status da situação:<br>
 </select>
 </label>
 <label>
+Medida administrativa:<br>
+<select class="form-control" required name='medida_administrativa'id='status'>
+    <option value='remoção' selected>Remoção</option>
+    <option value='retenção'>Retenção</option>
+</select>
+</label>
+<label>
 Data:<br>
 <input class="form-control" required type='date' name='data' id='data'>
 </label>
@@ -35,8 +42,8 @@ Hora:<br>
 <input type="time" class="form-control" required step="1" name="hora" id="hora">
 </label>
 <label>
-Local:<br>
-<input type='text'  required class="form-control"name='local' id='local'>
+Local de disparo do alerta:<br>
+<input type='text'  required class="form-control"name='local_alerta' id='local_alerta'>
 </label>
 
 <input type='submit'class="btn btn-sm btn-block btn-primary" value='Enviar'>
