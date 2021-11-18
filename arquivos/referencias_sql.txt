@@ -1,0 +1,4 @@
+INSERT INTO usuarios(nome,email,senha,autoridade) VALUES ('Volkein Garrstol','volken13@gmail.com',
+'$2a$10$SGYibiNzyPWzWCQSR0FaP.b/C2mLxYLpSWaa5XRCRBdFVqOhwDfVW','REG');
+INSERT INTO usuarios(nome,email,senha,autoridade) VALUES('Wilsonus Mansolus','wil332@gmail.com',
+'$2a$10$iNcjcxDqKivCtCSab9mjsuufo8LGyRxR2jcBEjpSp6nJRhW3W6e7q','ADM');
