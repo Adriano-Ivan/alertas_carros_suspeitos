@@ -12,7 +12,7 @@ dotenv.config();
 // Server - connect to database
 conexao.connect((erro) => {
   if (erro) {
-    console.log("ERRO:" + error);
+    console.log("ERRO:" + erro);
   } else {
     console.log("Conectado ao database com sucesso");
     Tabelas.init(conexao);

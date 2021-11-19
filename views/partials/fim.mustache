@@ -42,5 +42,13 @@
         disp();
           </script>
         {{/sucesso}}
+        {{#enviado}}
+        <script>
+function disp() {
+            Swal.fire({icon:'success',titleText:'Email enviado com sucesso !',showCloseButton:true});
+          }
+        disp();
+        </script>
+        {{/enviado}}
   </body>
 </html>

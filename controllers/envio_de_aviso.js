@@ -16,6 +16,7 @@ exports.getEnvioDeAvisos = (req, res) => {
         porta: process.env.PORT,
         avisos_enviados_validos: dados.length > 0,
         listagem: dados,
+        enviado: req.flash("sucessoEnvio"),
       });
     });
   });
@@ -69,6 +70,7 @@ exports.enviarEmail = (req, res) => {
 
       Promise.resolve(req.user).then((resu) => {
         mensagensEnviadas.adiciona(mensagem, resu[0].id).then(() => {
+          req.flash("sucessoEnvio", true);
           res.redirect("/envio_de_aviso");
         });
       });

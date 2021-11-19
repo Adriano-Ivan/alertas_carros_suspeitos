@@ -1,0 +1,12 @@
+{{>partials/topo}}
+<aside>
+<div><a href="/locais" style='margin-bottom:5px;text-decoration:none;color:red'>VOLTAR</a></div>
+<form method='POST' style='margin-bottom:30%;' class='crud-page'action='/insert_local'>
+<label style='display:flex;flex-direction:column;justify-content:flex-start;align-items:flex-start'>
+Local:<br>
+<input type='text' style='text-align:left'class="form-control"name='local' required placeholder='Digite o nome do local'>
+</label>
+<input type='submit'class="btn btn-sm btn-block btn-primary" value='Enviar'>
+</form>
+</aside>
+{{>partials/fim}}

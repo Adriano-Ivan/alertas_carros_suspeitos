@@ -1,9 +1,10 @@
 {{>partials/topo}}
 <aside>
-<h2 class="titulo-locais" style="margin-bottom: 15px;text-align:center;font-size:21px">
+<h2 class="titulo-locais" style="margin-left:0;margin-bottom: 20px;text-align:center;font-weight:bold;font-size:21px;padding-left:15px;padding-right:15px;">
   CONFIRA OS LOCAIS-ALVO (LOCAIS ESPECIALMENTE MONITORADOS NO MOMENTO)
 </h2>
 <div class="container">
+{{#usuario_adm}}<a href='/adicionar_local' style='color:rgb(8, 77, 8);font-weight:bold;text-transform:uppercase;text-decoration:none;text-align:left;width:77%;margin-bottom:35px;'>Adicionar local</a>{{/usuario_adm}}
 <div class="table-responsive d-block d-md-table">
 <table style='min-width:85%;' class="
         table-elemento
@@ -38,6 +39,8 @@
       <th>ID</TH>
       <th>NUMERAÇÃO</th>
       <th>Local</th>
+      {{#usuario_adm}}<th>Editar</th>{{/usuario_adm}}
+      {{#usuario_adm}}<th>Excluir</th>{{/usuario_adm}}
     </tr>
   </thead>
    <tbody>
@@ -46,6 +49,8 @@
       <td>{{id}}</td>
       <TD>{{index}}</td>
       <td>{{local}}</td>
+      {{#usuario_adm}}<td style='padding:20px;'><form action="/update_r_local_page/" method='GET'enctype="application/x-www-form-urlencoded" role='form'><input type='number' class='desaparecer' name='id-registro-local'value={{id}}><button class="btn btn-success"class='edicao-local'>↘</button></form></td>{{/usuario_adm}}
+      {{#usuario_adm}}<td style='padding:20px;'><form action = '/delete_r_local/'method='post' enctype="application/x-www-form-urlencoded"><input type='number' class='desaparecer' name='id-registro-local' value={{id}}><button  class="btn btn-danger" class='exclusao-local'>x</button></form></td>{{/usuario_adm}}
     </tr>
     {{/listagem}}
     </TBODY>
