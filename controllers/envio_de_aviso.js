@@ -17,6 +17,7 @@ exports.getEnvioDeAvisos = (req, res) => {
         avisos_enviados_validos: dados.length > 0,
         listagem: dados,
         enviado: req.flash("sucessoEnvio"),
+        excluido: req.flash("sucessoExclusao"),
       });
     });
   });
@@ -103,6 +104,7 @@ exports.excluirMensagemEnviada = (req, res) => {
   const id = parseInt(req.body["id-registro-observacao"]);
   Promise.resolve(req.user).then((resu) => {
     mensagensEnviadas.deletarMensagem(id, resu[0].id).then(() => {
+      req.flash("sucessoExclusao", true);
       res.redirect("/envio_de_aviso");
     });
   });

@@ -7,13 +7,13 @@ const deletePromise = require("../helpers/deletePromise");
 class VeiculosRoubados {
   async pegarDados() {
     const sql =
-      "SELECT v.id,v.dono, v.placa, s.status, n.nivel_urgencia, v.local_roubo, v.local_alerta,DATE_FORMAT(DATE(momento_alerta), '%d/%m/%Y') as data, time(v.momento_alerta) as hora FROM veiculos_roubados AS v INNER JOIN status AS s ON s.id = v.statusID INNER JOIN nivel_urgencia AS n ON v.nivel_urgenciaID = n.id;";
+      "SELECT v.id,v.dono, v.placa, s.status, n.nivel_urgencia, v.local_roubo, v.local_alerta,DATE_FORMAT(DATE(momento_alerta), '%d/%m/%Y') as data, time(v.momento_alerta) as hora FROM veiculos_roubados AS v INNER JOIN status AS s ON s.id = v.statusID INNER JOIN nivel_urgencia AS n ON v.nivel_urgenciaID = n.id ORDER BY momento_alerta desc;";
     const dados = await queryPromise(sql);
     return [].concat(dados);
   }
   async pegarDadosPorId(id) {
     const sql =
-      "SELECT v.id,v.dono, v.placa, s.status, n.nivel_urgencia,v.local_roubo, v.local_alerta,DATE_FORMAT(DATE(momento_alerta), '%d/%m/%Y') as data, time(v.momento_alerta) as hora FROM veiculos_roubados AS v INNER JOIN status AS s ON s.id = v.statusID INNER JOIN nivel_urgencia AS n ON v.nivel_urgenciaID = n.id WHERE v.id = ?;";
+      "SELECT v.id,v.dono,v.placa, s.status, n.nivel_urgencia,v.local_roubo, v.local_alerta,DATE_FORMAT(DATE(momento_alerta), '%d/%m/%Y') as data, time(v.momento_alerta) as hora FROM veiculos_roubados AS v INNER JOIN status AS s ON s.id = v.statusID INNER JOIN nivel_urgencia AS n ON v.nivel_urgenciaID = n.id WHERE v.id = ? ORDER BY momento_alerta DESC;";
     const dados = await queryPromise2(id, sql);
     return [].concat(dados);
   }

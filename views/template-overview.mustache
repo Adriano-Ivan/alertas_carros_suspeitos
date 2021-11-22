@@ -8,7 +8,7 @@
         
       <div class='alerta-ocorrencia font-weight-bold alert casos-atencao alert-danger' role='alert'>
       
-        {{#retorno_relatorio_eh_array}}
+        {{#retorno_relatorio1_valido}}
           <h2 style='font-size:28px'>Há casos que requerem sua atenção !</h2>
           <ul class='lista-relatorio '>
             {{#retorno_relatorio1}}
@@ -16,23 +16,23 @@
             {{/retorno_relatorio1}}
           </ul>
           <h3><strong style='font-size:18px'>Por favor, verifique a aba de alertas para tomar as devidas providências !</strong></h3>
-        {{/retorno_relatorio_eh_array}}
-        {{^retorno_relatorio_eh_array}}
-          <h2 style='font-size:18px'>{{retorno_relatorio1}}</h2>
-        {{/retorno_relatorio_eh_array}}
+        {{/retorno_relatorio1_valido}}
+        {{^retorno_relatorio1_valido}}
+          <h2 >Sem casos a exibir</h2>
+        {{/retorno_relatorio1_valido}}
       </div>
       <div class='alerta-ocorrencia font-weight-bold alert casos-resolvidos alert-success' role='alert'>
-              {{#retorno_relatorio_eh_array}}
+              {{#retorno_relatorio2_valido}}
           <h2 style='font-size:28px'>Casos resolvidos</h2>
           <ul class='lista-relatorio '>
             {{#retorno_relatorio2}}
               <li>{{.}}</li>
             {{/retorno_relatorio2}}
           </ul>
-        {{/retorno_relatorio_eh_array}}
-        {{^retorno_relatorio_eh_array}}
-          <h2>{{retorno_relatorio2}}</h2>
-        {{/retorno_relatorio_eh_array}}
+        {{/retorno_relatorio2_valido}}
+        {{^retorno_relatorio2_valido}}
+          <h2>Sem casos resolvidos</h2>
+        {{/retorno_relatorio2_valido}}
       </div>
 
       </div>

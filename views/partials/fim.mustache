@@ -1,4 +1,5 @@
     </section>
+    <div class='relogio-area'></div>
 <script src="http://localhost:{{porta}}/public/jquery/jquery-3.6.0.min.js"></script>
     <script src="http://localhost:{{porta}}/public/bootstrap_js/bootstrap.bundle.min.js"></script>
     <script>
@@ -12,10 +13,21 @@
           }
         })
       );
+      const relogio_area = document.querySelector('.relogio-area');
+
+      const showHours = () =>{
+        const d = new Date();
+        const hour = `${String(d.getHours()).padStart(2, '0')}`;
+        const minutes = `${String(d.getMinutes()).padStart(2,'0')}`;
+        const seconds = `${String(d.getSeconds()).padStart(2,'0')}`
+        relogio_area.textContent=`${hour}:${minutes}:${seconds}`;
+      }
+      showHours();
+      setInterval(showHours,1000);
       </script>
       <script src='http://localhost:{{porta}}/public/sweetalert2/dist/sweetalert2.min.js'></script>
    
-    {{#retorno_relatorio_eh_array}}
+    {{#retorno_relatorio_valido_alerta}}
           <script>
           
           function disp() {
@@ -23,7 +35,7 @@
           }
         disp();
           </script>
-        {{/retorno_relatorio_eh_array}}
+        {{/retorno_relatorio_valido_alerta}}
         {{#placa_errada}}
 <script>
           
@@ -50,5 +62,13 @@ function disp() {
         disp();
         </script>
         {{/enviado}}
+                {{#excluido}}
+        <script>
+function disp() {
+            Swal.fire({icon:'success',titleText:'O email foi excluído da listagem !',showCloseButton:true});
+          }
+        disp();
+        </script>
+        {{/excluido}}
   </body>
 </html>

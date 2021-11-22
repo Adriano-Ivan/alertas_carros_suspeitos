@@ -16,7 +16,9 @@ const montarLista = (dadosRelatorio, igual, igual2) => {
           m.push(
             `* ${obj["vezes_roubados"]} veículo${
               obj["vezes_roubados"] > 1 ? "s" : ""
-            } roubados com status ${obj["status_roubados"]}`
+            } roubado${obj["vezes_roubados"] > 1 ? "s" : ""} com status ${
+              obj["status_roubados"]
+            }`
           );
         }
       }

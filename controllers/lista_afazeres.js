@@ -28,7 +28,7 @@ exports.getAfazeresPorDescricao = (req, res) => {
       item["index"] = i + 1;
       return item;
     });
-    console.log(dados);
+    //console.log(dados);
     res.render("template-afazeres", {
       BOOTSTRAP_CSS: estiloBootstrapCSS.split("|")[0],
       ESTILO_CSS: estiloBootstrapCSS.split("|")[1],
@@ -41,7 +41,7 @@ exports.getAfazeresPorDescricao = (req, res) => {
 exports.postAfazeres = (req, res) => {
   //res.writeHead(200, { "Content-type": "text/html" });
   const tarefa = req.body;
-  console.log(tarefa);
+  //console.log(tarefa);
 
   listaAfazeres
     .adiciona(tarefa)
@@ -77,8 +77,8 @@ exports.fazerUpdate = (req, res) => {
 exports.deletarTarefa = (req, res) => {
   const id = parseInt(req.body["id-registro-tarefa"]);
   listaAfazeres.deletarTarefa(id).then(() => {
-    console.log("ENTROU");
-    console.log(id);
+    //console.log("ENTROU");
+    //console.log(id);
     res.redirect("/lista_afazeres");
   });
 };

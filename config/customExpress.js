@@ -35,7 +35,7 @@ module.exports = () => {
       secret: process.env.SECRET_S,
       resave: false,
       saveUninitialized: false,
-      cookie: { maxAge: 10 * 60 * 1000 },
+      cookie: { maxAge: 30 * 60 * 1000 },
     })
   );
   app.use("/public", express.static(path.join(__dirname + `/../public`)));

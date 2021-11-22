@@ -8,14 +8,8 @@ const imagemHome = `http://localhost:8005/public/img/defesa_civil_repr.png`;
 
 const boasVindas = "Bem-vindo";
 module.exports = (req, res, dadosRelatorio = null) => {
-  if (dadosRelatorio === null || dadosRelatorio.length === 0) {
-    retornoRelatorio = [
-      "Nenhuma ocorrência pendente de atenção",
-      "Nenhum caso resolvido a ser listado",
-    ];
-  } else {
-    retornoRelatorio = retornarRelatorio(dadosRelatorio);
-  }
+  retornoRelatorio = retornarRelatorio(dadosRelatorio);
+
   let nome_usuario = "";
   Promise.resolve(req.user)
     .then((resu) => {
@@ -36,9 +30,9 @@ module.exports = (req, res, dadosRelatorio = null) => {
         ESTILO_CSS: estiloBootstrapCSS.split("|")[1],
         imagem_home: imagemHome,
         boas_vindas: boasVindas,
-        retorno_relatorio_eh_array:
-          typeof retornoRelatorio[0] === "object" &&
-          retornoRelatorio[0].length > 0,
+        retorno_relatorio_valido_alerta: retornoRelatorio[0].length > 0,
+        retorno_relatorio1_valido: retornoRelatorio[0].length > 0,
+        retorno_relatorio2_valido: retornoRelatorio[1].length > 0,
         retorno_relatorio1: retornoRelatorio[0],
         retorno_relatorio2: retornoRelatorio[1],
         nome_usuario,

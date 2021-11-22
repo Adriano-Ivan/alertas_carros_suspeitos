@@ -6,7 +6,7 @@ exports.getLocais = (req, res) => {
   Promise.resolve(req.user).then((resu) => {
     locais.pegarDados().then((listagem) => {
       const dados = listagem.map((item, index) => {
-        item["index"] = index;
+        item["index"] = index + 1;
         return item;
       });
       console.log(dados);

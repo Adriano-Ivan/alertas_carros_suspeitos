@@ -35,6 +35,18 @@ header {
   /*background-color: rgb(54, 103, 194);*/
   background-color: rgb(2, 35, 90);
 }
+
+/* Relógio */
+.relogio-area {
+  font-size: 32px;
+  font-style: italic;
+  position: fixed;
+  top: 16px;
+  color: rgb(255, 170, 0);
+  left: 16px;
+  z-index: 10000;
+}
+
 header h1 {
   flex: 2;
   display: flex;
@@ -97,6 +109,7 @@ aside {
   padding-top: 20px;
   padding-bottom: 20px;
   width: 75%;
+
   min-height: 100%;
   /*background-color: rgba(228, 218, 215, 0.897);*/
   background-color: rgba(180, 180, 180, 0.897);
@@ -208,14 +221,10 @@ aside h1 {
   color: rgb(255, 255, 255);
   background-color: rgb(8, 77, 8);
 }
-.table-elemento {
-  /*border: 1px solid black;*/
-  /*border-collapse: collapse;*/
-  width: 60vw;
-}
+
 .container table {
   margin: 0 auto;
-  max-width: 78%;
+  max-width: 90%;
   z-index: 10;
 }
 .table-elemento th,
@@ -539,6 +548,10 @@ input[type="submit"] {
   font-size: 11px;
   padding: 0;
 }
+/*crud page*/
+.crud-page label {
+  margin-bottom: 8px;
+}
 /* ÁREA DE UPDATE*/
 .area-update {
   display: flex;
@@ -597,13 +610,21 @@ input[type="submit"] {
   border: none;
   padding: 8px;
 }
-
-@media only screen and (min-width: 350px) and (max-width: 930px) {
+@media only screen and (max-width: 720px) {
+  .relogio-area {
+    top: 70px;
+    font-size: 18px;
+  }
+}
+@media only screen and (min-width: 350px) and (max-width: 1100px) {
   section.container-principal {
     flex-direction: column;
   }
   header {
     border-bottom: calc(2px - 1.6px) solid #fdf;
+  }
+  .relogio-area {
+    font-size: 24px;
   }
   nav {
     width: 100%;
@@ -666,6 +687,7 @@ input[type="submit"] {
   header {
     border-bottom: calc(2px - 1.6px) solid #fdf;
   }
+
   nav {
     width: 100%;
     padding-bottom: 0;
