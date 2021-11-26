@@ -1,5 +1,5 @@
 const queryPromise = require("../helpers/queryPromise");
-const queryPorIdPromise = require("../helpers/queryPorIdPromise");
+
 const queryPromise2 = require("../helpers/queryPromise2");
 const insertPromise = require("../helpers/insertPromise");
 const updatePromise = require("../helpers/updatePromise");

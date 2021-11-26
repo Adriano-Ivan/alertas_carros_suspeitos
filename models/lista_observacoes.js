@@ -16,13 +16,13 @@ class ListaObservacoes {
     return [].concat(dados);
   }
   async buscarPorDescricao(descricao) {
-    const sql = `SELECT * FROM observacoes_pertinentes WHERE descricao_observacao
+    const sql = `SELECT * FROM observacoes_pertinentes WHERE descricao
      LIKE ?`;
     const dados = await queryPromise2(descricao + "%", sql);
     return [].concat(dados);
   }
   async alterarObservacao(id, updated_observation) {
-    const sql = `UPDATE observacoes_pertinentes SET descricao_observacao = ? WHERE id = ?`;
+    const sql = `UPDATE observacoes_pertinentes SET descricao = ? WHERE id = ?`;
     await updatePromise(id, updated_observation, sql);
   }
   async deletarObservacao(id) {

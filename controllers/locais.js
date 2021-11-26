@@ -57,6 +57,7 @@ exports.getAdicionarLocal = (req, res) => {
       res.render("template-local-insert", {
         BOOTSTRAP_CSS: estiloBootstrapCSS.split("|")[0],
         ESTILO_CSS: estiloBootstrapCSS.split("|")[1],
+        usuario_adm: resu[0].autoridade === "ADM",
         porta: process.env.PORT,
         placa_errada: req.flash("erro"),
         sucesso: req.flash("sucesso"),
@@ -107,6 +108,7 @@ exports.getUpdateLocal = (req, res) => {
         res.render("template-local-update", {
           BOOTSTRAP_CSS: estiloBootstrapCSS.split("|")[0],
           ESTILO_CSS: estiloBootstrapCSS.split("|")[1],
+          usuario_adm: resu[0].autoridade === "ADM",
           porta: process.env.PORT,
           id_registro: id,
           listagem_eh_valida: listagem.length > 0,

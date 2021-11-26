@@ -15,6 +15,7 @@ exports.getEnvioDeAvisos = (req, res) => {
         ESTILO_CSS: estiloBootstrapCSS.split("|")[1],
         porta: process.env.PORT,
         avisos_enviados_validos: dados.length > 0,
+        usuario_adm: resu[0].autoridade === "ADM",
         listagem: dados,
         enviado: req.flash("sucessoEnvio"),
         excluido: req.flash("sucessoExclusao"),
@@ -93,6 +94,7 @@ exports.getMensagensPorDescricao = (req, res) => {
           BOOTSTRAP_CSS: estiloBootstrapCSS.split("|")[0],
           ESTILO_CSS: estiloBootstrapCSS.split("|")[1],
           porta: process.env.PORT,
+          usuario_adm: resu[0].autoridade === "ADM",
           avisos_enviados_validos: dados.length > 0,
           listagem: dados,
         });

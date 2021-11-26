@@ -70,5 +70,32 @@ function disp() {
         disp();
         </script>
         {{/excluido}}
+
+        {{#email_duplicado}}
+        <script>
+function disp() {
+            Swal.fire({icon:'alert',titleText:'Email duplicado ! Por favor, registre outro !',showCloseButton:true});
+          }
+        disp();
+        </script>
+        {{/email_duplicado}}
+
+        {{#senhas_diferentes}}
+        <script>
+        function disp() {
+            Swal.fire({icon:'alert',titleText:'A confirmação da senha difere da senha ! Por favor, tente novamente',showCloseButton:true});
+          }
+        disp();
+        </script>
+        {{/senhas_diferentes}}
+        {{#usuario_adicionado}}
+        <script>
+        function disp() {
+            Swal.fire({icon:'success',titleText:'Usuário {{nome_usuario}} adicionado !',showCloseButton:true});
+          }
+        disp();
+        </script>
+
+        {{/usuario_adicionado}}
   </body>
 </html>

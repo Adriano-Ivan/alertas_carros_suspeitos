@@ -1,0 +1,50 @@
+{{>partials/topo}}
+<aside>
+<div class="container">
+{{#usuario_adm}}<a href='/adicionar_usuario' style='color:rgb(8, 77, 8);font-weight:bold;text-transform:uppercase;text-decoration:none;text-align:left;width:77%'>Adicionar usuário</a>{{/usuario_adm}}
+  <div class="table-responsive d-block d-md-table">
+    <table
+      class="
+        table-elemento
+        table-usuarios
+        table
+        table-hover
+        table-striped
+        table-bordered
+       table-dark
+      "
+    >
+      <caption>
+        USUÁRIOS
+      </caption>
+      <thead class="table-dark">
+        <tr>
+            <th>id</th>
+          <th>NOME</th>
+          <th>EMAIL</th>
+          <th>AUTORIDADE</th>
+          <th>INSERÇÕES</th>
+          {{#usuario_adm}}<th>Editar</th>{{/usuario_adm}}
+          {{#usuario_adm}}<th>Excluir</th>{{/usuario_adm}}
+        </tr>
+      </thead>
+      <tbody>
+        {{#listagem_eh_valida}}
+          {{#listagem}}
+          <tr>
+          <td>{{id}}</td>
+            <td>{{nome}}</td>
+            <td style='text-transform:uppercase;'>{{email}}</td>
+            <td>{{autoridade}}</td>
+            <td>{{insercoes}}</td>
+            {{#usuario_adm}}<td style='padding:20px;'><form action="/update_r_usuario_page/" method='GET'enctype="application/x-www-form-urlencoded" role='form'><input type='number' class='desaparecer' name='id-registro-usuario'value={{id}}><button class="btn btn-success"class='edicao-usuario'>↘</button></form></td>{{/usuario_adm}}
+            {{#usuario_adm}}<td style='padding:20px;'><form action = '/delete_r_usuario/'method='post' enctype="application/x-www-form-urlencoded"><input type='number' class='desaparecer' name='id-registro-usuario' value={{id}}><button  class="btn btn-danger" class='exclusao-usuario'>x</button></form></td>{{/usuario_adm}}
+          </tr>
+          {{/listagem}}
+        {{/listagem_eh_valida}}
+      </tbody>
+    </table>
+  </div>
+</div>
+</aside>
+{{>partials/fim}}

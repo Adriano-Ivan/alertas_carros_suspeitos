@@ -5,36 +5,42 @@ const estiloBootstrapCSS = rotaBootstrapCSS();
 
 exports.getAfazeres = (req, res) => {
   //res.writeHead(200, { "Content-type": "text/html" });
-  listaAfazeres.pegarDados().then((listagem) => {
-    const dados = listagem.map((item, i) => {
-      item["index"] = i + 1;
-      return item;
-    });
-    console.log(dados);
-    res.render("template-afazeres", {
-      BOOTSTRAP_CSS: estiloBootstrapCSS.split("|")[0],
-      ESTILO_CSS: estiloBootstrapCSS.split("|")[1],
-      listagem_eh_valida: listagem.length > 0,
-      listagem: dados,
-      porta: process.env.PORT,
+  Promise.resolve(req.user).then((resu) => {
+    listaAfazeres.pegarDados().then((listagem) => {
+      const dados = listagem.map((item, i) => {
+        item["index"] = i + 1;
+        return item;
+      });
+      console.log(dados);
+      res.render("template-afazeres", {
+        BOOTSTRAP_CSS: estiloBootstrapCSS.split("|")[0],
+        ESTILO_CSS: estiloBootstrapCSS.split("|")[1],
+        usuario_adm: resu[0].autoridade,
+        listagem_eh_valida: listagem.length > 0,
+        listagem: dados,
+        porta: process.env.PORT,
+      });
     });
   });
 };
 exports.getAfazeresPorDescricao = (req, res) => {
   //res.writeHead(200, { "Content-type": "text/html" });
   const descricao = req.params.descricao;
-  listaAfazeres.buscarPorDescricao(descricao, res).then((listagem) => {
-    const dados = listagem.map((item, i) => {
-      item["index"] = i + 1;
-      return item;
-    });
-    //console.log(dados);
-    res.render("template-afazeres", {
-      BOOTSTRAP_CSS: estiloBootstrapCSS.split("|")[0],
-      ESTILO_CSS: estiloBootstrapCSS.split("|")[1],
-      listagem_eh_valida: listagem.length > 0,
-      listagem: dados,
-      porta: process.env.PORT,
+  Promise.resolve(req.user).then((resu) => {
+    listaAfazeres.buscarPorDescricao(descricao, res).then((listagem) => {
+      const dados = listagem.map((item, i) => {
+        item["index"] = i + 1;
+        return item;
+      });
+      //console.log(dados);
+      res.render("template-afazeres", {
+        BOOTSTRAP_CSS: estiloBootstrapCSS.split("|")[0],
+        ESTILO_CSS: estiloBootstrapCSS.split("|")[1],
+        usuario_adm: resu[0].autoridade === "ADM",
+        listagem_eh_valida: listagem.length > 0,
+        listagem: dados,
+        porta: process.env.PORT,
+      });
     });
   });
 };
@@ -58,12 +64,15 @@ exports.updateAfazer = (req, res) => {
   //res.writeHead(200, { "Content-type": "text/html" });
   const { query } = url.parse(req.url, true);
   //console.log(query);
-  const id = parseInt(query["id-registro-tarefa"]);
-  res.render("template-update-tarefa", {
-    id,
-    BOOTSTRAP_CSS: estiloBootstrapCSS.split("|")[0],
-    ESTILO_CSS: estiloBootstrapCSS.split("|")[1],
-    porta: process.env.PORT,
+  Promise.resolve(req.user).then((resu) => {
+    const id = parseInt(query["id-registro-tarefa"]);
+    res.render("template-update-tarefa", {
+      id,
+      usuario_adm: resu[0].autoridade,
+      BOOTSTRAP_CSS: estiloBootstrapCSS.split("|")[0],
+      ESTILO_CSS: estiloBootstrapCSS.split("|")[1],
+      porta: process.env.PORT,
+    });
   });
 };
 exports.fazerUpdate = (req, res) => {

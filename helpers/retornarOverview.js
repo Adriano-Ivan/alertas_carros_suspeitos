@@ -11,6 +11,7 @@ module.exports = (req, res, dadosRelatorio = null) => {
   retornoRelatorio = retornarRelatorio(dadosRelatorio);
 
   let nome_usuario = "";
+  let usuario_adm = false;
   Promise.resolve(req.user)
     .then((resu) => {
       nome_usuario = resu[0].nome
@@ -21,6 +22,7 @@ module.exports = (req, res, dadosRelatorio = null) => {
           return `${s1}${s.slice(1)}`;
         })
         .join(" ");
+      usuario_adm = resu[0].autoridade === "ADM";
       //nome_usuario = resu[0].nome;
     })
     .then(() => {
@@ -36,6 +38,7 @@ module.exports = (req, res, dadosRelatorio = null) => {
         retorno_relatorio1: retornoRelatorio[0],
         retorno_relatorio2: retornoRelatorio[1],
         nome_usuario,
+        usuario_adm,
         porta: process.env.PORT,
       });
     });

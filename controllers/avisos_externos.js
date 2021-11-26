@@ -12,6 +12,7 @@ exports.getAvisosExternos = (req, res) => {
       res.render("template-avisos-externos", {
         BOOTSTRAP_CSS: estiloBootstrapCSS.split("|")[0],
         ESTILO_CSS: estiloBootstrapCSS.split("|")[1],
+        usuario_adm: resu[0].autoridade === "ADM",
         porta: process.env.PORT,
         listagem_eh_valida: dados.length > 0,
         listagem: dados,
@@ -33,6 +34,7 @@ exports.getMensagensPorDescricao = (req, res) => {
         res.render("template-avisos-externos", {
           BOOTSTRAP_CSS: estiloBootstrapCSS.split("|")[0],
           ESTILO_CSS: estiloBootstrapCSS.split("|")[1],
+          usuario_adm: resu[0].autoridade === "ADM",
           porta: process.env.PORT,
           listagem_eh_valida: dados.length > 0,
           listagem: dados,
