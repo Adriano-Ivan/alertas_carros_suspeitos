@@ -3,6 +3,24 @@ const rotaBootstrapCSS = require("../helpers/linkCSSeBootstrap");
 const estiloBootstrapCSS = rotaBootstrapCSS();
 const jwt = require("jsonwebtoken");
 const bcrypt = require("bcryptjs");
+const usuarios = require("../routes/private/usuarios");
+
+const returnedUpperFirst = function (nm) {
+  return nm
+    .split("")
+    .map((e, i, arr) => {
+      let el = e;
+      if (i === 0) {
+        el = e.toUpperCase();
+      } else if (arr[i - 1] === " ") {
+        el = e.toUpperCase();
+      } else {
+        el = e.toLowerCase();
+      }
+      return el;
+    })
+    .join("");
+};
 exports.getUsuarios = (req, res) => {
   Promise.resolve(req.user).then((resu) => {
     if (!(resu[0].autoridade === "ADM")) {
@@ -19,6 +37,8 @@ exports.getUsuarios = (req, res) => {
           BOOTSTRAP_CSS: estiloBootstrapCSS.split("|")[0],
           ESTILO_CSS: estiloBootstrapCSS.split("|")[1],
           usuario_adm: resu[0].autoridade === "ADM",
+          nome_deletado: req.flash("usuario"),
+          usuario_deletado: req.flash("usuario_deletado"),
           listagem,
           listagem_eh_valida: listagem.length > 0,
         });
@@ -71,32 +91,26 @@ exports.postAdicionarUsuario = (req, res) => {
     console.log(hashedPassword);
     usuario
       .inserirRegistro({
-        nome: name,
+        nome: returnedUpperFirst(name),
         senha: hashedPassword,
         email: email,
         autoridade: autoridade,
       })
       .then(() => {
         req.flash("sucesso_add_user", true);
-        req.flash(
-          "nome_usuario",
-          name
-            .split("")
-            .map((e, i, arr) => {
-              let el = e;
-              if (i === 0) {
-                el = e.toUpperCase();
-              } else if (arr[i - 1] === " ") {
-                el = e.toUpperCase();
-              } else {
-                el = e.toLowerCase();
-              }
-              return el;
-            })
-            .join("")
-        );
+        req.flash("nome_usuario", returnedUpperFirst(name));
         res.redirect("/adicionar_usuario");
       })
       .catch((erro) => console.log(erro));
   });
+};
+
+exports.deletarRegistro = (req, res) => {
+  usuario
+    .deleteUserById(parseInt(req.body["id-registro-usuario"]))
+    .then((user) => {
+      req.flash("usuario", user[0].nome);
+      req.flash("usuario_deletado", true);
+      res.redirect("/usuarios");
+    });
 };

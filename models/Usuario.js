@@ -1,6 +1,7 @@
 const queryPromise = require("../helpers/queryPromise");
 const queryPromise2 = require("../helpers/queryPromise2");
 const insertPromise = require("../helpers/insertPromise");
+const deletePromise = require("../helpers/deletePromise");
 // const AES = require("mysql-aes-binary");
 // const decrypt = function (text) {
 //   return AES.decrypt(text, "chave_node");
@@ -40,6 +41,12 @@ FROM  usuarios WHERE email = ? or nome = ?;`;
     const dados = await queryPromise2(id, sql);
     //console.log(dados);
     return [].concat(dados);
+  }
+  async deleteUserById(id) {
+    const user = await this.findUserById(id);
+    const sql = `DELETE FROM usuarios WHERE id = ?`;
+    await deletePromise(id, sql);
+    return [].concat(user);
   }
 }
 module.exports = new Usuario();

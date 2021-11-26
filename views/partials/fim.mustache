@@ -97,5 +97,14 @@ function disp() {
         </script>
 
         {{/usuario_adicionado}}
+        {{#usuario_deletado}}
+        <script>
+        function disp() {
+            Swal.fire({icon:'success',titleText:'Usuário {{nome_deletado}} deletado !',showCloseButton:true});
+          }
+        disp();
+        </script>
+
+        {{/usuario_deletado}}
   </body>
 </html>
