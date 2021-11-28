@@ -170,7 +170,7 @@ exports.postUpdateVeiculo = (req, res) => {
     });
   } else {
     req.flash("erro", "placa inválida");
-    res.redirect("/update_r_roubado_page");
+    res.redirect("/veiculos_roubados");
   }
 };
 exports.deletarRegistro = (req, res) => {

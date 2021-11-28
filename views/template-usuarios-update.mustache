@@ -1,0 +1,35 @@
+{{>partials/topo}}
+<aside>
+<div style='max-height:50px'><a href="/usuarios" style='margin-bottom:5px;text-decoration:none;color:red;'>VOLTAR</a></div>
+<form  method='POST' class='crud-page'action='/update_usuario'>
+{{#user}}
+<label>
+Nome de usuário:<br>
+<input type='text' class="form-control"name='usuario' value='{{nome}}'autocomplete='new-password' required placeholder='Digite o nome de usuário'>
+</label>
+<label>
+Email:<br>
+<input type='email' class="form-control"name='email' autcomplete='off' value='{{email}}'required placeholder='Digite o email do usuário'>
+</label>
+{{/user}}
+<label>
+Autoridade:<br>
+<select class="form-control" required name='autoridade'id='autoridade'>
+    <option value='REG' selected>REG</option>
+    <option value='ADM'>ADM</option>
+</select>
+</label>
+<label>
+Senha:<br>
+<input type='password' value='' autocomplete='new-password'placeholder='Digite a senha do usuário' required class="form-control"name='senha_inserida' id='senha_inserida'>
+</label>
+<label>
+Confirme a senha:<br>
+<input type='password' value='' autocomplete='new-password' placeholder='Digite a senha novamente' required
+class='form-control' name='senha_confirmacao' id='senha_confirmacao'>
+</label>
+<input type='number' class='desaparecer' name='id-registro-usuario' value={{id_registro}}>
+<input type='submit'class="btn btn-sm btn-block btn-primary" value='Enviar'>
+</form>
+</aside>
+{{>partials/fim}}

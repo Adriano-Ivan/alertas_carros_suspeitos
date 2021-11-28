@@ -106,5 +106,21 @@ function disp() {
         </script>
 
         {{/usuario_deletado}}
+        {{#update_proibido}}
+<script>
+        function disp() {
+            Swal.fire({icon:'alert',titleText:'Não é permitida a alteração de um usuário ADM !',showCloseButton:true});
+          }
+        disp();
+        </script>
+        {{/update_proibido}}
+                {{#delete_proibido}}
+<script>
+        function disp() {
+            Swal.fire({icon:'alert',titleText:'Não é permitida a exclusão de um usuário ADM !',showCloseButton:true});
+          }
+        disp();
+        </script>
+        {{/delete_proibido}}
   </body>
 </html>

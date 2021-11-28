@@ -62,7 +62,7 @@ class Tabelas {
   }
   criarUsuarios() {
     const sql =
-      "CREATE TABLE IF NOT EXISTS usuarios(id int NOT NULL AUTO_INCREMENT, nome varchar(130) NOT NULL,email varchar(130) NOT NULL, autoridade VARCHAR(25) NOT NULL DEFAULT 'ADM',senha varchar(256) NOT NULL, PRIMARY KEY(id))";
+      "CREATE TABLE IF NOT EXISTS usuarios(id int NOT NULL AUTO_INCREMENT, nome varchar(130) NOT NULL,email varchar(130) NOT NULL, insercoes int NOT NULL DEFAULT 0,autoridade VARCHAR(25) NOT NULL DEFAULT 'ADM',senha varchar(256) NOT NULL, PRIMARY KEY(id))";
     this.conexao.query(sql, (erro) => {
       if (erro) {
         console.log(erro);

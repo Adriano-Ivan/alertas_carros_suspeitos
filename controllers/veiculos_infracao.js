@@ -171,7 +171,7 @@ exports.postUpdateVeiculo = (req, res) => {
     });
   } else {
     req.flash("erro", "placa inválida");
-    res.redirect("/update_r_infracao_page");
+    res.redirect("/veiculos_infracao");
   }
 };
 exports.deletarRegistro = (req, res) => {

@@ -4,6 +4,7 @@ const estiloBootstrapCSS = rotaBootstrapCSS();
 const jwt = require("jsonwebtoken");
 const bcrypt = require("bcryptjs");
 const usuarios = require("../routes/private/usuarios");
+const url = require("url");
 
 const returnedUpperFirst = function (nm) {
   return nm
@@ -39,6 +40,10 @@ exports.getUsuarios = (req, res) => {
           usuario_adm: resu[0].autoridade === "ADM",
           nome_deletado: req.flash("usuario"),
           usuario_deletado: req.flash("usuario_deletado"),
+          update_proibido: req.flash("update_proibido"),
+          delete_proibido: req.flash("delete_proibido"),
+          senhas_diferentes: req.flash("senhas_diferentes"),
+          email_duplicado: req.flash("email_duplicado"),
           listagem,
           listagem_eh_valida: listagem.length > 0,
         });
@@ -63,7 +68,6 @@ exports.getAdicionarUsuario = (req, res) => {
         senhas_diferentes: req.flash("senhas_diferentes"),
         email_duplicado: req.flash("email_duplicado"),
         usuario_adicionado: req.flash("sucesso_add_user"),
-
         nome_usuario: req.flash("nome_usuario"),
       });
     }
@@ -104,13 +108,96 @@ exports.postAdicionarUsuario = (req, res) => {
       .catch((erro) => console.log(erro));
   });
 };
+exports.getUpdateUsuario = (req, res) => {
+  Promise.resolve(req.user).then((result) => {
+    if (!(result[0].autoridade === "ADM")) {
+      res.render("forbidden", {
+        porta: process.env.PORT,
+        BOOTSTRAP_CSS: estiloBootstrapCSS.split("|")[0],
+        ESTILO_CSS: estiloBootstrapCSS.split("|")[1],
+      });
+    } else {
+      const { query } = url.parse(req.url, true);
+      const id = parseInt(query["id-registro-usuario"]);
+      console.log("ENTROUUUUUUUU");
+      console.log(id);
+      usuario.findUserById(id).then((user) => {
+        if (user[0].autoridade === "ADM") {
+          req.flash("update_proibido", true);
+          res.redirect("/usuarios");
+        } else {
+          res.render("template-usuarios-update", {
+            user,
+            porta: process.env.PORT,
+            id_registro: id,
 
+            BOOTSTRAP_CSS: estiloBootstrapCSS.split("|")[0],
+            ESTILO_CSS: estiloBootstrapCSS.split("|")[1],
+          });
+        }
+      });
+    }
+  });
+};
+exports.postUpdateUsuario = (req, res) => {
+  Promise.resolve(req.user).then((result) => {
+    if (!(result[0].autoridade === "ADM")) {
+      res.render("forbidden", {
+        porta: process.env.PORT,
+        BOOTSTRAP_CSS: estiloBootstrapCSS.split("|")[0],
+        ESTILO_CSS: estiloBootstrapCSS.split("|")[1],
+      });
+    } else {
+      const email = req.body.email;
+      const senha = req.body.senha_inserida;
+      const senhaConfirmacao = req.body.senha_confirmacao;
+      usuario.avaliarEmail(email).then(async (resultado) => {
+        if (resultado.length > 0) {
+          console.log("email duplicado");
+          console.log(resultado);
+          req.flash("email_duplicado", true);
+          res.redirect("/usuarios");
+        } else if (senha !== senhaConfirmacao) {
+          req.flash("senhas_diferentes", true);
+          res.redirect("/usuarios");
+        } else {
+          console.log("OPA");
+          let hashedPassword = await bcrypt.hash(senha, 8);
+          console.log(hashedPassword);
+          const objeto = {
+            nome: req.body.usuario,
+            email,
+            senha: hashedPassword,
+            autoridade: req.body.autoridade,
+          };
+          const id_registro = parseInt(req.body["id-registro-usuario"]);
+          usuario
+            .updateRegistro(objeto, id_registro)
+            .then(() => {
+              req.flash("update_feito", true);
+              res.redirect("/usuarios");
+            })
+            .catch((erro) => console.log(erro));
+        }
+      });
+    }
+  });
+};
 exports.deletarRegistro = (req, res) => {
   usuario
-    .deleteUserById(parseInt(req.body["id-registro-usuario"]))
+    .findUserById(parseInt(req.body["id-registro-usuario"]))
     .then((user) => {
-      req.flash("usuario", user[0].nome);
-      req.flash("usuario_deletado", true);
-      res.redirect("/usuarios");
+      if (user[0].autoridade === "ADM") {
+        req.flash("delete_proibido", true);
+        res.redirect("/usuarios");
+      } else {
+        usuario
+          .deleteUserById(parseInt(req.body["id-registro-usuario"]))
+          .then((user) => {
+            req.flash("usuario", user[0].nome);
+            req.flash("usuario_deletado", true);
+            res.redirect("/usuarios");
+          });
+      }
     });
 };

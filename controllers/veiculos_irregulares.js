@@ -170,7 +170,7 @@ exports.postUpdateVeiculo = (req, res) => {
     });
   } else {
     req.flash("erro", "placa inválida");
-    res.redirect("/update_r_irregular_page");
+    res.redirect("/veiculos_irregulares");
   }
 };
 exports.deletarRegistro = (req, res) => {

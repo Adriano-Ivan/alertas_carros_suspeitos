@@ -2,6 +2,7 @@ const queryPromise = require("../helpers/queryPromise");
 const queryPromise2 = require("../helpers/queryPromise2");
 const insertPromise = require("../helpers/insertPromise");
 const deletePromise = require("../helpers/deletePromise");
+const updatePromise = require("../helpers/updatePromise");
 // const AES = require("mysql-aes-binary");
 // const decrypt = function (text) {
 //   return AES.decrypt(text, "chave_node");
@@ -9,7 +10,7 @@ const deletePromise = require("../helpers/deletePromise");
 
 class Usuario {
   async getUsuarios() {
-    const sql = `SELECT id,nome, email, autoridade FROM usuarios;`;
+    const sql = `SELECT id,nome, email, autoridade,insercoes FROM usuarios;`;
     const dados = await queryPromise(sql);
     return [].concat(dados);
   }
@@ -41,6 +42,11 @@ FROM  usuarios WHERE email = ? or nome = ?;`;
     const dados = await queryPromise2(id, sql);
     //console.log(dados);
     return [].concat(dados);
+  }
+  async updateRegistro(objeto, id) {
+    console.log(objeto, id);
+    const sql = "UPDATE usuarios SET ? WHERE id = ?";
+    await updatePromise(id, objeto, sql);
   }
   async deleteUserById(id) {
     const user = await this.findUserById(id);

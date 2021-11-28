@@ -165,7 +165,7 @@ exports.postUpdateVeiculo = (req, res) => {
     });
   } else {
     req.flash("erro", "placa inválida");
-    res.redirect("/update_r_suspeito_page");
+    res.redirect("/veiculos_suspeitos");
   }
 };
 exports.deletarRegistro = (req, res) => {
