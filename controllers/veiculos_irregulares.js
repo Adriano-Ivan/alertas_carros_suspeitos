@@ -2,6 +2,7 @@ const listaVeiculosIrregulares = require("../models/Veiculos_irregulares");
 const rotaBootstrapCSS = require("../helpers/linkCSSeBootstrap");
 const estiloBootstrapCSS = rotaBootstrapCSS();
 const url = require("url");
+const usuario = require("./../models/Usuario");
 const regexPlaca = /^[a-zA-Z]{3}[0-9]{4}$/;
 const regexPlacaMercosulCarro = /^[a-zA-Z]{3}[0-9]{1}[a-zA-Z]{1}[0-9]{2}$/;
 const regexPlacaMercosulMoto = /^[a-zA-Z]{3}[0-9]{2}[a-zA-Z]{1}[0-9]{1}$/;
@@ -56,6 +57,7 @@ exports.getAdicionarVeiculo = (req, res) => {
         BOOTSTRAP_CSS: estiloBootstrapCSS.split("|")[0],
         ESTILO_CSS: estiloBootstrapCSS.split("|")[1],
         porta: process.env.PORT,
+        id_usuario: resu[0].id,
         placa_errada: req.flash("erro"),
         sucesso: req.flash("sucesso"),
       });
@@ -81,12 +83,14 @@ exports.postAdicionarIrregular = (req, res) => {
           placa: req.body.placa,
           nivel_urgenciaID: parseInt(req.body.nivel_urgencia),
           statusID: parseInt(req.body.status),
+          id_usuario: parseInt(req.body.id_usuario),
           momento_alerta: `${req.body.data} ${req.body.hora}`,
           local_alerta: req.body.local_alerta,
           medida_administrativa: req.body.medida_administrativa,
         };
         listaVeiculosIrregulares
           .inserirRegistro(objeto)
+          .then(() => usuario.updateInserts(1, parseInt(req.body.id_usuario)))
           .then(() => {
             req.flash("sucesso", true);
             res.redirect("/adicionar_irregular");

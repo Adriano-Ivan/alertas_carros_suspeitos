@@ -1,5 +1,6 @@
 const express = require("express");
 const consign = require("consign");
+let http = require("http");
 const bodyParser = require("body-parser");
 const cookieParser = require("cookie-parser");
 const passport = require("passport");
@@ -53,5 +54,6 @@ module.exports = () => {
         "<strong sytle='font-size:35px;text-transform:uppercase'>Página não encontrada</strong>"
       );
   });
-  return app;
+  http = http.createServer(app);
+  return http;
 };

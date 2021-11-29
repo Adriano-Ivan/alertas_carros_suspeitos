@@ -24,6 +24,7 @@
           <th>EMAIL</th>
           <th>AUTORIDADE</th>
           <th>INSERÇÕES</th>
+          <TH>Zona de ação</th>
           {{#usuario_adm}}<th>Editar</th>{{/usuario_adm}}
           {{#usuario_adm}}<th>Excluir</th>{{/usuario_adm}}
         </tr>
@@ -37,6 +38,7 @@
             <td style='text-transform:uppercase;'>{{email}}</td>
             <td>{{autoridade}}</td>
             <td>{{insercoes}}</td>
+            <td>{{zona}}</td>
             {{#usuario_adm}}<td style='padding:20px;'><form action="/update_r_usuario_page/" method='GET'enctype="application/x-www-form-urlencoded" role='form'><input type='number' class='desaparecer' name='id-registro-usuario'value={{id}}><button class="btn btn-success"class='edicao-usuario'>↘</button></form></td>{{/usuario_adm}}
             {{#usuario_adm}}<td style='padding:20px;'><form action = '/delete_r_usuario/'method='post' enctype="application/x-www-form-urlencoded"><input type='number' class='desaparecer' name='id-registro-usuario' value={{id}}><button  class="btn btn-danger" class='exclusao-usuario'>x</button></form></td>{{/usuario_adm}}
           </tr>

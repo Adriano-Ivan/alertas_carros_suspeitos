@@ -3,7 +3,6 @@ const rotaBootstrapCSS = require("../helpers/linkCSSeBootstrap");
 const estiloBootstrapCSS = rotaBootstrapCSS();
 const jwt = require("jsonwebtoken");
 const bcrypt = require("bcryptjs");
-const usuarios = require("../routes/private/usuarios");
 const url = require("url");
 
 const returnedUpperFirst = function (nm) {
@@ -89,23 +88,23 @@ exports.postAdicionarUsuario = (req, res) => {
     } else if (senha !== senhaConfirmacao) {
       req.flash("senhas_diferentes", true);
       res.redirect("/adicionar_usuario");
+    } else {
+      let hashedPassword = await bcrypt.hash(senha, 8);
+      console.log(hashedPassword);
+      usuario
+        .inserirRegistro({
+          nome: returnedUpperFirst(name),
+          senha: hashedPassword,
+          email: email,
+          autoridade: autoridade,
+        })
+        .then(() => {
+          req.flash("sucesso_add_user", true);
+          req.flash("nome_usuario", returnedUpperFirst(name));
+          res.redirect("/adicionar_usuario");
+        })
+        .catch((erro) => console.log(erro));
     }
-
-    let hashedPassword = await bcrypt.hash(senha, 8);
-    console.log(hashedPassword);
-    usuario
-      .inserirRegistro({
-        nome: returnedUpperFirst(name),
-        senha: hashedPassword,
-        email: email,
-        autoridade: autoridade,
-      })
-      .then(() => {
-        req.flash("sucesso_add_user", true);
-        req.flash("nome_usuario", returnedUpperFirst(name));
-        res.redirect("/adicionar_usuario");
-      })
-      .catch((erro) => console.log(erro));
   });
 };
 exports.getUpdateUsuario = (req, res) => {
@@ -119,8 +118,8 @@ exports.getUpdateUsuario = (req, res) => {
     } else {
       const { query } = url.parse(req.url, true);
       const id = parseInt(query["id-registro-usuario"]);
-      console.log("ENTROUUUUUUUU");
-      console.log(id);
+      //console.log("ENTROUUUUUUUU");
+      //console.log(id);
       usuario.findUserById(id).then((user) => {
         if (user[0].autoridade === "ADM") {
           req.flash("update_proibido", true);

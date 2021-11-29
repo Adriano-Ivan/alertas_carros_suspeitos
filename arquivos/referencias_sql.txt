@@ -4,3 +4,5 @@ insert into usuarios(nome, email,senha,autoridade) values('Usuário de Exemplo',
 INSERT INTO nivel_urgencia(nivel_urgencia) VALUES('Máximo'), ('Mediano'), ('Padrão');
 
 INSERT INTO status(status) VALUES('Resolvido'), ('Em andamento'), ('A confirmar');
+
+INSERT INTO zonas(zona) VALUES('Zona A'), ('Zona B'), ('Zona C');

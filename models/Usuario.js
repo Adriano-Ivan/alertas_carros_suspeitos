@@ -10,7 +10,7 @@ const updatePromise = require("../helpers/updatePromise");
 
 class Usuario {
   async getUsuarios() {
-    const sql = `SELECT id,nome, email, autoridade,insercoes FROM usuarios;`;
+    const sql = `SELECT usuarios.id,nome, email, autoridade,insercoes,zonas.zona FROM usuarios INNER JOIN zonas ON zonas.id = usuarios.id_zona;`;
     const dados = await queryPromise(sql);
     return [].concat(dados);
   }
@@ -47,6 +47,12 @@ FROM  usuarios WHERE email = ? or nome = ?;`;
     console.log(objeto, id);
     const sql = "UPDATE usuarios SET ? WHERE id = ?";
     await updatePromise(id, objeto, sql);
+  }
+  async updateInserts(value, id) {
+    console.log(value, id);
+    console.log("EITA");
+    const sql = "UPDATE usuarios SET insercoes = insercoes + ? WHERE id = ?";
+    await updatePromise(id, value, sql);
   }
   async deleteUserById(id) {
     const user = await this.findUserById(id);

@@ -5,6 +5,7 @@ class Tabelas {
     this.criarTarefasAfazer();
     this.criarUsuarios();
     this.criarLocais();
+    this.criarZonas();
     this.criarMensagensRecebidas();
     this.criarMensagensEnviadas();
     this.criarObservacoesPertinentes();
@@ -37,6 +38,17 @@ class Tabelas {
       }
     });
   }
+  criarZonas() {
+    const sql =
+      "CREATE TABLE IF NOT EXISTS zonas(id int NOT NULL AUTO_INCREMENT, zona VARCHAR(25) not null, PRIMARY KEY(id));";
+    this.conexao.query(sql, (erro) => {
+      if (erro) {
+        console.log(erro);
+      } else {
+        console.log("Tabela zonas criada com sucesso.");
+      }
+    });
+  }
   criarMensagensRecebidas() {
     const sql =
       "CREATE TABLE IF NOT EXISTS mensagens_recebidas(id int NOT NULL AUTO_INCREMENT, id_usuario int NOT NULL, mensagem_recebida text NOT NULL, PRIMARY KEY(id), FOREIGN KEY(id_usuario) REFERENCES usuarios(id))";
@@ -62,7 +74,7 @@ class Tabelas {
   }
   criarUsuarios() {
     const sql =
-      "CREATE TABLE IF NOT EXISTS usuarios(id int NOT NULL AUTO_INCREMENT, nome varchar(130) NOT NULL,email varchar(130) NOT NULL, insercoes int NOT NULL DEFAULT 0,autoridade VARCHAR(25) NOT NULL DEFAULT 'ADM',senha varchar(256) NOT NULL, PRIMARY KEY(id))";
+      "CREATE TABLE IF NOT EXISTS usuarios(id int NOT NULL AUTO_INCREMENT, nome varchar(130) NOT NULL,email varchar(130) NOT NULL, id_zona int NOT NULL DEFAULT 1,insercoes int NOT NULL DEFAULT 0,autoridade VARCHAR(25) NOT NULL DEFAULT 'ADM',senha varchar(256) NOT NULL, PRIMARY KEY(id),CONSTRAINT zona_id FOREIGN KEY(id_zona) REFERENCES zonas(id))";
     this.conexao.query(sql, (erro) => {
       if (erro) {
         console.log(erro);
@@ -107,7 +119,7 @@ class Tabelas {
   }
   criarVeiculosSuspeitos() {
     const sql =
-      "CREATE TABLE IF NOT EXISTS veiculos_suspeitos(id int NOT NULL AUTO_INCREMENT, dono varchar(70) NOT NULL DEFAULT 'Desconhecido', placa varchar(7) NOT NULL, statusID int NOT NULL, nivel_urgenciaID int NOT NULL,momento_alerta datetime not null, PRIMARY KEY(id), FOREIGN KEY(statusID) REFERENCES status(id), FOREIGN KEY(nivel_urgenciaID) REFERENCES nivel_urgencia(id),local_alerta varchar(50) NOT NULL)";
+      "CREATE TABLE IF NOT EXISTS veiculos_suspeitos(id int NOT NULL AUTO_INCREMENT, dono varchar(70) NOT NULL DEFAULT 'Desconhecido', placa varchar(7) NOT NULL,id_usuario INT NOT NULL DEFAULT 0, statusID int NOT NULL, nivel_urgenciaID int NOT NULL,momento_alerta datetime not null, PRIMARY KEY(id), FOREIGN KEY(statusID) REFERENCES status(id), FOREIGN KEY(nivel_urgenciaID) REFERENCES nivel_urgencia(id),local_alerta varchar(50) NOT NULL)";
 
     this.conexao.query(sql, (erro) => {
       if (erro) {
@@ -119,7 +131,7 @@ class Tabelas {
   }
   criarVeiculosRoubados() {
     const sql =
-      "CREATE TABLE IF NOT EXISTS veiculos_roubados(id int NOT NULL AUTO_INCREMENT, dono varchar(70) NOT NULL DEFAULT 'Desconhecido', placa varchar(7) NOT NULL, statusID int NOT NULL, nivel_urgenciaID int NOT NULL, momento_alerta datetime not null,PRIMARY KEY(id), FOREIGN KEY(statusID) REFERENCES status(id), FOREIGN KEY(nivel_urgenciaID) REFERENCES nivel_urgencia(id), local_roubo varchar(50) NOT NULL DEFAULT 'Indefinido',local_alerta varchar(50) NOT NULL)";
+      "CREATE TABLE IF NOT EXISTS veiculos_roubados(id int NOT NULL AUTO_INCREMENT, dono varchar(70) NOT NULL DEFAULT 'Desconhecido', placa varchar(7) NOT NULL,id_usuario INT NOT NULL DEFAULT 0, statusID int NOT NULL, nivel_urgenciaID int NOT NULL, momento_alerta datetime not null,PRIMARY KEY(id), FOREIGN KEY(statusID) REFERENCES status(id), FOREIGN KEY(nivel_urgenciaID) REFERENCES nivel_urgencia(id), local_roubo varchar(50) NOT NULL DEFAULT 'Indefinido',local_alerta varchar(50) NOT NULL)";
 
     this.conexao.query(sql, (erro) => {
       if (erro) {
@@ -131,7 +143,7 @@ class Tabelas {
   }
   criarVeiculosInfracao() {
     const sql =
-      " CREATE TABLE IF NOT EXISTS veiculos_infracao(id int NOT NULL AUTO_INCREMENT, dono varchar(70) NOT NULL DEFAULT 'Desconhecido',   placa varchar(7) NOT NULL, statusID int NOT NULL, nivel_urgenciaID int NOT NULL, momento_alerta datetime not null, PRIMARY KEY(id), FOREIGN KEY(statusID) REFERENCES status(id),   FOREIGN KEY(nivel_urgenciaID) REFERENCES nivel_urgencia(id),  local_alerta varchar(50) NOT NULL,   gravidade_infracao ENUM('leve','média','grave','gravíssima'));";
+      " CREATE TABLE IF NOT EXISTS veiculos_infracao(id int NOT NULL AUTO_INCREMENT, dono varchar(70) NOT NULL DEFAULT 'Desconhecido',   placa varchar(7) NOT NULL,id_usuario INT NOT NULL DEFAULT 0, statusID int NOT NULL, nivel_urgenciaID int NOT NULL, momento_alerta datetime not null DEFAULT now(), PRIMARY KEY(id), FOREIGN KEY(statusID) REFERENCES status(id),   FOREIGN KEY(nivel_urgenciaID) REFERENCES nivel_urgencia(id),  local_alerta varchar(50) NOT NULL,   gravidade_infracao ENUM('leve','média','grave','gravíssima'));";
 
     this.conexao.query(sql, (erro) => {
       if (erro) {
@@ -143,7 +155,7 @@ class Tabelas {
   }
   criarVeiculosIrregulares() {
     const sql =
-      " CREATE TABLE IF NOT EXISTS veiculos_irregulares(id int NOT NULL AUTO_INCREMENT, dono varchar(70) NOT NULL DEFAULT 'Desconhecido',   placa varchar(7) NOT NULL, statusID int NOT NULL, nivel_urgenciaID int NOT NULL, momento_alerta datetime not null, PRIMARY KEY(id), FOREIGN KEY(statusID) REFERENCES status(id),   FOREIGN KEY(nivel_urgenciaID) REFERENCES nivel_urgencia(id),  local_alerta varchar(50) NOT NULL, medida_administrativa ENUM('remoção','retenção'));";
+      " CREATE TABLE IF NOT EXISTS veiculos_irregulares(id int NOT NULL AUTO_INCREMENT, dono varchar(70) NOT NULL DEFAULT 'Desconhecido',  id_usuario INT NOT NULL DEFAULT 0, placa varchar(7) NOT NULL, statusID int NOT NULL, nivel_urgenciaID int NOT NULL, momento_alerta datetime not null, PRIMARY KEY(id), FOREIGN KEY(statusID) REFERENCES status(id),   FOREIGN KEY(nivel_urgenciaID) REFERENCES nivel_urgencia(id),  local_alerta varchar(50) NOT NULL, medida_administrativa ENUM('remoção','retenção'));";
 
     this.conexao.query(sql, (erro) => {
       if (erro) {
