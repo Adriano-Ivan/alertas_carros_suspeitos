@@ -41,7 +41,7 @@
             <td>{{local_alerta}}</td>
             <td>{{hora}}, {{data}}</td>
             <td>{{gravidade_infracao}}</td>
-            {{#usuario_adm}}<td style='padding:20px;'><form action="/update_r_infracao_page/" method='GET'enctype="application/x-www-form-urlencoded" role='form'><input type='number' class='desaparecer' name='id-registro-infracao'value={{id}}><button class="btn btn-success"class='edicao-infracao'>↘</button></form></td>{{/usuario_adm}}
+            {{#usuario_adm}}<td style='padding:20px;'><form action="/update_r_infracao_page/" method='GET'enctype="application/x-www-form-urlencoded" role='form'><input type='hidden' name='id_ultimo_editor' value='{{id_ultimo_editor}}'><input type='number' class='desaparecer' name='id-registro-infracao'value={{id}}><button class="btn btn-success"class='edicao-infracao'>↘</button></form></td>{{/usuario_adm}}
             {{#usuario_adm}}<td style='padding:20px;'><form action = '/delete_r_infracao/'method='post' enctype="application/x-www-form-urlencoded"><input type='number' class='desaparecer' name='id-registro-infracao' value={{id}}><button  class="btn btn-danger" class='exclusao-infracao'>x</button></form></td>{{/usuario_adm}}
           </tr>
           {{/listagem}}

@@ -160,6 +160,9 @@ exports.postUpdateVeiculo = (req, res) => {
 
         listaVeiculosSuspeitos
           .updateRegistro(objeto, id_registro)
+          .then(() =>
+            listaVeiculosSuspeitos.updateUltimoEditor(id_registro, resu[0].id)
+          )
           .then(() => {
             req.flash("sucesso", true);
             res.redirect("/veiculos_suspeitos");
