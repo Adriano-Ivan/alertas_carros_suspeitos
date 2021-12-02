@@ -1,4 +1,4 @@
-const conexao = require("../infraestrutura/conexao");
+const conexao = require("../infraestrutura/conexao").conexao;
 
 module.exports = (descricao, sql) => {
   return new Promise((resolve, reject) => {

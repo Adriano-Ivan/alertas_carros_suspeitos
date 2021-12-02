@@ -3,7 +3,8 @@
 const customExpress = require("./config/customExpress");
 //const socketAux = require("./config/webSocketAux");
 const dotenv = require("dotenv");
-const conexao = require("./infraestrutura/conexao");
+const conexao = require("./infraestrutura/conexao").conexao;
+const mysqlEvents = require("./infraestrutura/conexao").mysqlEvents;
 const Tabelas = require("./infraestrutura/tabelas");
 //const wss = require("socket.io");
 
@@ -16,11 +17,13 @@ conexao.connect((erro) => {
   } else {
     console.log("Conectado ao database com sucesso");
     Tabelas.init(conexao);
+
     const app = customExpress();
     // const app = customExpress();
 
     app.listen(process.env.PORT, () => {
       console.log("Listening to request on port 8005");
+      mysqlEvents();
     });
   }
 });

@@ -36,6 +36,10 @@ class VeiculosRoubados {
       "UPDATE veiculos_roubados SET id_ultimo_editor = ? WHERE id = ?";
     await updatePromise(id_veiculo, id_usuario, sql);
   }
+  async updateAlertado(id) {
+    const sql = "UPDATE veiculos_roubados SET alertado = ? WHERE id = ?";
+    await updatePromise(id, true, sql);
+  }
   async deletarRegistro(id) {
     const sql = "DELETE FROM veiculos_roubados WHERE id = ?";
     await deletePromise(id, sql);
