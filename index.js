@@ -4,8 +4,26 @@ const customExpress = require("./config/customExpress");
 //const socketAux = require("./config/webSocketAux");
 const dotenv = require("dotenv");
 const conexao = require("./infraestrutura/conexao").conexao;
-const mysqlEvents = require("./infraestrutura/conexao").mysqlEvents;
+const instanceEvents = require("./infraestrutura/conexao").instancia;
 const Tabelas = require("./infraestrutura/tabelas");
+const helperSocket = require("./helpers/alertSocket");
+const socketIO = require("socket.io");
+// const ZongJi = require("zongji");
+// let zongji = new ZongJi({
+//   host: process.env.HOST,
+//   user: process.env.USER,
+//   password: process.env.PASSWORD,
+// });
+
+// // Each change to the replication log results in an event
+// zongji.on("binlog", function (evt) {
+//   evt.dump();
+// });
+
+// // Binlog must be started, optionally pass in filters
+// zongji.start({
+//   includeEvents: ["tablemap", "writerows", "updaterows", "deleterows"],
+// });
 //const wss = require("socket.io");
 
 // Variável de ambiente
@@ -20,10 +38,20 @@ conexao.connect((erro) => {
 
     const app = customExpress();
     // const app = customExpress();
+    const io = socketIO(app);
 
     app.listen(process.env.PORT, () => {
       console.log("Listening to request on port 8005");
-      mysqlEvents();
+    });
+
+    io.on("connection", (socket) => {
+      console.log("Conexão detectada...");
+      socket.on("request_alert", (confirm) => {
+        //console.log(confirm, typeof confirm);
+        if (confirm) {
+          socket.emit("send_alerts", helperSocket.pegarAlertas());
+        }
+      });
     });
   }
 });

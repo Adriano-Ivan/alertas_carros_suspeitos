@@ -11,6 +11,12 @@ class VeiculosInfracao {
     const dados = await queryPromise(sql);
     return [].concat(dados);
   }
+  async pegarDadosAlerta() {
+    const sql =
+      "SELECT v.id,v.placa,v.local_alerta,v.alertado, DATE_FORMAT(DATE(momento_alerta),'%d/%m/%Y') as data, time(v.momento_alerta) as hora FROM veiculos_infracao AS v WHERE v.alertado = false ORDER BY momento_alerta DESC;";
+    const dados = await queryPromise(sql);
+    return [].concat(dados);
+  }
   async pegarDadosPorId(id) {
     const sql =
       "SELECT v.id,v.dono, v.placa,v.id_ultimo_editor, v.alertado,s.status, n.nivel_urgencia,v.gravidade_infracao,v.local_alerta,DATE_FORMAT(DATE(momento_alerta), '%d/%m/%Y') as data, time(v.momento_alerta) as hora FROM veiculos_infracao AS v INNER JOIN status AS s ON s.id = v.statusID INNER JOIN nivel_urgencia AS n ON v.nivel_urgenciaID = n.id WHERE v.id = ? ORDER BY momento_alerta DESC;";
@@ -37,9 +43,9 @@ class VeiculosInfracao {
       "UPDATE veiculos_infracao SET id_ultimo_editor = ? WHERE id = ?";
     await updatePromise(id_veiculo, id_usuario, sql);
   }
-  async updateAlertado(id) {
-    const sql = "UPDATE veiculos_infracao SET alertado = ? WHERE id = ?";
-    await updatePromise(id, true, sql);
+  async updateAlertado(id_maior) {
+    const sql = "UPDATE veiculos_infracao SET alertado = ? WHERE id  <= ?";
+    await updatePromise(id_maior, true, sql);
   }
   async deletarRegistro(id) {
     const sql = "DELETE FROM veiculos_infracao WHERE id = ?";

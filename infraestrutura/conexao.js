@@ -26,16 +26,17 @@ exports.conexao = mysql.createConnection({
   database: process.env.DATABASE,
 });
 
-const mEvents = () => {
-  const conn = {
-    host: process.env.HOST,
-    user: process.env.USER,
-    password: process.env.PASSWORD,
-  };
-  console.log(conn);
-  //console.log("EI EI EI", conn);
-  const instance = new MySQLEvents(conn);
-  console.log("testeeeeeee");
+const conn = {
+  host: process.env.HOST,
+  user: process.env.USER,
+  password: process.env.PASSWORD,
+};
+console.log(conn);
+//console.log("EI EI EI", conn);
+const instance = new MySQLEvents(conn);
+console.log("testeeeeeee");
+exports.instancia = instance;
+/*
   const watcher = instance.add(
     "veiculos_suspeitos.*",
     function (oldRow, newRow, event) {
@@ -60,11 +61,8 @@ const mEvents = () => {
       console.log(event);
     }
   );
-  console.log(watcher);
-};
-exports.mysqlEvents = () => {
-  mEvents();
-};
+  */
+// console.log(watcher);
 
 //program().catch(console.error);
 //module.exports = conexao;
