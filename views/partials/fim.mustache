@@ -124,8 +124,33 @@ function disp() {
         {{/delete_proibido}}
 
         <script src='./../../socket.io/socket.io.js'></script>
-        <script src="http://localhost:{{porta}}/public/js/main.js">
-          
+        <script>
+          const socket = io();
+
+const sendRegularEmit = function () {
+  setInterval(function () {
+    //console.log("EIIIII");
+    socket.emit("request_alert", true);
+  }, 500);
+};
+
+sendRegularEmit();
+
+socket.on("send_alerts", (alerts) => {
+  //const dadosAlerta = [].concat(alerts);
+  console.log(alerts)
+  if (alerts !== null) {
+    let desc = `<div style='max-height:30vh; overflow-y:scroll'>`;
+    alerts.forEach((a) => {
+      desc += `-> Placa:${a.placa.toUpperCase()} <span style='color:red'>| </span> Momento: ${a.data}, ${a.hora} <span style='color:red'>| </span> Local: ${a.local_alerta}<hr><br>`
+      //alert(`Placa: ${a.placa.toUpperCase()} - Mais informações na aba de alertas`)
+    });
+    desc += '<br>Mais informações na aba de alertas !<br>';
+    desc+='</div>'
+    Swal.fire({html:`<h2>Novos casos que demandam sua atenção</h2><p style='text-align:center'>${desc}</p>`,showCloseButton:true});
+  }
+});
+
         </script>
   </body>
 </html>

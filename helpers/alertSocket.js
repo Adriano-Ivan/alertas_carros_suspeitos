@@ -21,6 +21,7 @@ exports.pegarAlertas = () => {
   listaVeiculosSuspeitos
     .pegarDadosAlerta()
     .then((listagem) => {
+      dados = [];
       dados = dados.concat(listagem);
       return encontrarMaior(listagem);
     })
@@ -61,5 +62,9 @@ exports.pegarAlertas = () => {
         });
     });
 
+  console.log(dados);
+  if (dados.length === 0) {
+    return null;
+  }
   return dados;
 };

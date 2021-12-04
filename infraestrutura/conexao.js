@@ -33,9 +33,9 @@ const conn = {
 };
 console.log(conn);
 //console.log("EI EI EI", conn);
-const instance = new MySQLEvents(conn);
-console.log("testeeeeeee");
-exports.instancia = instance;
+// const instance = new MySQLEvents(conn);
+// console.log("testeeeeeee");
+// exports.instancia = instance;
 /*
   const watcher = instance.add(
     "veiculos_suspeitos.*",

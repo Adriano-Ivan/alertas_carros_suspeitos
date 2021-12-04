@@ -14,7 +14,7 @@ class VeiculosSuspeitos {
   }
   async pegarDadosAlerta() {
     const sql =
-      "SELECT v.id,v.placa,v.local_alerta, v.alertado,DATE_FORMAT(DATE(momento_alerta),'%d/%m/%Y') as data, time(v.momento_alerta) as hora FROM veiculos_suspeitos AS v WHERE v.alertado = false ORDER BY momento_alerta DESC;";
+      "SELECT v.id,v.placa,v.local_alerta, v.alertado,DATE_FORMAT(DATE(momento_alerta),'%d/%m/%Y') as data, time(v.momento_alerta) as hora FROM veiculos_suspeitos AS v INNER JOIN status AS s ON s.id = v.statusID WHERE v.alertado = false and s.status != 'Resolvido' ORDER BY momento_alerta DESC;";
     const dados = await queryPromise(sql);
     return [].concat(dados);
   }
