@@ -372,6 +372,7 @@ input[type="submit"] {
   overflow: hidden;
 }
 .avisos-externos-lista .descricao-aviso,
+.avisos-externos-lista .descricao-aviso-recebido,
 .avisos-enviados-lista .descricao-aviso {
   height: auto;
 
