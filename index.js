@@ -52,6 +52,9 @@ conexao.connect((erro) => {
           socket.emit("send_alerts", helperSocket.pegarAlertas());
         }
       });
+      socket.on("send_message", (message) => {
+        helperSocket.inserirMensagem(message);
+      });
     });
   }
 });

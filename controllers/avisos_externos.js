@@ -6,9 +6,14 @@ exports.getAvisosExternos = (req, res) => {
     mensagensRecebidas.pegarDados(resu[0].id).then((listagem) => {
       const dados = listagem.map((item, i) => {
         item["index"] = i + 1;
+        // item["mensagem_recebida"] = item["mensagem_recebida"].replace(
+        //   /-b-/g,
+        //   "\n"
+        // );
+        console.log(item["mensagem_recebida"]);
         return item;
       });
-      console.log(dados);
+      //console.log(dados);
       res.render("template-avisos-externos", {
         BOOTSTRAP_CSS: estiloBootstrapCSS.split("|")[0],
         ESTILO_CSS: estiloBootstrapCSS.split("|")[1],
@@ -28,6 +33,10 @@ exports.getMensagensPorDescricao = (req, res) => {
       .then((listagem) => {
         const dados = listagem.map((item, index) => {
           item["index"] = index + 1;
+          item["mensagem_recebida"] = item["mensagem_recebida"].replace(
+            "-br-",
+            "<br>"
+          );
           return item;
         });
         console.log(dados);

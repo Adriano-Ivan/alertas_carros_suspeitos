@@ -1,5 +1,6 @@
 const queryPromise = require("../helpers/queryPromise");
 const queryPromise2 = require("../helpers/queryPromise2");
+const insertPromise = require("../helpers/insertPromise");
 const deletePromise = require("../helpers/deletePromise");
 class MensagensRecebidas {
   async pegarDados(id) {
@@ -23,6 +24,10 @@ class MensagensRecebidas {
   async deletarMensagem(id, id_usuario) {
     const sql = "DELETE FROM mensagens_recebidas WHERE id = ? and id_usuario=?";
     await deletePromise([id, id_usuario], sql);
+  }
+  async inserirMensagemParaTodosOsUsuarios(mensagem) {
+    const sql = "call insertMessage(?);";
+    await insertPromise(sql, mensagem);
   }
 }
 module.exports = new MensagensRecebidas();

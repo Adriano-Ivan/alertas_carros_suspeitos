@@ -2,10 +2,10 @@ const listaVeiculosInfracao = require("./../models/Veiculos_infracao");
 const listaVeiculosIrregulares = require("./../models/Veiculos_irregulares");
 const listaVeiculosRoubados = require("./../models/Veiculos_roubados");
 const listaVeiculosSuspeitos = require("./../models/Veiculos_suspeitos");
-
+const mensagensRecebidas = require("./../models/Mensagens_recebidas");
 const encontrarMaior = (objs) => {
   if (objs.length > 0) {
-    console.log(objs);
+    //console.log(objs);
   }
 
   let m = 1;
@@ -62,9 +62,13 @@ exports.pegarAlertas = () => {
         });
     });
 
-  console.log(dados);
+  //console.log(dados);
   if (dados.length === 0) {
     return null;
   }
   return dados;
+};
+
+exports.inserirMensagem = (mensagem) => {
+  mensagensRecebidas.inserirMensagemParaTodosOsUsuarios(mensagem);
 };

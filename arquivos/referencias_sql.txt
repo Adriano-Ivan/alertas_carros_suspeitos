@@ -6,3 +6,26 @@ INSERT INTO nivel_urgencia(nivel_urgencia) VALUES('Máximo'), ('Mediano'), ('Pad
 INSERT INTO status(status) VALUES('Resolvido'), ('Em andamento'), ('A confirmar');
 
 INSERT INTO zonas(zona) VALUES('Zona A'), ('Zona B'), ('Zona C');
+
+########################################################
+PROCEDIMENTO DE MENSAGENS:
+
+DROP PROCEDURE IF EXISTS insertMessage;
+DELIMITER ;;
+
+DELIMITER $$
+CREATE PROCEDURE insertMessage(message TEXT)
+BEGIN
+	DECLARE n int DEFAULT 0;
+    DECLARE i int DEFAULT 0;
+SELECT COUNT(*) FROM usuarios INTO n;
+
+set i = 0;
+while i < n DO
+	INSERT INTO mensagens_recebidas(id_usuario, mensagem_recebida) VALUES((SELECT id 
+    FROM usuarios limit i,1), message);
+    set i = i + 1;
+END WHILE;
+END 
+$$
+DELIMITER ;

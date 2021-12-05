@@ -58,6 +58,7 @@ exports.getAdicionarVeiculo = (req, res) => {
         ESTILO_CSS: estiloBootstrapCSS.split("|")[1],
         porta: process.env.PORT,
         id_usuario: resu[0].id,
+        usuario_adm: resu[0].autoridade === "ADM",
         placa_errada: req.flash("erro"),
         sucesso: req.flash("sucesso"),
       });
@@ -128,6 +129,7 @@ exports.getUpdateVeiculo = (req, res) => {
           ESTILO_CSS: estiloBootstrapCSS.split("|")[1],
           porta: process.env.PORT,
           id_registro: id,
+          usuario_adm: resu[0].autoridade === "ADM",
           listagem_eh_valida: listagem.length > 0,
           listagem,
         });

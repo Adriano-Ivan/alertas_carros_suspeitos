@@ -24,6 +24,37 @@
       }
       showHours();
       setInterval(showHours,1000);
+
+      const descricoes_aviso = document.querySelectorAll('.descricao-aviso');
+
+      descricoes_aviso.forEach(aviso =>{
+        
+        const lista = document.createElement('ul');
+        lista.style.maxWidth='80%';
+        const sublista = document.createElement('ul');
+        const elementos = aviso.textContent.trim().split('-b-');
+        aviso.textContent='';
+        //console.log(elementos);
+        //console.log('EI');
+        elementos.forEach((e,i) =>{
+          
+          if(i ===0){
+          const item = document.createElement('li');
+          item.textContent=e;
+          lista.appendChild(item);
+          } else {
+          const item = document.createElement('li');
+          item.textContent=e;
+          sublista.appendChild(item);
+          }
+        
+        });
+        lista.appendChild(sublista);
+        aviso.appendChild(lista);
+        //aviso.textContent = aviso.textContent.replace(/\-b-/g,'\n');
+        //console.log(aviso.textContent)
+      })
+
       </script>
       <script src='http://localhost:{{porta}}/public/sweetalert2/dist/sweetalert2.min.js'></script>
    
@@ -140,14 +171,18 @@ socket.on("send_alerts", (alerts) => {
   //const dadosAlerta = [].concat(alerts);
   console.log(alerts)
   if (alerts !== null) {
-    let desc = `<div style='max-height:30vh; overflow-y:scroll'>`;
+    let desc = `<div class='alerta-aviso' style='max-height:45vh; overflow-y:scroll'>`;
+    let stringToDataBase = '';
     alerts.forEach((a) => {
-      desc += `-> Placa:${a.placa.toUpperCase()} <span style='color:red'>| </span> Momento: ${a.data}, ${a.hora} <span style='color:red'>| </span> Local: ${a.local_alerta}<hr><br>`
+      stringToDataBase += `Alerta:-b-Placa: ${a.placa.toUpperCase()}-b-Momento: ${a.data}, ${a.hora}-b-Local: ${a.local_alerta}-b-Caso: ${a.tipo}-b-`;
+      desc += `-> Placa:${a.placa.toUpperCase()} <span style='color:red'>| </span> Momento: ${a.data}, ${a.hora} <span style='color:red'>| </span> Local: ${a.local_alerta} <span style='color:red'>| </span> Caso: ${a.tipo}<hr><br>`
       //alert(`Placa: ${a.placa.toUpperCase()} - Mais informações na aba de alertas`)
     });
     desc += '<br>Mais informações na aba de alertas !<br>';
     desc+='</div>'
     Swal.fire({html:`<h2>Novos casos que demandam sua atenção</h2><p style='text-align:center'>${desc}</p>`,showCloseButton:true});
+    console.log(stringToDataBase);
+  socket.emit('send_message',stringToDataBase);
   }
 });
 
