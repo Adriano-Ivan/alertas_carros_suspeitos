@@ -1,15 +1,13 @@
 const rotaBootstrapCSS = require("../helpers/linkCSSeBootstrap");
 const estiloBootstrapCSS = rotaBootstrapCSS();
 const mensagensRecebidas = require("./../models/Mensagens_recebidas");
+
 exports.getAvisosExternos = (req, res) => {
   Promise.resolve(req.user).then((resu) => {
     mensagensRecebidas.pegarDados(resu[0].id).then((listagem) => {
       const dados = listagem.map((item, i) => {
         item["index"] = i + 1;
-        // item["mensagem_recebida"] = item["mensagem_recebida"].replace(
-        //   /-b-/g,
-        //   "\n"
-        // );
+
         console.log(item["mensagem_recebida"]);
         return item;
       });
@@ -33,10 +31,7 @@ exports.getMensagensPorDescricao = (req, res) => {
       .then((listagem) => {
         const dados = listagem.map((item, index) => {
           item["index"] = index + 1;
-          item["mensagem_recebida"] = item["mensagem_recebida"].replace(
-            "-br-",
-            "<br>"
-          );
+
           return item;
         });
         console.log(dados);

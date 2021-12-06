@@ -1,20 +1,19 @@
 const queryPromise = require("../helpers/queryPromise");
-const queryPorIdPromise = require("../helpers/queryPorIdPromise");
 const insertPromise = require("../helpers/insertPromise");
 const queryPromise2 = require("../helpers/queryPromise2");
 const updatePromise = require("../helpers/updatePromise");
 const deletePromise = require("../helpers/deletePromise");
 
 class VeiculosSuspeitos {
-  async pegarDados() {
+  async pegarDados(id_zona) {
     const sql =
-      "SELECT v.id,v.dono, v.placa,v.id_ultimo_editor,  s.status, n.nivel_urgencia, v.local_alerta,DATE_FORMAT(DATE(momento_alerta), '%d/%m/%Y') as data, time(v.momento_alerta) as hora FROM veiculos_suspeitos AS v INNER JOIN status AS s ON s.id = v.statusID INNER JOIN nivel_urgencia AS n ON v.nivel_urgenciaID = n.id ORDER BY v.momento_alerta DESC;";
-    const dados = await queryPromise(sql);
+      "SELECT v.id,v.dono, v.placa,v.id_ultimo_editor,  s.status, n.nivel_urgencia, v.local_alerta,DATE_FORMAT(DATE(momento_alerta), '%d/%m/%Y') as data, time(v.momento_alerta) as hora FROM veiculos_suspeitos AS v INNER JOIN status AS s ON s.id = v.statusID INNER JOIN nivel_urgencia AS n ON v.nivel_urgenciaID = n.id  WHERE v.id_zona = ? ORDER BY v.momento_alerta DESC;";
+    const dados = await queryPromise2(id_zona, sql);
     return [].concat(dados);
   }
   async pegarDadosAlerta() {
     const sql =
-      "SELECT v.id,v.placa,v.local_alerta, v.alertado,'suspeito' as tipo,DATE_FORMAT(DATE(momento_alerta),'%d/%m/%Y') as data, time(v.momento_alerta) as hora FROM veiculos_suspeitos AS v INNER JOIN status AS s ON s.id = v.statusID WHERE v.alertado = false and s.status != 'Resolvido' ORDER BY momento_alerta DESC;";
+      "SELECT v.id,v.placa,v.local_alerta, v.alertado,v.id_zona,'suspeito' as tipo,DATE_FORMAT(DATE(momento_alerta),'%d/%m/%Y') as data, time(v.momento_alerta) as hora FROM veiculos_suspeitos AS v INNER JOIN status AS s ON s.id = v.statusID WHERE v.alertado = false and s.status != 'Resolvido' ORDER BY momento_alerta DESC;";
     const dados = await queryPromise(sql);
     return [].concat(dados);
   }

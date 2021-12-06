@@ -24,6 +24,7 @@
     "mysql-aes-binary": "^1.0.2",
     "mysql-events": "0.0.11",
     "mysql2": "^2.3.2",
+    "node-telegram-bot-api": "^0.54.0",
     "nodemailer": "^6.7.1",
     "nodemon": "^2.0.14",
     "passport": "^0.5.0",

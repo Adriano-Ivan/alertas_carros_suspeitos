@@ -10,7 +10,7 @@ const updatePromise = require("../helpers/updatePromise");
 
 class Usuario {
   async getUsuarios() {
-    const sql = `SELECT usuarios.id,nome, email, autoridade,insercoes,zonas.zona FROM usuarios INNER JOIN zonas ON zonas.id = usuarios.id_zona;`;
+    const sql = `SELECT usuarios.id,nome, email, autoridade,insercoes,chat_id,zonas.zona FROM usuarios INNER JOIN zonas ON zonas.id = usuarios.id_zona;`;
     const dados = await queryPromise(sql);
     return [].concat(dados);
   }

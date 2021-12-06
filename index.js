@@ -55,6 +55,9 @@ conexao.connect((erro) => {
       socket.on("send_message", (message) => {
         helperSocket.inserirMensagem(message);
       });
+      socket.on("send_object_for_telegram", (objeto) => {
+        helperSocket.enviarMensagemParaTelegram(objeto);
+      });
     });
   }
 });

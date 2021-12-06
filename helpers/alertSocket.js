@@ -3,6 +3,8 @@ const listaVeiculosIrregulares = require("./../models/Veiculos_irregulares");
 const listaVeiculosRoubados = require("./../models/Veiculos_roubados");
 const listaVeiculosSuspeitos = require("./../models/Veiculos_suspeitos");
 const mensagensRecebidas = require("./../models/Mensagens_recebidas");
+const usuario = require("./../models/Usuario");
+const bot = require("./../models/Bot");
 const encontrarMaior = (objs) => {
   if (objs.length > 0) {
     //console.log(objs);
@@ -16,6 +18,7 @@ const encontrarMaior = (objs) => {
   });
   return m;
 };
+
 let dados = [];
 exports.pegarAlertas = () => {
   listaVeiculosSuspeitos
@@ -67,6 +70,13 @@ exports.pegarAlertas = () => {
     return null;
   }
   return dados;
+};
+
+exports.enviarMensagemParaTelegram = (objeto) => {
+  usuario.getUsuarios().then((listagem) => {
+    console.log(listagem);
+    console.log(objeto);
+  });
 };
 
 exports.inserirMensagem = (mensagem) => {

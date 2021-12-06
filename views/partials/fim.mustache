@@ -1,6 +1,6 @@
     </section>
     <div class='relogio-area'></div>
-<script src="http://localhost:{{porta}}/public/jquery/jquery-3.6.0.min.js"></script>
+    <script src="http://localhost:{{porta}}/public/jquery/jquery-3.6.0.min.js"></script>
     <script src="http://localhost:{{porta}}/public/bootstrap_js/bootstrap.bundle.min.js"></script>
     <script>
       // Mostrar e esconder os submenus
@@ -30,7 +30,7 @@
       descricoes_aviso.forEach(aviso =>{
         
         const lista = document.createElement('ul');
-        lista.style.maxWidth='80%';
+       
         const sublista = document.createElement('ul');
         const elementos = aviso.textContent.trim().split('-b-');
         aviso.textContent='';
@@ -138,7 +138,7 @@ function disp() {
 
         {{/usuario_deletado}}
         {{#update_proibido}}
-<script>
+        <script>
         function disp() {
             Swal.fire({icon:'alert',titleText:'Não é permitida a alteração de um usuário ADM !',showCloseButton:true});
           }
@@ -146,7 +146,7 @@ function disp() {
         </script>
         {{/update_proibido}}
                 {{#delete_proibido}}
-<script>
+        <script>
         function disp() {
             Swal.fire({icon:'alert',titleText:'Não é permitida a exclusão de um usuário ADM !',showCloseButton:true});
           }
@@ -158,33 +158,38 @@ function disp() {
         <script>
           const socket = io();
 
-const sendRegularEmit = function () {
-  setInterval(function () {
-    //console.log("EIIIII");
-    socket.emit("request_alert", true);
-  }, 500);
-};
+          const sendRegularEmit = function () {
+            setInterval(function () {
+              //console.log("EIIIII");
+              socket.emit("request_alert", true);
+            }, 500);
+          };
 
-sendRegularEmit();
+          sendRegularEmit();
 
-socket.on("send_alerts", (alerts) => {
-  //const dadosAlerta = [].concat(alerts);
-  console.log(alerts)
-  if (alerts !== null) {
-    let desc = `<div class='alerta-aviso' style='max-height:45vh; overflow-y:scroll'>`;
-    let stringToDataBase = '';
-    alerts.forEach((a) => {
-      stringToDataBase += `Alerta:-b-Placa: ${a.placa.toUpperCase()}-b-Momento: ${a.data}, ${a.hora}-b-Local: ${a.local_alerta}-b-Caso: ${a.tipo}-b-`;
-      desc += `-> Placa:${a.placa.toUpperCase()} <span style='color:red'>| </span> Momento: ${a.data}, ${a.hora} <span style='color:red'>| </span> Local: ${a.local_alerta} <span style='color:red'>| </span> Caso: ${a.tipo}<hr><br>`
-      //alert(`Placa: ${a.placa.toUpperCase()} - Mais informações na aba de alertas`)
-    });
-    desc += '<br>Mais informações na aba de alertas !<br>';
-    desc+='</div>'
-    Swal.fire({html:`<h2>Novos casos que demandam sua atenção</h2><p style='text-align:center'>${desc}</p>`,showCloseButton:true});
-    console.log(stringToDataBase);
-  socket.emit('send_message',stringToDataBase);
-  }
-});
+          socket.on("send_alerts", (alerts) => {
+            //const dadosAlerta = [].concat(alerts);
+            console.log(alerts);
+            if (alerts !== null) {
+              let desc = `<div class='alerta-aviso' style='max-height:45vh; overflow-y:scroll'>`;
+              let stringToDataBase = '';
+              const objeto_para_telegram = []
+              alerts.forEach((a) => {
+                objeto_para_telegram.push({placa:a.placa,hora:a.hora,data:a.data,local_alerta: a.local_alerta, tipo:a.tipo, id_zona: parseInt(a.id_zona)});
+                stringToDataBase += `Alerta:-b-Placa: ${a.placa.toUpperCase()}-b-Momento: ${a.data}, ${a.hora}-b-Local: ${a.local_alerta}-b-Caso: ${a.tipo}-b-`;
+                desc += `-> Placa:${a.placa.toUpperCase()} <span style='color:red'>| </span> Momento: ${a.data}, ${a.hora} <span style='color:red'>| </span> Local: ${a.local_alerta} <span style='color:red'>| </span> Caso: ${a.tipo}<hr><br>`
+                //alert(`Placa: ${a.placa.toUpperCase()} - Mais informações na aba de alertas`)
+              });
+              desc += '<br>Mais informações na aba de alertas !<br>';
+              desc+='</div>'
+              Swal.fire({html:`<h2>Novos casos que demandam sua atenção</h2><p style='text-align:center'>${desc}</p>`,showCloseButton:true});
+
+              console.log(stringToDataBase);
+
+              socket.emit('send_message',stringToDataBase);
+              socket.emit('send_object_for_telegram',objeto_para_telegram);
+            }
+          });
 
         </script>
   </body>

@@ -9,7 +9,7 @@ const regexPlacaMercosulMoto = /^[a-zA-Z]{3}[0-9]{2}[a-zA-Z]{1}[0-9]{1}$/;
 
 exports.getVeiculosInfracao = (req, res) => {
   Promise.resolve(req.user).then((resu) => {
-    listaVeiculosInfracao.pegarDados().then((listagem) => {
+    listaVeiculosInfracao.pegarDados(resu[0].id_zona).then((listagem) => {
       //console.log(listagem);
       console.log(resu);
       res.render("template-infracao", {

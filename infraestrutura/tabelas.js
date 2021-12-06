@@ -5,6 +5,7 @@ class Tabelas {
     this.criarTarefasAfazer();
     this.criarUsuarios();
     this.criarLocais();
+    this.criarBotTelegram();
     this.criarZonas();
     this.criarMensagensRecebidas();
     this.criarMensagensEnviadas();
@@ -49,6 +50,17 @@ class Tabelas {
       }
     });
   }
+  criarBotTelegram() {
+    const sql =
+      "CREATE table if not exists bots_telegram (id int NOT NULL auto_increment,nome text NOT NULL,token_telegram TEXT NOT NULL,PRIMARY KEY(id));";
+    this.conexao.query(sql, (erro) => {
+      if (erro) {
+        console.log(erro);
+      } else {
+        console.log("Tabela bots_telegram criada com sucesso.");
+      }
+    });
+  }
   criarMensagensRecebidas() {
     const sql =
       "CREATE TABLE IF NOT EXISTS mensagens_recebidas(id int NOT NULL AUTO_INCREMENT, id_usuario int NOT NULL, mensagem_recebida text NOT NULL, PRIMARY KEY(id), FOREIGN KEY(id_usuario) REFERENCES usuarios(id))";
@@ -74,7 +86,7 @@ class Tabelas {
   }
   criarUsuarios() {
     const sql =
-      "CREATE TABLE IF NOT EXISTS usuarios(id int NOT NULL AUTO_INCREMENT, nome varchar(130) NOT NULL,email varchar(130) NOT NULL, id_zona int NOT NULL DEFAULT 1,insercoes int NOT NULL DEFAULT 0,autoridade VARCHAR(25) NOT NULL DEFAULT 'ADM',senha varchar(256) NOT NULL, PRIMARY KEY(id),CONSTRAINT zona_id FOREIGN KEY(id_zona) REFERENCES zonas(id))";
+      "CREATE TABLE IF NOT EXISTS usuarios(id int NOT NULL AUTO_INCREMENT, nome varchar(130) NOT NULL,email varchar(130) NOT NULL, id_zona int NOT NULL DEFAULT 1,insercoes int NOT NULL DEFAULT 0,autoridade VARCHAR(25) NOT NULL DEFAULT 'ADM',chat_id TEXT,senha varchar(256) NOT NULL, PRIMARY KEY(id),CONSTRAINT zona_id FOREIGN KEY(id_zona) REFERENCES zonas(id))";
     this.conexao.query(sql, (erro) => {
       if (erro) {
         console.log(erro);

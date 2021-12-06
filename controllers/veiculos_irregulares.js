@@ -9,7 +9,7 @@ const regexPlacaMercosulMoto = /^[a-zA-Z]{3}[0-9]{2}[a-zA-Z]{1}[0-9]{1}$/;
 
 exports.getVeiculosIrregulares = (req, res) => {
   Promise.resolve(req.user).then((resu) => {
-    listaVeiculosIrregulares.pegarDados().then((listagem) => {
+    listaVeiculosIrregulares.pegarDados(resu[0].id_zona).then((listagem) => {
       //console.log(listagem);
       res.render("template-irregulares", {
         BOOTSTRAP_CSS: estiloBootstrapCSS.split("|")[0],
