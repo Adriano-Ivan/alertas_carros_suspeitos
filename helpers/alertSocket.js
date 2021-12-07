@@ -4,7 +4,10 @@ const listaVeiculosRoubados = require("./../models/Veiculos_roubados");
 const listaVeiculosSuspeitos = require("./../models/Veiculos_suspeitos");
 const mensagensRecebidas = require("./../models/Mensagens_recebidas");
 const usuario = require("./../models/Usuario");
-const bot = require("./../models/Bot");
+const zonas = require("./../models/Zonas");
+const botModel = require("./../models/Bot");
+//const telegramBot = require("node-telegram-bot-api");
+const TelegramBot = require("node-telegram-bot-api");
 const encontrarMaior = (objs) => {
   if (objs.length > 0) {
     //console.log(objs);
@@ -72,10 +75,37 @@ exports.pegarAlertas = () => {
   return dados;
 };
 
-exports.enviarMensagemParaTelegram = (objeto) => {
-  usuario.getUsuarios().then((listagem) => {
-    console.log(listagem);
-    console.log(objeto);
+exports.enviarMensagemParaTelegram = (alertas) => {
+  zonas.pegarDados().then((listagem) => {
+    botModel.pegarDados().then((listagemBots) => {
+      listagemBots.forEach((b) => {
+        const bot = new TelegramBot(b.token_telegram, { polling: true });
+
+        listagem.forEach((z) => {
+          let mensagem = "⚠️ ALERTAS RECENTES ⚠️\n\n";
+          let entrou = false;
+          alertas.forEach((a, i) => {
+            if (b.id_zona === z.id && z.id === a.id_zona) {
+              entrou = true;
+              mensagem += `\n➡️ Placa: ${a.placa}\n➡️ Momento: ${a.hora} - ${a.data} \n➡️ Local específico: ${a.local_alerta} \n➡️ Tipo: ${a.tipo}\n\n`;
+              if (i < alertas.length - 1) {
+                mensagem += `🔻🔻🔻🔻🔻🔻🔻🔻🔻🔻🔻🔻\n`;
+              }
+            }
+          });
+          if (entrou) {
+            bot.sendMessage(b.chat_id, mensagem);
+          }
+        });
+
+        // listagem.forEach((u) => {
+        //   if (u.id_zona === b.id_zona) {
+        //     console.log(u, b, alertas);
+        //     bot.sendMessage(b.chat_id, mensagemCompleta);
+        //   }
+        // });
+      });
+    });
   });
 };
 
