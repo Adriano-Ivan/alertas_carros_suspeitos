@@ -16,6 +16,7 @@ exports.getAfazeres = (req, res) => {
         BOOTSTRAP_CSS: estiloBootstrapCSS.split("|")[0],
         ESTILO_CSS: estiloBootstrapCSS.split("|")[1],
         usuario_adm: resu[0].autoridade,
+        id_zona: resu[0].id_zona,
         listagem_eh_valida: listagem.length > 0,
         listagem: dados,
         porta: process.env.PORT,
@@ -37,6 +38,7 @@ exports.getAfazeresPorDescricao = (req, res) => {
         BOOTSTRAP_CSS: estiloBootstrapCSS.split("|")[0],
         ESTILO_CSS: estiloBootstrapCSS.split("|")[1],
         usuario_adm: resu[0].autoridade === "ADM",
+        id_zona: resu[0].id_zona,
         listagem_eh_valida: listagem.length > 0,
         listagem: dados,
         porta: process.env.PORT,
@@ -69,6 +71,7 @@ exports.updateAfazer = (req, res) => {
     res.render("template-update-tarefa", {
       id,
       usuario_adm: resu[0].autoridade,
+      id_zona: resu[0].id_zona,
       BOOTSTRAP_CSS: estiloBootstrapCSS.split("|")[0],
       ESTILO_CSS: estiloBootstrapCSS.split("|")[1],
       porta: process.env.PORT,

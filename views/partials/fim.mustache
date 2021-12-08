@@ -30,18 +30,18 @@
       descricoes_aviso.forEach(aviso =>{
         
         const lista = document.createElement('ul');
-       console.log('EITAAAAAAAAAAAAAA')
+       //console.log('EITAAAAAAAAAAAAAA')
         
         const elementos = aviso.textContent.trim().split('|||');
         aviso.textContent='';
-        console.log(elementos);
+        //console.log(elementos);
         //console.log('EI');
         elementos.forEach((e,i) =>{
           
           const alerta = e.trim().split('-b-');
-           console.log('EITAAAAAAAAAAAAAA 22222222')
+          // console.log('EITAAAAAAAAAAAAAA 22222222')
           alerta.forEach((e2,i2)=>{
-            console.log(e2)
+            //console.log(e2)
             const sublista = document.createElement('ul');
            if( e2.toLowerCase() === 'alerta:'){
             console.log(e);
@@ -165,19 +165,19 @@ function disp() {
         <script src='./../../socket.io/socket.io.js'></script>
         <script>
           const socket = io();
-
+          const id_zona = `{{id_zona}}`;
           const sendRegularEmit = function () {
             setInterval(function () {
               //console.log("EIIIII");
-              socket.emit("request_alert", true);
-            }, 500);
+              socket.emit("request_alert", parseInt(id_zona));
+            }, 200);
           };
 
           sendRegularEmit();
 
           socket.on("send_alerts", (alerts) => {
             //const dadosAlerta = [].concat(alerts);
-            console.log(alerts);
+            //console.log(alerts);
             if (alerts !== null) {
               let desc = `<div class='alerta-aviso' style='max-height:45vh; overflow-y:scroll'>`;
               let stringToDataBase = '';
@@ -192,7 +192,7 @@ function disp() {
               desc+='</div>'
               Swal.fire({html:`<h2>Novos casos que demandam sua atenção</h2><p style='text-align:center'>${desc}</p>`,showCloseButton:true});
 
-              console.log(stringToDataBase);
+              //console.log(stringToDataBase);
 
               socket.emit('send_message',stringToDataBase);
               socket.emit('send_object_for_telegram',objeto_para_telegram);

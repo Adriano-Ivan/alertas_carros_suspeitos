@@ -12,6 +12,7 @@ module.exports = (req, res, dadosRelatorio = null) => {
 
   let nome_usuario = "";
   let usuario_adm = false;
+  let id_zona = "";
   Promise.resolve(req.user)
     .then((resu) => {
       nome_usuario = resu[0].nome
@@ -23,6 +24,7 @@ module.exports = (req, res, dadosRelatorio = null) => {
         })
         .join(" ");
       usuario_adm = resu[0].autoridade === "ADM";
+      id_zona = resu[0].id_zona;
       //nome_usuario = resu[0].nome;
     })
     .then(() => {
@@ -37,6 +39,7 @@ module.exports = (req, res, dadosRelatorio = null) => {
         retorno_relatorio2_valido: retornoRelatorio[1].length > 0,
         retorno_relatorio1: retornoRelatorio[0],
         retorno_relatorio2: retornoRelatorio[1],
+        id_zona,
         nome_usuario,
         usuario_adm,
         porta: process.env.PORT,

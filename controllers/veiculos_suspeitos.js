@@ -17,6 +17,7 @@ exports.getVeiculosSuspeitos = (req, res) => {
         listagem_eh_valida: listagem.length > 0,
         listagem,
         usuario_adm: resu[0].autoridade === "ADM",
+        id_zona: resu[0].id_zona,
         porta: process.env.PORT,
         placa_errada: req.flash("erro"),
         sucesso: req.flash("sucesso"),
@@ -37,6 +38,7 @@ exports.getVeiculosSuspeitosPorPlaca = (req, res) => {
         listagem_eh_valida: listagem.length > 0,
         listagem,
         usuario_adm: resu[0].autoridade === "ADM",
+        id_zona: resu[0].id_zona,
         porta: process.env.PORT,
       });
     });
@@ -59,6 +61,7 @@ exports.getAdicionarVeiculo = (req, res) => {
         porta: process.env.PORT,
         id_usuario: resu[0].id,
         usuario_adm: resu[0].autoridade === "ADM",
+        id_zona: resu[0].id_zona,
         placa_errada: req.flash("erro"),
         sucesso: req.flash("sucesso"),
       });
@@ -127,6 +130,7 @@ exports.getUpdateVeiculo = (req, res) => {
           porta: process.env.PORT,
           id_registro: id,
           usuario_adm: resu[0].autoridade === "ADM",
+          id_zona: resu[0].id_zona,
           listagem_eh_valida: listagem.length > 0,
           listagem,
         });

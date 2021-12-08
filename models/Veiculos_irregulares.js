@@ -7,15 +7,16 @@ const deletePromise = require("../helpers/deletePromise");
 
 class VeiculosIrregulares {
   async pegarDados(id_zona) {
+    //this.id_zona = id_zona;
     const sql =
       "SELECT v.id,v.dono, v.placa, v.id_ultimo_editor, s.status, n.nivel_urgencia, v.local_alerta, v.medida_administrativa,DATE_FORMAT(DATE(momento_alerta), '%d/%m/%Y') as data, time(v.momento_alerta) as hora FROM veiculos_irregulares AS v INNER JOIN status AS s ON s.id = v.statusID INNER JOIN nivel_urgencia AS n ON v.nivel_urgenciaID = n.id WHERE v.id_zona = ? ORDER BY momento_alerta DESC;";
     const dados = await queryPromise2(id_zona, sql);
     return [].concat(dados);
   }
-  async pegarDadosAlerta() {
+  async pegarDadosAlerta(id_zona) {
     const sql =
-      "SELECT v.id,v.placa,v.local_alerta,v.alertado,v.id_zona,'irregular' as tipo, DATE_FORMAT(DATE(momento_alerta),'%d/%m/%Y') as data, time(v.momento_alerta) as hora FROM veiculos_irregulares AS v WHERE v.alertado = false ORDER BY momento_alerta DESC;";
-    const dados = await queryPromise(sql);
+      "SELECT v.id,v.placa,v.local_alerta,v.alertado,v.id_zona,'irregular' as tipo, DATE_FORMAT(DATE(momento_alerta),'%d/%m/%Y') as data, time(v.momento_alerta) as hora FROM veiculos_irregulares AS v INNER JOIN status AS s ON s.id = v.statusID WHERE v.alertado = false and s.status != 'Resolvido' and v.id_zona = ? ORDER BY momento_alerta DESC;";
+    const dados = await queryPromise2(id_zona, sql);
     return [].concat(dados);
   }
   async pegarDadosPorId(id) {

@@ -1,7 +1,11 @@
 const bcrypt = require("bcryptjs");
 const LocalStrategy = require("passport-local").Strategy;
+let userInformation = "A";
 
-module.exports = (passport, usuario) => {
+// exports.pegarUsuario = () => {
+//   return userInformation;
+// };
+exports.processarAutenticacao = (passport, usuario) => {
   passport.serializeUser((user, done) => {
     done(null, user[0].id);
   });
@@ -37,9 +41,9 @@ module.exports = (passport, usuario) => {
               const isValid = bcrypt.compareSync(password, resultado[0].senha);
               // console.log(isValid);
               if (!isValid) {
-                // console.log("!isValid");
                 return done(null, false);
               } else {
+                // userInformation = resultado;
                 return done(null, resultado);
               }
             })

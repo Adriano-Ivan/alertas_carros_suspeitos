@@ -8,23 +8,6 @@ const conexao = require("./infraestrutura/conexao").conexao;
 const Tabelas = require("./infraestrutura/tabelas");
 const helperSocket = require("./helpers/alertSocket");
 const socketIO = require("socket.io");
-// const ZongJi = require("zongji");
-// let zongji = new ZongJi({
-//   host: process.env.HOST,
-//   user: process.env.USER,
-//   password: process.env.PASSWORD,
-// });
-
-// // Each change to the replication log results in an event
-// zongji.on("binlog", function (evt) {
-//   evt.dump();
-// });
-
-// // Binlog must be started, optionally pass in filters
-// zongji.start({
-//   includeEvents: ["tablemap", "writerows", "updaterows", "deleterows"],
-// });
-//const wss = require("socket.io");
 
 // Variável de ambiente
 dotenv.config();
@@ -46,11 +29,10 @@ conexao.connect((erro) => {
 
     io.on("connection", (socket) => {
       console.log("Conexão detectada...");
-      socket.on("request_alert", (confirm) => {
+      socket.on("request_alert", (id_zona) => {
         //console.log(confirm, typeof confirm);
-        if (confirm) {
-          socket.emit("send_alerts", helperSocket.pegarAlertas());
-        }
+
+        socket.emit("send_alerts", helperSocket.pegarAlertas(id_zona));
       });
       socket.on("send_message", (message) => {
         helperSocket.inserirMensagem(message);

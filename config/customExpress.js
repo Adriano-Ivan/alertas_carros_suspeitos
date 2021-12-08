@@ -9,7 +9,7 @@ const usuario = require("./../models/Usuario");
 const mustache = require("mustache-express");
 const path = require("path");
 const flash = require("connect-flash");
-require("../helpers/Passport")(passport, usuario);
+require("../helpers/Passport").processarAutenticacao(passport, usuario);
 const loginRouter = require("./../routes/auth");
 
 function authenticationMiddleware(req, res, next) {

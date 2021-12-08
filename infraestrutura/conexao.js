@@ -26,12 +26,12 @@ exports.conexao = mysql.createConnection({
   database: process.env.DATABASE,
 });
 
-const conn = {
-  host: process.env.HOST,
-  user: process.env.USER,
-  password: process.env.PASSWORD,
-};
-console.log(conn);
+// const conn = {
+//   host: process.env.HOST,
+//   user: process.env.USER,
+//   password: process.env.PASSWORD,
+// };
+// console.log(conn);
 //console.log("EI EI EI", conn);
 // const instance = new MySQLEvents(conn);
 // console.log("testeeeeeee");

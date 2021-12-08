@@ -6,7 +6,8 @@ const mensagensRecebidas = require("./../models/Mensagens_recebidas");
 const usuario = require("./../models/Usuario");
 const zonas = require("./../models/Zonas");
 const botModel = require("./../models/Bot");
-//const telegramBot = require("node-telegram-bot-api");
+//const userInformation = require("./Passport").pegarUsuario();
+
 const TelegramBot = require("node-telegram-bot-api");
 const encontrarMaior = (objs) => {
   if (objs.length > 0) {
@@ -23,9 +24,10 @@ const encontrarMaior = (objs) => {
 };
 
 let dados = [];
-exports.pegarAlertas = () => {
+exports.pegarAlertas = (id_zona) => {
+  //console.log(id_zona);
   listaVeiculosSuspeitos
-    .pegarDadosAlerta()
+    .pegarDadosAlerta(id_zona)
     .then((listagem) => {
       dados = [];
       dados = dados.concat(listagem);
@@ -36,7 +38,7 @@ exports.pegarAlertas = () => {
     })
     .then(() => {
       listaVeiculosRoubados
-        .pegarDadosAlerta()
+        .pegarDadosAlerta(id_zona)
         .then((listagem) => {
           dados = dados.concat(listagem);
           return encontrarMaior(listagem);
@@ -47,7 +49,7 @@ exports.pegarAlertas = () => {
     })
     .then(() => {
       listaVeiculosInfracao
-        .pegarDadosAlerta()
+        .pegarDadosAlerta(id_zona)
         .then((listagem) => {
           dados = dados.concat(listagem);
           return encontrarMaior(listagem);
@@ -58,7 +60,7 @@ exports.pegarAlertas = () => {
     })
     .then(() => {
       listaVeiculosIrregulares
-        .pegarDadosAlerta()
+        .pegarDadosAlerta(id_zona)
         .then((listagem) => {
           dados = dados.concat(listagem);
           return encontrarMaior(listagem);
@@ -95,6 +97,7 @@ exports.enviarMensagemParaTelegram = (alertas) => {
           });
           if (entrou) {
             bot.sendMessage(b.chat_id, mensagem);
+            //bot.sendMessage("@Adriano_2000", mensagem);
           }
         });
 
