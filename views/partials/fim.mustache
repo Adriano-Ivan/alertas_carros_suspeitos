@@ -63,71 +63,73 @@
         //console.log(aviso.textContent)
       })
 
-      </script>
-      <script src='http://localhost:{{porta}}/public/sweetalert2/dist/sweetalert2.min.js'></script>
+    </script>
+    <script src='http://localhost:{{porta}}/public/sweetalert2/dist/sweetalert2.min.js'></script>
    
     {{#retorno_relatorio_valido_alerta}}
-          <script>
-          
-          function disp() {
-            Swal.fire({icon:'info', title:'Atenção',titleText:'Há casos que necessitam da sua atenção ! Por favor, verifique o relatório na página inicial e a aba de alertas !',showCloseButton:true});
-          }
-        disp();
-          </script>
-        {{/retorno_relatorio_valido_alerta}}
-        {{#placa_errada}}
-<script>
+    <script>
+      function disp() {
+        Swal.fire({icon:'info', title:'Atenção',titleText:'Há casos que necessitam da sua atenção ! Por favor, verifique o relatório na página inicial e a aba de alertas !',showCloseButton:true});
+      }
+      disp();
+    </script>
+    {{/retorno_relatorio_valido_alerta}}
+
+    {{#placa_errada}}
+    <script>
           
           function disp() {
             Swal.fire({icon:'alert', title:'Atenção',titleText:'O padrão da placa está errado ! Por favor, verifique novamente os dados.',showCloseButton:true});
           }
         disp();
-          </script>
-        {{/placa_errada}}
-                {{#sucesso}}
-<script>
-          
+    </script>
+    {{/placa_errada}}
+
+    {{#sucesso}}
+         <script>  
           function disp() {
             Swal.fire({icon:'success',titleText:'Operação feita com sucesso !',showCloseButton:true});
           }
-        disp();
+          disp();
           </script>
-        {{/sucesso}}
-        {{#enviado}}
+    {{/sucesso}}
+
+    {{#enviado}}
         <script>
-function disp() {
+          function disp() {
             Swal.fire({icon:'success',titleText:'Email enviado com sucesso !',showCloseButton:true});
           }
-        disp();
+          disp();
         </script>
-        {{/enviado}}
-                {{#excluido}}
+    {{/enviado}}
+    {{#excluido}}
         <script>
-function disp() {
+          function disp() {
             Swal.fire({icon:'success',titleText:'O email foi excluído da listagem !',showCloseButton:true});
           }
-        disp();
+          disp();
         </script>
-        {{/excluido}}
+    {{/excluido}}
 
-        {{#email_duplicado}}
+    {{#email_duplicado}}
         <script>
 function disp() {
             Swal.fire({icon:'alert',titleText:'Email duplicado ! Por favor, registre outro !',showCloseButton:true});
           }
         disp();
         </script>
-        {{/email_duplicado}}
+    {{/email_duplicado}}
 
-        {{#senhas_diferentes}}
+    {{#senhas_diferentes}}
         <script>
         function disp() {
             Swal.fire({icon:'alert',titleText:'A confirmação da senha difere da senha ! Por favor, tente novamente',showCloseButton:true});
           }
         disp();
         </script>
-        {{/senhas_diferentes}}
-        {{#usuario_adicionado}}
+    {{/senhas_diferentes}}
+
+    {{#usuario_adicionado}}
         <script>
         function disp() {
             Swal.fire({icon:'success',titleText:'Usuário {{nome_usuario}} adicionado !',showCloseButton:true});
@@ -135,8 +137,9 @@ function disp() {
         disp();
         </script>
 
-        {{/usuario_adicionado}}
-        {{#usuario_deletado}}
+    {{/usuario_adicionado}}
+
+    {{#usuario_deletado}}
         <script>
         function disp() {
             Swal.fire({icon:'success',titleText:'Usuário {{nome_deletado}} deletado !',showCloseButton:true});
@@ -144,26 +147,28 @@ function disp() {
         disp();
         </script>
 
-        {{/usuario_deletado}}
-        {{#update_proibido}}
+    {{/usuario_deletado}}
+
+    {{#update_proibido}}
         <script>
         function disp() {
             Swal.fire({icon:'alert',titleText:'Não é permitida a alteração de um usuário ADM !',showCloseButton:true});
           }
         disp();
         </script>
-        {{/update_proibido}}
-                {{#delete_proibido}}
+    {{/update_proibido}}
+
+    {{#delete_proibido}}
         <script>
-        function disp() {
+          function disp() {
             Swal.fire({icon:'alert',titleText:'Não é permitida a exclusão de um usuário ADM !',showCloseButton:true});
           }
-        disp();
+          disp();
         </script>
-        {{/delete_proibido}}
+    {{/delete_proibido}}
 
-        <script src='./../../socket.io/socket.io.js'></script>
-        <script>
+    <script src='./../../socket.io/socket.io.js'></script>
+    <script>
           const socket = io();
           const id_zona = `{{id_zona}}`;
           const sendRegularEmit = function () {
@@ -199,6 +204,6 @@ function disp() {
             }
           });
 
-        </script>
+    </script>
   </body>
 </html>
