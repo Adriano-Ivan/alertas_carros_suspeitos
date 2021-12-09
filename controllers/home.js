@@ -4,8 +4,12 @@ const fileSystem = require("fs");
 
 exports.getHome = (req, res) => {
   //res.writeHead(200, { "Content-type": "text/html" });
-  relatorioHome.executarQueryDoRelatorio().then((queryRelatorio) => {
-    // A função está na pasta HELPERS
-    retornarOverview(req, res, queryRelatorio);
+  Promise.resolve(req.user).then((resu) => {
+    relatorioHome
+      .executarQueryDoRelatorio(resu[0].id_zona)
+      .then((queryRelatorio) => {
+        // A função está na pasta HELPERS
+        retornarOverview(req, res, queryRelatorio);
+      });
   });
 };

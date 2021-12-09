@@ -1,4 +1,5 @@
-const listaVeiculosInfracao = require("../models/Veiculos_infracao");
+const listaVeiculosInfracao = require("./../models/Veiculos_infracao");
+const listaZonas = require("./../models/Zonas");
 const rotaBootstrapCSS = require("../helpers/linkCSSeBootstrap");
 const estiloBootstrapCSS = rotaBootstrapCSS();
 const url = require("url");
@@ -57,15 +58,18 @@ exports.getAdicionarVeiculo = (req, res) => {
     } else {
       console.log(resu);
       console.log();
-      res.render("template-infracao-insert", {
-        BOOTSTRAP_CSS: estiloBootstrapCSS.split("|")[0],
-        ESTILO_CSS: estiloBootstrapCSS.split("|")[1],
-        porta: process.env.PORT,
-        usuario_adm: resu[0].autoridade === "ADM",
-        id_zona: resu[0].id_zona,
-        id_usuario: resu[0].id,
-        placa_errada: req.flash("erro"),
-        sucesso: req.flash("sucesso"),
+      listaZonas.pegarDados().then((listagemZonas) => {
+        res.render("template-infracao-insert", {
+          BOOTSTRAP_CSS: estiloBootstrapCSS.split("|")[0],
+          ESTILO_CSS: estiloBootstrapCSS.split("|")[1],
+          porta: process.env.PORT,
+          listagem_zonas: listagemZonas,
+          usuario_adm: resu[0].autoridade === "ADM",
+          id_zona: resu[0].id_zona,
+          id_usuario: resu[0].id,
+          placa_errada: req.flash("erro"),
+          sucesso: req.flash("sucesso"),
+        });
       });
     }
   });
@@ -92,6 +96,7 @@ exports.postAdicionarInfracao = (req, res) => {
           id_usuario: parseInt(req.body.id_usuario),
           momento_alerta: `${req.body.data} ${req.body.hora}`,
           local_alerta: req.body.local_alerta,
+          id_zona: req.body.id_zona,
           gravidade_infracao: req.body.gravidade_infracao,
         };
         listaVeiculosInfracao
@@ -126,17 +131,19 @@ exports.getUpdateVeiculo = (req, res) => {
       console.log("ENTROU");
       console.log(id);
       listaVeiculosInfracao.pegarDadosPorId(id).then((listagem) => {
-        console.log(resu);
-        console.log();
-        res.render("template-infracao-update", {
-          BOOTSTRAP_CSS: estiloBootstrapCSS.split("|")[0],
-          ESTILO_CSS: estiloBootstrapCSS.split("|")[1],
-          porta: process.env.PORT,
-          id_registro: id,
-          usuario_adm: resu[0].autoridade === "ADM",
-          id_zona: resu[0].id_zona,
-          listagem_eh_valida: listagem.length > 0,
-          listagem,
+        //console.log(resu);
+        listaZonas.pegarDados().then((listagemZonas) => {
+          res.render("template-infracao-update", {
+            BOOTSTRAP_CSS: estiloBootstrapCSS.split("|")[0],
+            ESTILO_CSS: estiloBootstrapCSS.split("|")[1],
+            porta: process.env.PORT,
+            id_registro: id,
+            usuario_adm: resu[0].autoridade === "ADM",
+            id_zona: resu[0].id_zona,
+            listagem_eh_valida: listagem.length > 0,
+            listagem,
+            listagem_zonas: listagemZonas,
+          });
         });
       });
     }
@@ -166,6 +173,7 @@ exports.postUpdateVeiculo = (req, res) => {
           momento_alerta: `${req.body.data} ${req.body.hora}`,
           local_alerta: req.body.local_alerta,
           gravidade_infracao: req.body.gravidade_infracao,
+          id_zona: req.body.id_zona,
         };
 
         const id_registro = parseInt(req.body["id-registro-infracao"]);

@@ -4,7 +4,7 @@ const retornarRelatorio = require("./retornarRelatorio");
 
 let retornoRelatorio = "";
 
-const imagemHome = `http://localhost:8005/public/img/defesa_civil_repr.png`;
+const imagemHome = `http://localhost:${process.env.PORT}/public/img/defesa_civil_repr.png`;
 
 const boasVindas = "Bem-vindo";
 module.exports = (req, res, dadosRelatorio = null) => {

@@ -1,56 +1,129 @@
 {{>partials/topo}}
 <aside>
-<div><a href="/veiculos_roubados" style='margin-bottom:5px;text-decoration:none;color:red'>VOLTAR</a></div>
-<form method='POST' class='crud-page'action='/update_irregular'>
-{{#listagem}}
-<label>
-Dono:<br>
-<input type='text' class="form-control"name='dono' value='{{dono}}'required placeholder='Digite o nome do dono'>
-</label>
-<label>
-Placa:<br>
-<input type='text' class="form-control"name='placa' value='{{placa}}' required placeholder='Digite a sequência da placa'>
-</label>
-<label>
-Nível de urgência:<br>
-<select class="form-control"name='nivel_urgencia' required id='nivel_urgencia'>
-    <option value='3'>Padrão</option>
-    <option value='2'>Mediano</option>
-    <option value='1'>Máximo</option>
-</select>
-</label>
-<label>
-Status da situação:<br>
-<select class="form-control" required name='status'id='status'>
-    <option value='2' selected>Em andamento</option>
-    <option value='1'>Resolvido</option>
-    <option value='3'>A confirmar</option>
-</select>
-</label>
-<label>
-Data:<br>
-<input class="form-control" required type='date' value={{data}} name='data' id='data'>
-</label>
-<label>
-Hora:<br>
-<input type="time" class="form-control" required step="1" value='{{hora}}'name="hora" id="hora">
-</label>
-<label>
-Medida administrativa:<br>
-<select class="form-control" required name='medida_administrativa'id='status'>
-    <option value='remoção' selected>Remoção</option>
-    <option value='retenção'>Retenção</option>
-</select>
-</label>
-<label>
-Local do disparo do alerta:<br>
-<input type='text' value='{{local_alerta}}' required class="form-control"name='local_alerta' id='local_alerta'>
-</label>
+  <div>
+    <a
+      href="/veiculos_roubados"
+      style="margin-bottom: 5px; text-decoration: none; color: red"
+      >VOLTAR</a
+    >
+  </div>
+  <form method="POST" class="crud-page" action="/update_irregular">
+    {{#listagem}}
+    <label>
+      Dono:<br />
+      <input
+        type="text"
+        class="form-control"
+        name="dono"
+        value="{{ dono }}"
+        required
+        placeholder="Digite o nome do dono"
+      />
+    </label>
+    <label>
+      Placa:<br />
+      <input
+        type="text"
+        class="form-control"
+        name="placa"
+        value="{{ placa }}"
+        required
+        placeholder="Digite a sequência da placa"
+      />
+    </label>
+    <label>
+      Nível de urgência:<br />
+      <select
+        class="form-control"
+        name="nivel_urgencia"
+        required
+        id="nivel_urgencia"
+      >
+        <option value="3">Padrão</option>
+        <option value="2">Mediano</option>
+        <option value="1">Máximo</option>
+      </select>
+    </label>
+    <label>
+      Status da situação:<br />
+      <select class="form-control" required name="status" id="status">
+        <option value="2" selected>Em andamento</option>
+        <option value="1">Resolvido</option>
+        <option value="3">A confirmar</option>
+      </select>
+    </label>
+    <label>
+      Zona a que pertence:<br />
+      <select class="form-control" required name="id_zona" id="zona">
+        {{#listagem_zonas}}
+        <option value="{{ id }}" selected>{{ zona }}</option>
+        {{/listagem_zonas}}
+      </select>
+    </label>
+    <label>
+      Data:<br />
+      <input
+        class="form-control"
+        required
+        type="date"
+        value="{{ data }}"
+        name="data"
+        id="data"
+      />
+    </label>
+    <label>
+      Hora:<br />
+      <input
+        type="time"
+        class="form-control"
+        required
+        step="1"
+        value="{{ hora }}"
+        name="hora"
+        id="hora"
+      />
+    </label>
+    <label>
+      Medida administrativa:<br />
+      <select
+        class="form-control"
+        required
+        name="medida_administrativa"
+        id="status"
+      >
+        <option value="remoção" selected>Remoção</option>
+        <option value="retenção">Retenção</option>
+      </select>
+    </label>
+    <label>
+      Local do disparo do alerta:<br />
+      <input
+        type="text"
+        value="{{ local_alerta }}"
+        required
+        class="form-control"
+        name="local_alerta"
+        id="local_alerta"
+      />
+    </label>
 
-<input type='hidden' name='id_ultimo_editor' value='{{id_ultimo_editor}}'>
-{{/listagem}}
-<input type='number' class='desaparecer' name='id-registro-irregular' value={{id_registro}}>
-<input type='submit'class="btn btn-sm btn-block btn-primary" value='Atualizar'>
-</form>
+    <input
+      type="hidden"
+      name="id_ultimo_editor"
+      value="{{ id_ultimo_editor }}"
+    />
+    {{/listagem}}
+    <input
+      type="number"
+      class="desaparecer"
+      name="id-registro-irregular"
+      value="{{ id_registro }}"
+    />
+    <input
+      type="submit"
+      class="btn btn-sm btn-block btn-primary"
+      value="Atualizar"
+    />
+  </form>
 </aside>
 {{>partials/fim}}

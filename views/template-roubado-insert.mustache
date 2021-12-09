@@ -1,49 +1,105 @@
 {{>partials/topo}}
 <aside>
-<div><a href="/veiculos_roubados" style='margin-bottom:5px;text-decoration:none;color:red'>VOLTAR</a></div>
-<form method='POST' class='crud-page'action='/insert_roubado'>
-<label>
-Dono:<br>
-<input type='text' class="form-control"name='dono' required placeholder='Digite o nome do dono'>
-</label>
-<label>
-Placa:<br>
-<input type='text' class="form-control"name='placa' required placeholder='Digite a sequência da placa'>
-</label>
-<label>
-Nível de urgência:<br>
-<select class="form-control"name='nivel_urgencia' required id='nivel_urgencia'>
-    <option value='3' selected>Padrão</option>
-    <option value='2'>Mediano</option>
-    <option value='1'>Máximo</option>
-</select>
-</label>
-<label>
-Status da situação:<br>
-<select class="form-control" required name='status'id='status'>
-    <option value='2' selected>Em andamento</option>
-    <option value='1'>Resolvido</option>
-    <option value='3'>A confirmar</option>
-</select>
-</label>
-<label>
-Data:<br>
-<input class="form-control" required type='date' name='data' id='data'>
-</label>
-<label>
-Hora:<br>
-<input type="time" class="form-control" required step="1" name="hora" id="hora">
-</label>
-<label>
-Local do roubo:<br>
-<input type='text' placeholder='Informe o local do roubo' required class="form-control"name='local_roubo' id='local_roubo'>
-</label>
-<label>
-Local de disparo do alerta:<br>
-<input type='text' placeholder='Informe o local de disparo do alerta' required class="form-control"name='local_alerta' id='local_disparo'>
-</label>
-<input type='hidden' name='id_usuario' value='{{id_usuario}}'>
-<input type='submit'class="btn btn-sm btn-block btn-primary" value='Enviar'>
-</form>
+  <div>
+    <a
+      href="/veiculos_roubados"
+      style="margin-bottom: 5px; text-decoration: none; color: red"
+      >VOLTAR</a
+    >
+  </div>
+  <form method="POST" class="crud-page" action="/insert_roubado">
+    <label>
+      Dono:<br />
+      <input
+        type="text"
+        class="form-control"
+        name="dono"
+        required
+        placeholder="Digite o nome do dono"
+      />
+    </label>
+    <label>
+      Placa:<br />
+      <input
+        type="text"
+        class="form-control"
+        name="placa"
+        required
+        placeholder="Digite a sequência da placa"
+      />
+    </label>
+    <label>
+      Nível de urgência:<br />
+      <select
+        class="form-control"
+        name="nivel_urgencia"
+        required
+        id="nivel_urgencia"
+      >
+        <option value="3" selected>Padrão</option>
+        <option value="2">Mediano</option>
+        <option value="1">Máximo</option>
+      </select>
+    </label>
+    <label>
+      Status da situação:<br />
+      <select class="form-control" required name="status" id="status">
+        <option value="2" selected>Em andamento</option>
+        <option value="1">Resolvido</option>
+        <option value="3">A confirmar</option>
+      </select>
+    </label>
+    <label>
+      Zona a que pertence:<br />
+      <select class="form-control" required name="id_zona" id="zona">
+        {{#listagem_zonas}}
+        <option value="{{ id }}" selected>{{ zona }}</option>
+        {{/listagem_zonas}}
+      </select>
+    </label>
+    <label>
+      Data:<br />
+      <input class="form-control" required type="date" name="data" id="data" />
+    </label>
+    <label>
+      Hora:<br />
+      <input
+        type="time"
+        class="form-control"
+        required
+        step="1"
+        name="hora"
+        id="hora"
+      />
+    </label>
+    <label>
+      Local do roubo:<br />
+      <input
+        type="text"
+        placeholder="Informe o local do roubo"
+        required
+        class="form-control"
+        name="local_roubo"
+        id="local_roubo"
+      />
+    </label>
+    <label>
+      Local de disparo do alerta:<br />
+      <input
+        type="text"
+        placeholder="Informe o local de disparo do alerta"
+        required
+        class="form-control"
+        name="local_alerta"
+        id="local_disparo"
+      />
+    </label>
+    <input type="hidden" name="id_usuario" value="{{ id_usuario }}" />
+    <input
+      type="submit"
+      class="btn btn-sm btn-block btn-primary"
+      value="Enviar"
+    />
+  </form>
 </aside>
 {{>partials/fim}}

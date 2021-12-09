@@ -1,4 +1,5 @@
 const listaVeiculosIrregulares = require("../models/Veiculos_irregulares");
+const listaZonas = require("./../models/Zonas");
 const rotaBootstrapCSS = require("../helpers/linkCSSeBootstrap");
 const estiloBootstrapCSS = rotaBootstrapCSS();
 const url = require("url");
@@ -55,16 +56,20 @@ exports.getAdicionarVeiculo = (req, res) => {
     } else {
       console.log(resu);
       console.log();
-      res.render("template-irregular-insert", {
-        BOOTSTRAP_CSS: estiloBootstrapCSS.split("|")[0],
-        ESTILO_CSS: estiloBootstrapCSS.split("|")[1],
-        porta: process.env.PORT,
-        id_usuario: resu[0].id,
-        usuario_adm: resu[0].autoridade === "ADM",
-        id_zona: resu[0].id_zona,
-        placa_errada: req.flash("erro"),
-        sucesso: req.flash("sucesso"),
-      });
+      listaZonas.pegarDados().then(listagemZonas=>{
+        res.render("template-irregular-insert", {
+          BOOTSTRAP_CSS: estiloBootstrapCSS.split("|")[0],
+          ESTILO_CSS: estiloBootstrapCSS.split("|")[1],
+          porta: process.env.PORT,
+          id_usuario: resu[0].id,
+          usuario_adm: resu[0].autoridade === "ADM",
+          id_zona: resu[0].id_zona,
+          placa_errada: req.flash("erro"),
+          sucesso: req.flash("sucesso"),
+          listagem_zonas: listagemZonas
+        });
+      })
+      
     }
   });
 };
@@ -91,6 +96,7 @@ exports.postAdicionarIrregular = (req, res) => {
           momento_alerta: `${req.body.data} ${req.body.hora}`,
           local_alerta: req.body.local_alerta,
           medida_administrativa: req.body.medida_administrativa,
+          id_zona:req.body.id_zona
         };
         listaVeiculosIrregulares
           .inserirRegistro(objeto)
@@ -127,16 +133,20 @@ exports.getUpdateVeiculo = (req, res) => {
       listaVeiculosIrregulares.pegarDadosPorId(id).then((listagem) => {
         console.log(resu);
         console.log();
-        res.render("template-irregular-update", {
-          BOOTSTRAP_CSS: estiloBootstrapCSS.split("|")[0],
-          ESTILO_CSS: estiloBootstrapCSS.split("|")[1],
-          porta: process.env.PORT,
-          id_registro: id,
-          usuario_adm: resu[0].autoridade === "ADM",
-          id_zona: resu[0].id_zona,
-          listagem_eh_valida: listagem.length > 0,
-          listagem,
-        });
+        listaZonas.pegarDados().then(listagemZonas=>{
+          res.render("template-irregular-update", {
+            BOOTSTRAP_CSS: estiloBootstrapCSS.split("|")[0],
+            ESTILO_CSS: estiloBootstrapCSS.split("|")[1],
+            porta: process.env.PORT,
+            id_registro: id,
+            usuario_adm: resu[0].autoridade === "ADM",
+            id_zona: resu[0].id_zona,
+            listagem_eh_valida: listagem.length > 0,
+            listagem,
+            listagem_zonas:listagemZonas
+          });
+        })
+       
       });
     }
   });
@@ -165,6 +175,7 @@ exports.postUpdateVeiculo = (req, res) => {
           momento_alerta: `${req.body.data} ${req.body.hora}`,
           local_alerta: req.body.local_alerta,
           medida_administrativa: req.body.medida_administrativa,
+          id_zona: req.body.id_zona
         };
 
         const id_registro = parseInt(req.body["id-registro-irregular"]);

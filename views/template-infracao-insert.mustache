@@ -27,6 +27,14 @@ Status da situação:<br>
 </select>
 </label>
 <label>
+    Zona a que pertence:<br>
+    <select class="form-control" required name='id_zona'id='zona'>
+        {{#listagem_zonas}}
+        <option value='{{id}}' selected>{{zona}}</option>
+        {{/listagem_zonas}}
+    </select>
+</label>
+<label>
 Gravidade da infração:<br>
 <select class="form-control" required name='gravidade_infracao'id='status'>
     <option value='leve' selected>Leve</option>
