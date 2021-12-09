@@ -8,6 +8,7 @@ const conexao = require("./infraestrutura/conexao").conexao;
 const Tabelas = require("./infraestrutura/tabelas");
 const helperSocket = require("./helpers/alertSocket");
 const socketIO = require("socket.io");
+//const uws = require("uws");
 
 // Variável de ambiente
 dotenv.config();
@@ -22,7 +23,7 @@ conexao.connect((erro) => {
     const app = customExpress();
     // const app = customExpress();
     const io = socketIO(app);
-
+    //io.ws = new uws.Server({ perMessageDeflate: false });
     app.listen(process.env.PORT, () => {
       console.log("Listening to request on port 8005");
     });

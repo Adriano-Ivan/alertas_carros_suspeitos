@@ -29,3 +29,19 @@ END WHILE;
 END 
 $$
 DELIMITER ;
+
+
+###############################
+update bots_telegram set nome = 'bot_zonaA' where id = 1;
+update bots_telegram set chat_id = '-1001758203599' where id = 1;
+update bots_telegram set token_telegram = '5042647808:AAGRl04KFKw4eTO2OU5qTBAqQ-oFaHVAook' where id = 1;
+alter table bots_telegram add column chat_id varchar(150) not null default 'precisa ser adicionado';
+
+INSERT INTO bots_telegram(nome, token_telegram, id_zona, chat_id) VALUES('bot_zonaB', '5029012865:AAEcZKgZZPu0EMN_bM_Z3IKtvHprJOZgmvc',
+2, '-773517891');
+
+#####################################
+insert into veiculos_suspeitos(dono,placa,statusID, nivel_urgenciaID, local_alerta, momento_alerta, id_zona)
+VALUES ('Anderson', 'dkk2232',2,2,'Local da Estrada Amarela - TESTE 10', '2021-03-19 13:23:23', 1),
+('Anderson 2', 'dkk2282',2,2,'Local da Estrada Vermelha - TESTE 10', '2021-03-19 13:20:10', 1),
+('Anderson 2', 'dkk2282',2,2,'Local da Estrada Vermelha - TESTE 1111', '2021-03-19 13:20:10', 2);
