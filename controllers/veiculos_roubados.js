@@ -57,7 +57,7 @@ exports.getAdicionarVeiculo = (req, res) => {
       });
     } else {
       console.log(resu);
-      listaZonas.pegarDados().then(listagemZonas=>{
+      listaZonas.pegarDados().then((listagemZonas) => {
         res.render("template-roubado-insert", {
           BOOTSTRAP_CSS: estiloBootstrapCSS.split("|")[0],
           ESTILO_CSS: estiloBootstrapCSS.split("|")[1],
@@ -67,10 +67,9 @@ exports.getAdicionarVeiculo = (req, res) => {
           id_zona: resu[0].id_zona,
           placa_errada: req.flash("erro"),
           sucesso: req.flash("sucesso"),
-          listagem_zonas:listagemZonas
+          listagem_zonas: listagemZonas,
         });
-      })
-      
+      });
     }
   });
 };
@@ -97,7 +96,7 @@ exports.postAdicionarRoubado = (req, res) => {
           momento_alerta: `${req.body.data} ${req.body.hora}`,
           local_alerta: req.body.local_alerta,
           local_roubo: req.body.local_roubo,
-          id_zona:req.body.id_zona
+          id_zona: req.body.id_zona,
         };
         listaVeiculosRoubados
           .inserirRegistro(objeto)
@@ -132,7 +131,7 @@ exports.getUpdateVeiculo = (req, res) => {
       console.log(id);
       listaVeiculosRoubados.pegarDadosPorId(id).then((listagem) => {
         console.log(resu);
-        listaZonas.pegarDados().then(listagemZonas=>{
+        listaZonas.pegarDados().then((listagemZonas) => {
           res.render("template-roubado-update", {
             BOOTSTRAP_CSS: estiloBootstrapCSS.split("|")[0],
             ESTILO_CSS: estiloBootstrapCSS.split("|")[1],
@@ -142,10 +141,9 @@ exports.getUpdateVeiculo = (req, res) => {
             id_zona: resu[0].id_zona,
             listagem_eh_valida: listagem.length > 0,
             listagem,
-            listagem_zonas:listagemZonas
+            listagem_zonas: listagemZonas,
           });
-        })
-        
+        });
       });
     }
   });
@@ -174,7 +172,7 @@ exports.postUpdateVeiculo = (req, res) => {
           momento_alerta: `${req.body.data} ${req.body.hora}`,
           local_alerta: req.body.local_alerta,
           local_roubo: req.body.local_roubo,
-          id_zona: req.body.id_zona
+          id_zona: req.body.id_zona,
         };
         const id_registro = parseInt(req.body["id-registro-roubado"]);
 
@@ -196,10 +194,20 @@ exports.postUpdateVeiculo = (req, res) => {
   }
 };
 exports.deletarRegistro = (req, res) => {
-  listaVeiculosRoubados
-    .deletarRegistro(parseInt(req.body["id-registro-roubado"]))
-    .then(() => {
-      req.flash("sucesso", true);
-      res.redirect("/veiculos_roubados");
-    });
+  Promise.resolve(req.user).then((resu) => {
+    if (!(resu[0].autoridade === "ADM")) {
+      res.render("forbidden", {
+        porta: process.env.PORT,
+        BOOTSTRAP_CSS: estiloBootstrapCSS.split("|")[0],
+        ESTILO_CSS: estiloBootstrapCSS.split("|")[1],
+      });
+    } else {
+      listaVeiculosRoubados
+        .deletarRegistro(parseInt(req.body["id-registro-roubado"]))
+        .then(() => {
+          req.flash("sucesso", true);
+          res.redirect("/veiculos_roubados");
+        });
+    }
+  });
 };

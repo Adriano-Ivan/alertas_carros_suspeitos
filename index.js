@@ -25,7 +25,7 @@ conexao.connect((erro) => {
     const io = socketIO(app);
     //io.ws = new uws.Server({ perMessageDeflate: false });
     app.listen(process.env.PORT, () => {
-      console.log("Listening to request on port 8005");
+      console.log("Listening to request on port 8006");
     });
 
     io.on("connection", (socket) => {

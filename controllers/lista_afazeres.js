@@ -87,10 +87,20 @@ exports.fazerUpdate = (req, res) => {
   });
 };
 exports.deletarTarefa = (req, res) => {
-  const id = parseInt(req.body["id-registro-tarefa"]);
-  listaAfazeres.deletarTarefa(id).then(() => {
-    //console.log("ENTROU");
-    //console.log(id);
-    res.redirect("/lista_afazeres");
+  Promise.resolve(req.user).then((resu) => {
+    if (!(resu[0].autoridade === "ADM")) {
+      res.render("forbidden", {
+        porta: process.env.PORT,
+        BOOTSTRAP_CSS: estiloBootstrapCSS.split("|")[0],
+        ESTILO_CSS: estiloBootstrapCSS.split("|")[1],
+      });
+    } else {
+      const id = parseInt(req.body["id-registro-tarefa"]);
+      listaAfazeres.deletarTarefa(id).then(() => {
+        //console.log("ENTROU");
+        //console.log(id);
+        res.redirect("/lista_afazeres");
+      });
+    }
   });
 };

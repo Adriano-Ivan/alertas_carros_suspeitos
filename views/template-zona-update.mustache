@@ -1,0 +1,50 @@
+{{>partials/topo}}
+<aside>
+  <div>
+    <a
+      href="/zonas"
+      style="margin-bottom: 5px; text-decoration: none; color: red"
+      >VOLTAR</a
+    >
+  </div>
+  <form
+    method="POST"
+    style="margin-bottom: 30%"
+    class="crud-page"
+    action="/update_zona"
+  >
+    <label
+      style="
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-start;
+        align-items: flex-start;
+      "
+    >
+      Local:<br />
+      {{#listagem}}
+      <input
+        type="text"
+        style="text-align: left"
+        class="form-control"
+        name="zona"
+        value="{{ zona }}"
+        required
+        placeholder="Digite o nome da zona de monitoramento"
+      />
+    </label>
+    <input
+      type="number"
+      class="desaparecer"
+      name="id-registro-zona"
+      value="{{ id_registro }}"
+    />
+    <input
+      type="submit"
+      class="btn btn-sm btn-block btn-primary"
+      value="Atualizar"
+    />
+    {{/listagem}}
+  </form>
+</aside>
+{{>partials/fim}}

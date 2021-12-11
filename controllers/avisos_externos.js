@@ -51,9 +51,19 @@ exports.getMensagensPorDescricao = (req, res) => {
 
 exports.deletarMensagem = (req, res) => {
   Promise.resolve(req.user).then((resu) => {
-    const id = parseInt(req.body["id-registro-observacao"]);
-    mensagensRecebidas.deletarMensagem(id, resu[0].id).then(() => {
-      res.redirect("/avisos_externos");
-    });
+    if (!(resu[0].autoridade === "ADM")) {
+      res.render("forbidden", {
+        porta: process.env.PORT,
+        BOOTSTRAP_CSS: estiloBootstrapCSS.split("|")[0],
+        ESTILO_CSS: estiloBootstrapCSS.split("|")[1],
+      });
+    } else {
+      Promise.resolve(req.user).then((resu) => {
+        const id = parseInt(req.body["id-registro-observacao"]);
+        mensagensRecebidas.deletarMensagem(id, resu[0].id).then(() => {
+          res.redirect("/avisos_externos");
+        });
+      });
+    }
   });
 };

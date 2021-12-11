@@ -37,7 +37,7 @@ exports.getUsuarios = (req, res) => {
           BOOTSTRAP_CSS: estiloBootstrapCSS.split("|")[0],
           ESTILO_CSS: estiloBootstrapCSS.split("|")[1],
           usuario_adm: resu[0].autoridade === "ADM",
-          id_zona : resu[0].id_zona,
+          id_zona: resu[0].id_zona,
           nome_deletado: req.flash("usuario"),
           usuario_deletado: req.flash("usuario_deletado"),
           update_proibido: req.flash("update_proibido"),
@@ -64,7 +64,7 @@ exports.getAdicionarUsuario = (req, res) => {
         porta: process.env.PORT,
         BOOTSTRAP_CSS: estiloBootstrapCSS.split("|")[0],
         usuario_adm: resu[0].autoridade === "ADM",
-        id_zona : resu[0].id_zona,
+        id_zona: resu[0].id_zona,
         ESTILO_CSS: estiloBootstrapCSS.split("|")[1],
         senhas_diferentes: req.flash("senhas_diferentes"),
         email_duplicado: req.flash("email_duplicado"),
@@ -131,7 +131,7 @@ exports.getUpdateUsuario = (req, res) => {
             user,
             porta: process.env.PORT,
             id_registro: id,
-            id_zona : result[0].id_zona,
+            id_zona: result[0].id_zona,
             BOOTSTRAP_CSS: estiloBootstrapCSS.split("|")[0],
             ESTILO_CSS: estiloBootstrapCSS.split("|")[1],
           });
@@ -185,20 +185,30 @@ exports.postUpdateUsuario = (req, res) => {
   });
 };
 exports.deletarRegistro = (req, res) => {
-  usuario
-    .findUserById(parseInt(req.body["id-registro-usuario"]))
-    .then((user) => {
-      if (user[0].autoridade === "ADM") {
-        req.flash("delete_proibido", true);
-        res.redirect("/usuarios");
-      } else {
-        usuario
-          .deleteUserById(parseInt(req.body["id-registro-usuario"]))
-          .then((user) => {
-            req.flash("usuario", user[0].nome);
-            req.flash("usuario_deletado", true);
+  Promise.resolve(req.user).then((resu) => {
+    if (!(resu[0].autoridade === "ADM")) {
+      res.render("forbidden", {
+        porta: process.env.PORT,
+        BOOTSTRAP_CSS: estiloBootstrapCSS.split("|")[0],
+        ESTILO_CSS: estiloBootstrapCSS.split("|")[1],
+      });
+    } else {
+      usuario
+        .findUserById(parseInt(req.body["id-registro-usuario"]))
+        .then((user) => {
+          if (user[0].autoridade === "ADM") {
+            req.flash("delete_proibido", true);
             res.redirect("/usuarios");
-          });
-      }
-    });
+          } else {
+            usuario
+              .deleteUserById(parseInt(req.body["id-registro-usuario"]))
+              .then((user) => {
+                req.flash("usuario", user[0].nome);
+                req.flash("usuario_deletado", true);
+                res.redirect("/usuarios");
+              });
+          }
+        });
+    }
+  });
 };

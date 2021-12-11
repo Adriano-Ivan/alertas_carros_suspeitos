@@ -20,7 +20,7 @@ class Zonas {
     const dados = await queryPromise2(descricao + "%", sql);
     return [].concat(dados);
   }
-  async findMensagemById(id) {
+  async findZonaById(id) {
     const sql = `SELECT * FROM zonas WHERE id = ?;`;
     //console.log(sql);
     const dados = await queryPromise2(id, sql);

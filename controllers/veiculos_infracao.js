@@ -196,10 +196,20 @@ exports.postUpdateVeiculo = (req, res) => {
   }
 };
 exports.deletarRegistro = (req, res) => {
-  listaVeiculosInfracao
-    .deletarRegistro(parseInt(req.body["id-registro-infracao"]))
-    .then(() => {
-      req.flash("sucesso", true);
-      res.redirect("/veiculos_infracao");
-    });
+  Promise.resolve(req.user).then((resu) => {
+    if (!(resu[0].autoridade === "ADM")) {
+      res.render("forbidden", {
+        porta: process.env.PORT,
+        BOOTSTRAP_CSS: estiloBootstrapCSS.split("|")[0],
+        ESTILO_CSS: estiloBootstrapCSS.split("|")[1],
+      });
+    } else {
+      listaVeiculosInfracao
+        .deletarRegistro(parseInt(req.body["id-registro-infracao"]))
+        .then(() => {
+          req.flash("sucesso", true);
+          res.redirect("/veiculos_infracao");
+        });
+    }
+  });
 };

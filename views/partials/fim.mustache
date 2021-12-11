@@ -167,6 +167,15 @@ function disp() {
         </script>
     {{/delete_proibido}}
 
+    {{#erro_zona}}
+    <script>
+      function disp() {
+        Swal.fire({icon:'alert',titleText:'A zona em questão está ativa, portanto não pode ser excluída !',showCloseButton:true});
+      }
+      disp();
+    </script>
+    {{/erro_zona}}
+
     <script src='./../../socket.io/socket.io.js'></script>
     <script>
           const socket = io();
@@ -175,7 +184,7 @@ function disp() {
             setInterval(function () {
               //console.log("EIIIII");
               socket.emit("request_alert", parseInt(id_zona));
-            }, 200);
+            }, 100);
           };
 
           sendRegularEmit();

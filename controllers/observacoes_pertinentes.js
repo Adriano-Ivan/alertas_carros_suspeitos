@@ -86,9 +86,19 @@ exports.fazerUpdateObservacao = (req, res) => {
   });
 };
 exports.deletarObservacao = (req, res) => {
-  const id = parseInt(req.body["id-registro-observacao"]);
-  listaObservacoes.deletarObservacao(id).then(() => {
-    res.redirect("/observacoes_pertinentes");
+  Promise.resolve(req.user).then((resu) => {
+    if (!(resu[0].autoridade === "ADM")) {
+      res.render("forbidden", {
+        porta: process.env.PORT,
+        BOOTSTRAP_CSS: estiloBootstrapCSS.split("|")[0],
+        ESTILO_CSS: estiloBootstrapCSS.split("|")[1],
+      });
+    } else {
+      const id = parseInt(req.body["id-registro-observacao"]);
+      listaObservacoes.deletarObservacao(id).then(() => {
+        res.redirect("/observacoes_pertinentes");
+      });
+    }
   });
 };
 // module.exports = (app) => {

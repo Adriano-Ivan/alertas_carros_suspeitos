@@ -1,0 +1,112 @@
+{{>partials/topo}}
+<aside>
+  <h2
+    class="titulo-zonas"
+    style="
+      margin-left: 0;
+      margin-bottom: 20px;
+      text-align: center;
+      font-weight: bold;
+      font-size: 21px;
+      padding-left: 15px;
+      padding-right: 15px;
+    "
+  >
+    ZONAS DE MONITORAMENTO ATUAIS
+  </h2>
+  <div class="container">
+    {{#usuario_adm
+
+    }}<a
+      href="/adicionar_zona"
+      style="
+        color: rgb(8, 77, 8);
+        font-weight: bold;
+        text-transform: uppercase;
+        text-decoration: none;
+        text-align: left;
+        width: 77%;
+        margin-bottom: 35px;
+      "
+      >Adicionar zona</a
+    >{{/usuario_adm}}
+    <div class="table-responsive d-block d-md-table">
+      <table
+        style="min-width: 85%"
+        class="
+          table-elemento
+          table-infracao
+          table
+          table-hover
+          table-striped
+          table-bordered
+          table-dark
+        "
+      >
+        {{#zonas_validas}}
+        <thead>
+          <tr class="head-zonas">
+            <th>ID</th>
+            <th>NUMERAÇÃO</th>
+            <th>Zona</th>
+            {{#usuario_adm}}
+            <th>Editar</th>
+            {{/usuario_adm}}
+            {{#usuario_adm}}
+            <th>Excluir</th>
+            {{/usuario_adm}}
+          </tr>
+        </thead>
+        <tbody>
+          {{#listagem}}
+          <tr class="registro-zonas">
+            <td>{{ id }}</td>
+            <TD>{{ index }}</TD>
+            <td>{{ zona }}</td>
+            {{#usuario_adm}}
+            <td style="padding: 20px">
+              <form
+                action="/update_r_zona_page/"
+                method="GET"
+                enctype="application/x-www-form-urlencoded"
+                role="form"
+              >
+                <input
+                  type="number"
+                  class="desaparecer"
+                  name="id-registro-zona"
+                  value="{{ id }}"
+                /><button class="btn btn-success" class="edicao-zona">↘</button>
+              </form>
+            </td>
+            {{/usuario_adm}}
+            {{#usuario_adm}}
+            <td style="padding: 20px">
+              <form
+                action="/delete_r_zona/"
+                method="post"
+                enctype="application/x-www-form-urlencoded"
+              >
+                <input
+                  type="number"
+                  class="desaparecer"
+                  name="id-registro-zona"
+                  value="{{ id }}"
+                /><button class="btn btn-danger" class="exclusao-zona">
+                  x
+                </button>
+              </form>
+            </td>
+            {{/usuario_adm}}
+          </tr>
+          {{/listagem}}
+        </tbody>
+        {{/zonas_validas}}
+        {{^zonas_validas}}
+        <strong style="margin-top: 30px">Não há itens na lista de zonas</strong>
+        {{/zonas_validas}}
+      </table>
+    </div>
+  </div>
+</aside>
+{{>partials/fim}}

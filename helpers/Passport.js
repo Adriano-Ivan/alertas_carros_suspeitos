@@ -1,6 +1,6 @@
 const bcrypt = require("bcryptjs");
 const LocalStrategy = require("passport-local").Strategy;
-let userInformation = "A";
+//let userInformation = "A";
 
 // exports.pegarUsuario = () => {
 //   return userInformation;
