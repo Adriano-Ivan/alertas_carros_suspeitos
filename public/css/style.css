@@ -321,6 +321,7 @@ input[type="submit"] {
 /* ÁREA AVISOS */
 .titulo-aviso,
 .titulo-locais,
+.titulo-zonas,
 .area-update label .titulo-update {
   color: rgb(2, 35, 90);
 

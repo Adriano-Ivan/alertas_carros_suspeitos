@@ -32,5 +32,6 @@ class MensagensEnviadas {
       "DELETE FROM mensagens_enviadas WHERE id = ? and id_usuario = ?";
     await deletePromise([id, id_usuario], sql);
   }
+
 }
 module.exports = new MensagensEnviadas();

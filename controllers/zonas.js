@@ -5,45 +5,61 @@ const zonas = require("./../models/Zonas");
 const url = require("url");
 exports.getZonas = (req, res) => {
   Promise.resolve(req.user).then((resu) => {
-    zonas.pegarDados().then((listagem) => {
-      const dados = listagem.map((item, index) => {
-        item["index"] = index + 1;
-        return item;
-      });
-      console.log(dados);
-      res.render("template-zonas", {
+    if (!(resu[0].autoridade === "ADM")) {
+      res.render("forbidden", {
+        porta: process.env.PORT,
         BOOTSTRAP_CSS: estiloBootstrapCSS.split("|")[0],
         ESTILO_CSS: estiloBootstrapCSS.split("|")[1],
-        porta: process.env.PORT,
-        usuario_adm: resu[0].autoridade === "ADM",
-        id_zona: resu[0].id_zona,
-        zonas_validas: dados.length > 0,
-        listagem: dados,
-        erro_zona: req.flash("erro"),
-        sucesso: req.flash("sucesso"),
       });
-    });
+    } else {
+      zonas.pegarDados().then((listagem) => {
+        const dados = listagem.map((item, index) => {
+          item["index"] = index + 1;
+          return item;
+        });
+        console.log(dados);
+        res.render("template-zonas", {
+          BOOTSTRAP_CSS: estiloBootstrapCSS.split("|")[0],
+          ESTILO_CSS: estiloBootstrapCSS.split("|")[1],
+          porta: process.env.PORT,
+          usuario_adm: resu[0].autoridade === "ADM",
+          id_zona: resu[0].id_zona,
+          zonas_validas: dados.length > 0,
+          listagem: dados,
+          erro_zona: req.flash("erro"),
+          sucesso: req.flash("sucesso"),
+        });
+      });
+    }
   });
 };
 exports.getZonasPorDescricao = (req, res) => {
   const local = req.params.local;
   Promise.resolve(req.user).then((resu) => {
-    zonas.buscarPorDescricao(local).then((listagem) => {
-      const dados = listagem.map((item, index) => {
-        item["index"] = index + 1;
-        return item;
-      });
-      console.log(dados);
-      res.render("template-zonas", {
+    if (!(resu[0].autoridade === "ADM")) {
+      res.render("forbidden", {
+        porta: process.env.PORT,
         BOOTSTRAP_CSS: estiloBootstrapCSS.split("|")[0],
         ESTILO_CSS: estiloBootstrapCSS.split("|")[1],
-        porta: process.env.PORT,
-        usuario_adm: resu[0].autoridade === "ADM",
-        id_zona: resu[0].id_zona,
-        zonas_validas: dados.length > 0,
-        listagem: dados,
       });
-    });
+    } else {
+      zonas.buscarPorDescricao(local).then((listagem) => {
+        const dados = listagem.map((item, index) => {
+          item["index"] = index + 1;
+          return item;
+        });
+        console.log(dados);
+        res.render("template-zonas", {
+          BOOTSTRAP_CSS: estiloBootstrapCSS.split("|")[0],
+          ESTILO_CSS: estiloBootstrapCSS.split("|")[1],
+          porta: process.env.PORT,
+          usuario_adm: resu[0].autoridade === "ADM",
+          id_zona: resu[0].id_zona,
+          zonas_validas: dados.length > 0,
+          listagem: dados,
+        });
+      });
+    }
   });
 };
 exports.getAdicionarZona = (req, res) => {

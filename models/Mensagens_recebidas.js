@@ -25,6 +25,10 @@ class MensagensRecebidas {
     const sql = "DELETE FROM mensagens_recebidas WHERE id = ? and id_usuario=?";
     await deletePromise([id, id_usuario], sql);
   }
+  async deletarMensagemPorUsuario(id_usuario) {
+    const sql = "DELETE FROM mensagens_recebidas WHERE id_usuario = ?";
+    await deletePromise(id_usuario, sql);
+  }
   async inserirMensagemParaTodosOsUsuarios(mensagem) {
     const sql = "call insertMessage(?);";
     await insertPromise(sql, mensagem);

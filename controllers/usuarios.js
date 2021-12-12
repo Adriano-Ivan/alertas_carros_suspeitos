@@ -206,6 +206,9 @@ exports.deletarRegistro = (req, res) => {
                 req.flash("usuario", user[0].nome);
                 req.flash("usuario_deletado", true);
                 res.redirect("/usuarios");
+              })
+              .catch((erro) => {
+                console.log(erro);
               });
           }
         });

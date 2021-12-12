@@ -3,6 +3,7 @@ const queryPromise2 = require("../helpers/queryPromise2");
 const insertPromise = require("../helpers/insertPromise");
 const deletePromise = require("../helpers/deletePromise");
 const updatePromise = require("../helpers/updatePromise");
+const mensagensRecebidas = require("./Mensagens_recebidas");
 // const AES = require("mysql-aes-binary");
 // const decrypt = function (text) {
 //   return AES.decrypt(text, "chave_node");
@@ -55,7 +56,8 @@ FROM  usuarios WHERE email = ? or nome = ?;`;
     await updatePromise(id, value, sql);
   }
   async deleteUserById(id) {
-    const user = await this.findUserById(id);
+    const user = await this.findUserById(parseInt(id));
+    await mensagensRecebidas.deletarMensagemPorUsuario(id);
     const sql = `DELETE FROM usuarios WHERE id = ?`;
     await deletePromise(id, sql);
     return [].concat(user);

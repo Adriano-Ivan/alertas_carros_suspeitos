@@ -16,6 +16,7 @@ exports.getEnvioDeAvisos = (req, res) => {
         porta: process.env.PORT,
         avisos_enviados_validos: dados.length > 0,
         usuario_adm: resu[0].autoridade === "ADM",
+        id_usuario_ref: resu[0].id,
         id_zona: resu[0].id_zona,
         listagem: dados,
         enviado: req.flash("sucessoEnvio"),
@@ -97,6 +98,7 @@ exports.getMensagensPorDescricao = (req, res) => {
           porta: process.env.PORT,
           id_zona: resu[0].id_zona,
           usuario_adm: resu[0].autoridade === "ADM",
+          id_usuario_ref: resu[0].id,
           avisos_enviados_validos: dados.length > 0,
           listagem: dados,
         });
