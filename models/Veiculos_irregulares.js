@@ -13,10 +13,10 @@ class VeiculosIrregulares {
     const dados = await queryPromise2(id_zona, sql);
     return [].concat(dados);
   }
-  async pegarDadosAlerta(id_zona) {
+  async pegarDadosAlerta() {
     const sql =
-      "SELECT v.id,v.placa,v.local_alerta,v.alertado,v.id_zona,'irregular' as tipo, DATE_FORMAT(DATE(momento_alerta),'%d/%m/%Y') as data, time(v.momento_alerta) as hora FROM veiculos_irregulares AS v INNER JOIN status AS s ON s.id = v.statusID WHERE v.alertado = false and s.status != 'Resolvido' and v.id_zona = ? ORDER BY momento_alerta DESC;";
-    const dados = await queryPromise2(id_zona, sql);
+      "SELECT v.id,v.placa,v.local_alerta,v.alertado,v.id_zona,'irregular' as tipo, DATE_FORMAT(DATE(momento_alerta),'%d/%m/%Y') as data, time(v.momento_alerta) as hora FROM veiculos_irregulares AS v INNER JOIN status AS s ON s.id = v.statusID WHERE v.alertado = false and s.status != 'Resolvido' ORDER BY momento_alerta DESC;";
+    const dados = await queryPromise(sql);
     return [].concat(dados);
   }
   async pegarDadosPorId(id) {

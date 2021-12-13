@@ -16,6 +16,7 @@ exports.getObservacoesPertinentes = (req, res) => {
         BOOTSTRAP_CSS: estiloBootstrapCSS.split("|")[0],
         ESTILO_CSS: estiloBootstrapCSS.split("|")[1],
         usuario_adm: resu[0].autoridade === "ADM",
+        id_usuario_ref: resu[0].id,
         id_zona: resu[0].id_zona,
         listagem_eh_valida: listagem.length > 0,
         listagem: dados,
@@ -39,6 +40,7 @@ exports.getObservacaoPorDescricao = (req, res) => {
         BOOTSTRAP_CSS: estiloBootstrapCSS.split("|")[0],
         ESTILO_CSS: estiloBootstrapCSS.split("|")[1],
         usuario_adm: resu[0].autoridade === "ADM",
+        id_usuario_ref: resu[0].id,
         id_zona: resu[0].id_zona,
         listagem_eh_valida: dados.length > 0,
         listagem: dados,
@@ -68,6 +70,7 @@ exports.updateObservacao = (req, res) => {
     res.render("template-update-observacao", {
       id,
       usuario_adm: resu[0].autoridade === "ADM",
+      id_usuario_ref: resu[0].id,
       id_zona: resu[0].id_zona,
       BOOTSTRAP_CSS: estiloBootstrapCSS.split("|")[0],
       ESTILO_CSS: estiloBootstrapCSS.split("|")[1],

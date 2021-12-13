@@ -3,7 +3,7 @@ const listaVeiculosIrregulares = require("./../models/Veiculos_irregulares");
 const listaVeiculosRoubados = require("./../models/Veiculos_roubados");
 const listaVeiculosSuspeitos = require("./../models/Veiculos_suspeitos");
 const mensagensRecebidas = require("./../models/Mensagens_recebidas");
-const usuario = require("./../models/Usuario");
+const usuarios = require("./../models/Usuario");
 const zonas = require("./../models/Zonas");
 const botModel = require("./../models/Bot");
 //const userInformation = require("./Passport").pegarUsuario();
@@ -24,10 +24,10 @@ const encontrarMaior = (objs) => {
 };
 
 let dados = [];
-exports.pegarAlertas = (id_zona) => {
+exports.pegarAlertas = () => {
   //console.log(id_zona);
   listaVeiculosSuspeitos
-    .pegarDadosAlerta(id_zona)
+    .pegarDadosAlerta()
     .then((listagem) => {
       dados = [];
       dados = dados.concat(listagem);
@@ -38,7 +38,7 @@ exports.pegarAlertas = (id_zona) => {
     })
     .then(() => {
       listaVeiculosRoubados
-        .pegarDadosAlerta(id_zona)
+        .pegarDadosAlerta()
         .then((listagem) => {
           dados = dados.concat(listagem);
           return encontrarMaior(listagem);
@@ -49,7 +49,7 @@ exports.pegarAlertas = (id_zona) => {
     })
     .then(() => {
       listaVeiculosInfracao
-        .pegarDadosAlerta(id_zona)
+        .pegarDadosAlerta()
         .then((listagem) => {
           dados = dados.concat(listagem);
           return encontrarMaior(listagem);
@@ -60,7 +60,7 @@ exports.pegarAlertas = (id_zona) => {
     })
     .then(() => {
       listaVeiculosIrregulares
-        .pegarDadosAlerta(id_zona)
+        .pegarDadosAlerta()
         .then((listagem) => {
           dados = dados.concat(listagem);
           return encontrarMaior(listagem);
@@ -76,18 +76,22 @@ exports.pegarAlertas = (id_zona) => {
   }
   return dados;
 };
+let referencia = "";
+exports.enviarMensagemParaTelegram = (alertas, id_user, id_zona) => {
+  console.log(id_user, "+++++++++++++");
+  console.log(id_zona, "++++++++++++");
+  usuarios.getUserByZona(id_zona).then((usuario) => {
+    console.log(usuario);
+    console.log("----------------------------+++++++++");
+    if (usuario[0].id === id_user) {
+      botModel.pegarDados().then((listagemBots) => {
+        listagemBots.forEach((b) => {
+          const bot = new TelegramBot(b.token_telegram, { polling: true });
 
-exports.enviarMensagemParaTelegram = (alertas) => {
-  zonas.pegarDados().then((listagem) => {
-    botModel.pegarDados().then((listagemBots) => {
-      listagemBots.forEach((b) => {
-        const bot = new TelegramBot(b.token_telegram, { polling: true });
-
-        listagem.forEach((z) => {
           let mensagem = "⚠️ ALERTAS RECENTES ⚠️\n\n";
           let entrou = false;
           alertas.forEach((a, i) => {
-            if (b.id_zona === z.id && z.id === a.id_zona) {
+            if (b.id_zona === id_zona && id_zona === a.id_zona) {
               entrou = true;
               mensagem += `\n➡️ Placa: ${a.placa}\n➡️ Momento: ${a.hora} - ${a.data} \n➡️ Local específico: ${a.local_alerta} \n➡️ Tipo: ${a.tipo}\n\n`;
               if (i < alertas.length - 1) {
@@ -97,21 +101,15 @@ exports.enviarMensagemParaTelegram = (alertas) => {
           });
           if (entrou) {
             bot.sendMessage(b.chat_id, mensagem);
+            // process.once("SIGINT", () => bot.stop("SIGINT"));
+            // process.once("SIGTERM", () => bot.stop("SIGTERM"));
             //bot.sendMessage("@Adriano_2000", mensagem);
           }
         });
-
-        // listagem.forEach((u) => {
-        //   if (u.id_zona === b.id_zona) {
-        //     console.log(u, b, alertas);
-        //     bot.sendMessage(b.chat_id, mensagemCompleta);
-        //   }
-        // });
       });
-    });
+    }
   });
 };
-
 exports.inserirMensagem = (mensagem) => {
   mensagensRecebidas.inserirMensagemParaTodosOsUsuarios(mensagem);
 };

@@ -15,7 +15,11 @@ class Usuario {
     const dados = await queryPromise(sql);
     return [].concat(dados);
   }
-
+  async getUserByZona(id_zona) {
+    const sql = `SELECT * FROM usuarios where id_zona = ? limit 1;`;
+    const dados = await queryPromise2(id_zona, sql);
+    return [].concat(dados);
+  }
   async avaliarEmail(email) {
     const sql = `SELECT email FROM usuarios WHERE email = ?`;
 

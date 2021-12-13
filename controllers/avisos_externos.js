@@ -8,7 +8,7 @@ exports.getAvisosExternos = (req, res) => {
       const dados = listagem.map((item, i) => {
         item["index"] = i + 1;
 
-        console.log(item["mensagem_recebida"]);
+        //console.log(item["mensagem_recebida"]);
         return item;
       });
       //console.log(dados);
@@ -53,19 +53,9 @@ exports.getMensagensPorDescricao = (req, res) => {
 
 exports.deletarMensagem = (req, res) => {
   Promise.resolve(req.user).then((resu) => {
-    if (!(resu[0].autoridade === "ADM")) {
-      res.render("forbidden", {
-        porta: process.env.PORT,
-        BOOTSTRAP_CSS: estiloBootstrapCSS.split("|")[0],
-        ESTILO_CSS: estiloBootstrapCSS.split("|")[1],
-      });
-    } else {
-      Promise.resolve(req.user).then((resu) => {
-        const id = parseInt(req.body["id-registro-observacao"]);
-        mensagensRecebidas.deletarMensagem(id, resu[0].id).then(() => {
-          res.redirect("/avisos_externos");
-        });
-      });
-    }
+    const id = parseInt(req.body["id-registro-observacao"]);
+    mensagensRecebidas.deletarMensagem(id, resu[0].id).then(() => {
+      res.redirect("/avisos_externos");
+    });
   });
 };

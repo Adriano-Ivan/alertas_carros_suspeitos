@@ -37,6 +37,7 @@ exports.getUsuarios = (req, res) => {
           BOOTSTRAP_CSS: estiloBootstrapCSS.split("|")[0],
           ESTILO_CSS: estiloBootstrapCSS.split("|")[1],
           usuario_adm: resu[0].autoridade === "ADM",
+          id_usuario_ref: resu[0].id,
           id_zona: resu[0].id_zona,
           nome_deletado: req.flash("usuario"),
           usuario_deletado: req.flash("usuario_deletado"),
@@ -64,6 +65,7 @@ exports.getAdicionarUsuario = (req, res) => {
         porta: process.env.PORT,
         BOOTSTRAP_CSS: estiloBootstrapCSS.split("|")[0],
         usuario_adm: resu[0].autoridade === "ADM",
+        id_usuario_ref: resu[0].id,
         id_zona: resu[0].id_zona,
         ESTILO_CSS: estiloBootstrapCSS.split("|")[1],
         senhas_diferentes: req.flash("senhas_diferentes"),
@@ -110,8 +112,8 @@ exports.postAdicionarUsuario = (req, res) => {
   });
 };
 exports.getUpdateUsuario = (req, res) => {
-  Promise.resolve(req.user).then((result) => {
-    if (!(result[0].autoridade === "ADM")) {
+  Promise.resolve(req.user).then((resu) => {
+    if (!(resu[0].autoridade === "ADM")) {
       res.render("forbidden", {
         porta: process.env.PORT,
         BOOTSTRAP_CSS: estiloBootstrapCSS.split("|")[0],
@@ -131,7 +133,9 @@ exports.getUpdateUsuario = (req, res) => {
             user,
             porta: process.env.PORT,
             id_registro: id,
-            id_zona: result[0].id_zona,
+            usuario_adm: resu[0].autoridade === "ADM",
+            id_usuario_ref: resu[0].id,
+            id_zona: resu[0].id_zona,
             BOOTSTRAP_CSS: estiloBootstrapCSS.split("|")[0],
             ESTILO_CSS: estiloBootstrapCSS.split("|")[1],
           });

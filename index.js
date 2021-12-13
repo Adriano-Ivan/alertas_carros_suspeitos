@@ -6,7 +6,7 @@ const dotenv = require("dotenv");
 const conexao = require("./infraestrutura/conexao").conexao;
 // const instanceEvents = require("./infraestrutura/conexao").instancia;
 const Tabelas = require("./infraestrutura/tabelas");
-const helperSocket = require("./helpers/alertSocket");
+const monitorSocket = require("./helpers/monitorSocket");
 const socketIO = require("socket.io");
 //const uws = require("uws");
 
@@ -29,18 +29,8 @@ conexao.connect((erro) => {
     });
 
     io.on("connection", (socket) => {
-      console.log("Conexão detectada...");
-      socket.on("request_alert", (id_zona) => {
-        //console.log(confirm, typeof confirm);
-
-        socket.emit("send_alerts", helperSocket.pegarAlertas(id_zona));
-      });
-      socket.on("send_message", (message) => {
-        helperSocket.inserirMensagem(message);
-      });
-      socket.on("send_object_for_telegram", (objeto) => {
-        helperSocket.enviarMensagemParaTelegram(objeto);
-      });
+      //console.log("NOVA CONEXÃO: " + socket.id);
+      monitorSocket(socket);
     });
   }
 });
