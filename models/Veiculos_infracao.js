@@ -48,9 +48,9 @@ class VeiculosInfracao {
     await queryPromise2(id_veiculo, sql2);
     await updatePromise(id_veiculo, id_usuario, sql);
   }
-  async updateAlertado(id_maior) {
-    const sql = "UPDATE veiculos_infracao SET alertado = ? WHERE id  <= ?";
-    await updatePromise(id_maior, true, sql);
+  async updateAlertado(id) {
+    const sql = "UPDATE veiculos_infracao SET alertado = ? WHERE id = ?";
+    await updatePromise(id, true, sql);
   }
   async deletarRegistro(id) {
     const sql = "DELETE FROM veiculos_infracao WHERE id = ?";

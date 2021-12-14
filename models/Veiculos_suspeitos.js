@@ -44,9 +44,9 @@ class VeiculosSuspeitos {
       "UPDATE  veiculos_suspeitos SET id_ultimo_editor = ? WHERE id = ?";
     await updatePromise(id_veiculo, id_usuario, sql);
   }
-  async updateAlertado(id_maior) {
-    const sql = "UPDATE veiculos_suspeitos SET alertado = ? WHERE id <= ?";
-    await updatePromise(id_maior, true, sql);
+  async updateAlertado(id) {
+    const sql = "UPDATE veiculos_suspeitos SET alertado = ? WHERE id = ?";
+    await updatePromise(id, true, sql);
   }
   async deletarRegistro(id) {
     const sql = "DELETE FROM veiculos_suspeitos WHERE id = ?";

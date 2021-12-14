@@ -181,6 +181,9 @@ function disp() {
           const socket = io();
           const id_zona =parseInt( `{{id_zona}}`);
           const id_usuario_ref =parseInt(`{{id_usuario_ref}}`);
+          let intAuxiliar = 1;
+          let numero_envios = 0;
+          
           const emitter = function () {
               socket.emit("request_alert", true);
           };
@@ -188,42 +191,79 @@ function disp() {
           const regularEmitter = setInterval(emitter, 350);
          
           const emitPopUp = async(desc)=>{
-            Swal.fire({html:`<h2>Novos casos que demandam sua atenção</h2><p style='text-align:center'>${desc}</p>`,showCloseButton:true});
+            numero_envios++;
+            if(numero_envios===1){
+              Swal.fire({html:`<h2>Novos casos que demandam sua atenção</h2><p style='text-align:center'>${desc}</p>`,showCloseButton:true});
+            console.log(numero_envios);
+           
+            }
+            
           }
-          const emitToBackEnd =async(objeto_para_telegram,id_usuario_ref,id_zona,stringToDataBase)=>{
-            socket.emit('send_object_for_telegram',[objeto_para_telegram,id_usuario_ref,id_zona]);
-              socket.emit('send_message',stringToDataBase);
+          const emitToBackEnd =async(objeto_para_telegram,id_zona,stringToDataBase)=>{
+            
+            if(numero_envios===1){
+              socket.emit('numero_envios',{numero_envios,objeto_para_telegram,id_zona});
+            //await socket.emit('send_object_for_telegram',[objeto_para_telegram,id_zona]);
+            socket.emit('send_message',stringToDataBase);
+            }
+          
           }
           const processData = async(alerts,objeto_para_telegram,stringToDataBase)=>{
             let desc = `<div class='alerta-aviso' style='max-height:45vh; overflow-y:scroll'>`;
+            let auxiliarBoolean = false;
            
-           alerts.forEach((a) => {
-             if(a.id_zona===id_zona){
-               objeto_para_telegram.push({placa:a.placa,hora:a.hora,data:a.data,local_alerta: a.local_alerta, tipo:a.tipo, id_zona: parseInt(a.id_zona)});
-               stringToDataBase += `Alerta:-b-Placa: ${a.placa.toUpperCase()}-b-Momento: ${a.data}, ${a.hora}-b-Local: ${a.local_alerta}-b-Caso: ${a.tipo}|||`;
-               desc += `-> Placa:${a.placa.toUpperCase()} <span style='color:red'>| </span> Momento: ${a.data}, ${a.hora} <span style='color:red'>| </span> Local: ${a.local_alerta} <span style='color:red'>| </span> Caso: ${a.tipo}<hr><br>`
-             }
-          
-             //alert(`Placa: ${a.placa.toUpperCase()} - Mais informações na aba de alertas`)
-           });
-           desc += '<br>Mais informações na aba de alertas !<br>';
-           desc+='</div>';
-           await emitPopUp(desc);
-           await emitToBackEnd(objeto_para_telegram,id_usuario_ref,id_zona,stringToDataBase);
+            alerts.forEach((a) => {
+              if(a.id_zona===id_zona){
+                auxiliarBoolean=true;
+                objeto_para_telegram.push({id:a.id,placa:a.placa,hora:a.hora,data:a.data,local_alerta: a.local_alerta, tipo:a.tipo, id_zona: parseInt(a.id_zona)});
+                stringToDataBase += `Alerta:-b-Placa: ${a.placa.toUpperCase()}-b-Momento: ${a.data}, ${a.hora}-b-Local: ${a.local_alerta}-b-Caso: ${a.tipo}|||`;
+                desc += `-> Placa:${a.placa.toUpperCase()} <span style='color:red'>| </span> Momento: ${a.data}, ${a.hora} <span style='color:red'>| </span> Local: ${a.local_alerta} <span style='color:red'>| </span> Caso: ${a.tipo}<hr><br>`
+              }
+            
+              //alert(`Placa: ${a.placa.toUpperCase()} - Mais informações na aba de alertas`)
+            });
+            console.log(auxiliarBoolean, intAuxiliar);
+            if(auxiliarBoolean && intAuxiliar===1 ){
+              intAuxiliar++;
+              
+              desc += '<br>Mais informações na aba de alertas !<br>';
+            desc+='</div>';
+            await emitPopUp(desc);
+            await emitToBackEnd(objeto_para_telegram,id_zona,stringToDataBase);
+            }
+
           }
+
           socket.on("send_alerts", async(alerts) => {
             let  objeto_para_telegram=[];
               let  stringToDataBase='';
 
             if (alerts !== null) {
+              intAuxiliar=1;
+                await socket.emit('flag_connect',id_usuario_ref);
               //clearInterval(regularEmitter);
               //socket.emit('send_control_id',id_usuario_ref);
               await processData(alerts,objeto_para_telegram,stringToDataBase);
+              
              
             }
            
           });
-          
+          console.log('AUX:'+intAuxiliar)
+          socket.on('conf_update',(bool)=>{
+            if(bool){
+              console.log('ENNNNNNN')
+              numero_envios=0;
+             intAuxiliar=1;
+            }
+          })
+          socket.on('connect',()=>{
+            console.log('CONNECT');
+            socket.emit('flag_connect',id_usuario_ref);
+          })
+          // socket.on('disconnect',()=>{
+          //   console.log('DISCONNECT')
+          // })
         
     </script>
   </body>
