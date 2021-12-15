@@ -48,8 +48,8 @@ class VeiculosIrregulares {
     await updatePromise(id_veiculo, id_usuario, sql);
   }
   async updateAlertado(id) {
-    const sql = "UPDATE veiculos_irregulares SET alertado = ? WHERE id =?";
-    await updatePromise(id, true, sql);
+    const sql = "UPDATE veiculos_irregulares SET alertado = ? WHERE id = ?";
+    await updatePromise(parseInt(id), true, sql);
   }
   async deletarRegistro(id) {
     const sql = "DELETE FROM veiculos_irregulares WHERE id = ?";

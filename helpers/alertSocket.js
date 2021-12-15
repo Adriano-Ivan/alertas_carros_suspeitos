@@ -24,6 +24,7 @@ const encontrarMaior = (objs) => {
 };
 const atualizarAlertados = async (alertas) => {
   for (let a of alertas) {
+    console.log("TESTE - ATUALZIZOU");
     if (a.tipo === "infracao") {
       await listaVeiculosInfracao.updateAlertado(a.id);
     }
@@ -58,7 +59,7 @@ const auxiliarPartial = async (alertas, b, id_zona) => {
   if (bot !== null) {
     if (alertas.length > 0) {
       entrou = true;
-      mensagem = "⚠️ ALERTAS RECENTES ⚠️\n\n";
+      mensagem = "⚠️ ALERTA RECENTES ⚠️\n\n";
     }
 
     console.log("TESTE-----------");
@@ -77,12 +78,7 @@ const auxiliarPartial = async (alertas, b, id_zona) => {
   }
   return { mensagem, entrou, bot, b_chatId: b.chat_id };
 };
-const partialBuildingFor = async (
-  numberUsers,
-  numberEnvios,
-  alertas,
-  id_zona
-) => {
+const partialBuildingFor = async (alertas, id_zona) => {
   //let mensagem = "";
   let auxiliarObjeto = null;
 
@@ -106,18 +102,8 @@ const partialBuildingFor = async (
     b_chatId: auxiliarObjeto.b_chatId,
   };
 };
-const buildingMessagesAsync = async (
-  alertas,
-  id_zona,
-  numberUsers,
-  numberEnvios
-) => {
-  const objetoBuilding = await partialBuildingFor(
-    numberUsers,
-    numberEnvios,
-    alertas,
-    id_zona
-  );
+const buildingMessagesAsync = async (alertas, id_zona) => {
+  const objetoBuilding = await partialBuildingFor(alertas, id_zona);
   console.log("TESTE");
   console.log(objetoBuilding);
   if (objetoBuilding.entrou) {
@@ -170,19 +156,14 @@ let referencia = "";
 exports.enviarMensagemParaTelegram = async (
   alertas,
   id_zona,
-  numberUsers,
-  numberEnvios
+  firstID,
+  senderID
 ) => {
   //console.log(id_user, "+++++++++++++");
-  console.log(id_zona, "++++++++++++");
-
-  if (1 === parseInt(numberEnvios)) {
-    const conf = await buildingMessagesAsync(
-      alertas,
-      id_zona,
-      numberUsers,
-      numberEnvios
-    );
+  // console.log(id_zona, "++++++++++++");
+  console.log(firstID, senderID);
+  if (firstID === senderID) {
+    const conf = await buildingMessagesAsync(alertas, id_zona);
     console.log(conf);
     if (conf) {
       return true;
@@ -193,6 +174,6 @@ exports.enviarMensagemParaTelegram = async (
   // process.once("SIGTERM", () => bot.stop("SIGTERM"));
 };
 
-exports.inserirMensagem = (mensagem) => {
-  mensagensRecebidas.inserirMensagemParaTodosOsUsuarios(mensagem);
+exports.inserirMensagem = async (mensagem) => {
+  await mensagensRecebidas.inserirMensagemParaTodosOsUsuarios(mensagem);
 };

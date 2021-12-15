@@ -47,7 +47,7 @@ class VeiculosRoubados {
   }
   async updateAlertado(id) {
     const sql = "UPDATE veiculos_roubados SET alertado = ? WHERE id = ?";
-    await updatePromise(id, true, sql);
+    await updatePromise(parseInt(id), true, sql);
   }
   async deletarRegistro(id) {
     const sql = "DELETE FROM veiculos_roubados WHERE id = ?";
