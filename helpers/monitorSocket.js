@@ -5,7 +5,7 @@ const helperSocket = require("./alertSocket");
 let numConnectedUsers = 0;
 let numeroEnvios = 0;
 let listConnectedUsers = [];
-const emitAsync = async (sock) => {
+const emitAsync = (sock) => {
   sock.emit("send_alerts", helperSocket.pegarAlertas());
 };
 const updateListAsync = async (l, socket) => {
@@ -13,15 +13,19 @@ const updateListAsync = async (l, socket) => {
 };
 const emitAsyncTelegram = async (
   helpersTelegram,
+  numeroEnvios,
   id_zona,
   firstIDList,
-  senderID
+  senderID,
+  id_usuario
 ) => {
   await helperSocket.enviarMensagemParaTelegram(
     helpersTelegram,
+    numeroEnvios,
     id_zona,
     firstIDList,
-    senderID
+    senderID,
+    id_usuario
   );
 };
 const emitMessageAsync = async (message) => {
@@ -29,10 +33,10 @@ const emitMessageAsync = async (message) => {
 };
 module.exports = (socket) => {
   console.log("Conexão detectada...");
-  socket.on("request_alert", async (b) => {
+  socket.on("request_alert", (b) => {
     //console.log(confirm, typeof confirm);
 
-    await emitAsync(socket);
+    emitAsync(socket);
   });
 
   socket.on("emit_flag_connected", (id_socket) => {
@@ -67,13 +71,15 @@ module.exports = (socket) => {
     numeroEnvios = parseInt(retorno.numero_envios);
     //console.log(helpersTelegram);
     //console.log(connectedUsers, numeroEnvios);
-    const conf = await emitAsyncTelegram(
+    await emitAsyncTelegram(
       retorno.objeto_para_telegram,
+      numeroEnvios,
       retorno.id_zona,
       listConnectedUsers[0],
-      retorno.socket_id
+      retorno.socket_id,
+      retorno.id_usuario_ref
     );
-    console.log(conf);
+
     console.log("TESTE - ------------------ ENTROU *******");
     socket.emit("conf_update", true);
   });

@@ -54,12 +54,13 @@ const partialBuildingForEach = async (alertas, b, a, id_zona, mensagem, i) => {
 const auxiliarPartial = async (alertas, b, id_zona) => {
   let entrou = false;
   let mensagem = "";
-  const bot = new TelegramBot(b.token_telegram, { polling: true });
-  console.log(bot);
+  const bt = b[0];
+  const bot = new TelegramBot(bt.token_telegram, { polling: true });
+
   if (bot !== null) {
     if (alertas.length > 0) {
       entrou = true;
-      mensagem = "⚠️ ALERTA RECENTES ⚠️\n\n";
+      mensagem = "⚠️ ALERTAS RECENTES ⚠️\n\n";
     }
 
     console.log("TESTE-----------");
@@ -67,7 +68,7 @@ const auxiliarPartial = async (alertas, b, id_zona) => {
     for (let a of alertas) {
       mensagem = await partialBuildingForEach(
         alertas,
-        b,
+        bt,
         a,
         id_zona,
         mensagem,
@@ -76,25 +77,28 @@ const auxiliarPartial = async (alertas, b, id_zona) => {
       i++;
     }
   }
-  return { mensagem, entrou, bot, b_chatId: b.chat_id };
+  return { mensagem, entrou, bot, b_chatId: bt.chat_id };
 };
-const partialBuildingFor = async (alertas, id_zona) => {
+const partialBuildingFor = async (alertas, id_zona, id_usuario) => {
   //let mensagem = "";
-  let auxiliarObjeto = null;
+  //let auxiliarObjeto = null;
 
-  console.log("EITAAAAAAAAAAAAAAA");
-  const listagemBots = await botModel.pegarDados();
-  console.log(listagemBots);
-  for (const b of listagemBots) {
-    console.log(b);
-    console.log(id_zona);
-    console.log(b.id_zona === parseInt(id_zona));
-    if (b.id_zona === parseInt(id_zona)) {
-      console.log("ENTROUUUUUUUUUUUUUUUUUUUUUUUUUUUUUU");
-      auxiliarObjeto = await auxiliarPartial(alertas, b, id_zona);
-    }
-  }
-  console.log(auxiliarObjeto);
+  console.log("EITAAAAAAAAAAAAAAA - pegar bot");
+  const bot = await botModel.pegarDadosPorUsuarioEzona(id_zona, id_usuario);
+  console.log(bot);
+  const auxiliarObjeto = await auxiliarPartial(alertas, bot, id_zona);
+  // const listagemBots = await botModel.pegarDados();
+  // console.log(listagemBots);
+  // for (const b of listagemBots) {
+  //   console.log(b);
+  //   console.log(id_zona);
+  //   console.log(b.id_zona === parseInt(id_zona));
+  //   if (b.id_zona === parseInt(id_zona)) {
+  //     console.log("ENTROUUUUUUUUUUUUUUUUUUUUUUUUUUUUUU");
+  //     auxiliarObjeto = await auxiliarPartial(alertas, b, id_zona);
+  //   }
+  // }
+  console.log(auxiliarObjeto.mensagem + "  MENSAGEMMMMMMMMMMM");
   return {
     entrou: auxiliarObjeto.entrou,
     bot: auxiliarObjeto.bot,
@@ -102,10 +106,10 @@ const partialBuildingFor = async (alertas, id_zona) => {
     b_chatId: auxiliarObjeto.b_chatId,
   };
 };
-const buildingMessagesAsync = async (alertas, id_zona) => {
-  const objetoBuilding = await partialBuildingFor(alertas, id_zona);
+const buildingMessagesAsync = async (alertas, id_zona, id_usuario) => {
+  const objetoBuilding = await partialBuildingFor(alertas, id_zona, id_usuario);
   console.log("TESTE");
-  console.log(objetoBuilding);
+  //console.log(objetoBuilding);
   if (objetoBuilding.entrou) {
     console.log("TESTE++++++++++++++++++++#333333333");
     objetoBuilding.bot.sendMessage(
@@ -145,7 +149,6 @@ exports.pegarAlertas = () => {
         dados = dados.concat(listagem);
       });
     });
-
   //console.log(dados);
   if (dados.length === 0) {
     return null;
@@ -155,15 +158,21 @@ exports.pegarAlertas = () => {
 let referencia = "";
 exports.enviarMensagemParaTelegram = async (
   alertas,
+  numeroEnvios,
   id_zona,
   firstID,
-  senderID
+  senderID,
+  id_usuario
 ) => {
   //console.log(id_user, "+++++++++++++");
   // console.log(id_zona, "++++++++++++");
   console.log(firstID, senderID);
-  if (firstID === senderID) {
-    const conf = await buildingMessagesAsync(alertas, id_zona);
+  if (firstID === senderID && numeroEnvios === 1) {
+    const conf = await buildingMessagesAsync(
+      alertas,
+      id_zona,
+      parseInt(id_usuario)
+    );
     console.log(conf);
     if (conf) {
       return true;

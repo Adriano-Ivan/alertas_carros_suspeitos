@@ -52,7 +52,7 @@ class Tabelas {
   }
   criarBotTelegram() {
     const sql =
-      "CREATE table if not exists bots_telegram (id int NOT NULL auto_increment,nome text NOT NULL,token_telegram TEXT NOT NULL,chat_id varchar(150) not null default 'precisa ser adicionado',id_zona int not null default 1,PRIMARY KEY(id),foreign key(id_zona) references zonas(id));";
+      "CREATE table if not exists bots_telegram (id int NOT NULL auto_increment,id_usuario INT NULL,nome text NOT NULL,token_telegram TEXT NOT NULL,chat_id varchar(150) not null default 'precisa ser adicionado',id_zona int not null default 1,PRIMARY KEY(id),foreign key(id_zona) references zonas(id),FOREIGN KEY(id_usuario) REFERENCES usuarios(id));";
     this.conexao.query(sql, (erro) => {
       if (erro) {
         console.log(erro);

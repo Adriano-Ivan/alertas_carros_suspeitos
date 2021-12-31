@@ -183,12 +183,13 @@ function disp() {
           const id_usuario_ref =parseInt(`{{id_usuario_ref}}`);
           let intAuxiliar = 1;
           let numero_envios = 0;
+          let tempoEnvio = 10000;
           
           const emitter = function () {
               socket.emit("request_alert", true);
           };
 
-          const regularEmitter = setInterval(emitter, 2000);
+          const regularEmitter = setInterval(emitter, tempoEnvio);
          
           const emitPopUp =(desc)=>{
             numero_envios++;
@@ -200,7 +201,8 @@ function disp() {
             
           }
           const emitToBackEnd =(objeto_para_telegram,id_zona,stringToDataBase)=>{
-              socket.emit('send_to_telegram',{numero_envios,objeto_para_telegram,id_zona,socket_id:socket.id});
+              
+              socket.emit('send_to_telegram',{numero_envios,objeto_para_telegram,id_zona,socket_id:socket.id,id_usuario_ref});
             //await socket.emit('send_object_for_telegram',[objeto_para_telegram,id_zona]);
               socket.emit('send_message',stringToDataBase);
             
@@ -225,9 +227,9 @@ function disp() {
               intAuxiliar++;
               auxiliarBoolean=false;
               desc += '<br>Mais informações na aba de alertas !<br>';
-            desc+='</div>';
-            emitPopUp(desc);
-            emitToBackEnd(objeto_para_telegram,id_zona,stringToDataBase);
+              desc+='</div>';
+              emitPopUp(desc);
+              emitToBackEnd(objeto_para_telegram,id_zona,stringToDataBase);
             }
 
           }
@@ -242,8 +244,6 @@ function disp() {
               //clearInterval(regularEmitter);
               //socket.emit('send_control_id',id_usuario_ref);
                processData(alerts,objeto_para_telegram,stringToDataBase);
-              
-             
             }
            
           });
@@ -252,6 +252,7 @@ function disp() {
             if(bool){
               console.log('ENNNNNNN')
               numero_envios=0;
+              
              intAuxiliar=1;
             }
           })

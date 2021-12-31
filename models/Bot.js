@@ -19,6 +19,12 @@ class Bot {
     const dados = await queryPromise2(id, sql);
     return [].concat(dados);
   }
+  async pegarDadosPorUsuarioEzona(id_zona, id_usuario) {
+    const sql =
+      "SELECT * FROM bots_telegram WHERE id_zona = ? and id_usuario = ?;";
+    const dados = await queryPromise2([id_zona, id_usuario], sql);
+    return dados;
+  }
   async buscarPorDescricao(descricao) {
     const sql = `SELECT * FROM bots_telegram WHERE local
              LIKE ?`;
